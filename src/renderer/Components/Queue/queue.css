@@ -1,0 +1,48 @@
+#queue {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    overflow-y: scroll;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--bg-image);
+    background-size: cover;
+
+    /* Inside the queue, the theme is immutable */
+    --bg-color: var(--bg-color-dark);
+    --bg-color-05: var(--bg-color-dark-05);
+    --bg-color-02: var(--bg-color-dark-02);
+    --color: var(--color-dark);
+    --color-05: var(--color-dark-05);
+    --color-02: var(--color-dark-02);
+    --button-hover-bg: var(--button-hover-bg-dark);
+    background-color: var(--bg-color);
+    color: var(--color);
+
+}
+/* Hide cursor when user is not active */
+.hide-children {
+    cursor: none;
+}
+
+#queue-align-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+}
+#queue-tracks {
+    max-height: 80%;
+    border-radius: var(--border-radius);
+}
+#queue-track-container {
+    width: 100vw;
+    height: 65vh;
+    transition: var(--transition);
+}
+.inactive #queue-track-container {
+    height: 0;
+}
+#queue #track-list {
+    height: 80%;
+    width: 80%;
+}

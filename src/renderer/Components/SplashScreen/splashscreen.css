@@ -1,0 +1,25 @@
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    opacity: 1;
+    transition: var(--transition);
+}
+#splash-screen.hide {
+    opacity: 0;
+    left: -100vw;
+}
+
+#splash-screen > * {
+    transform: scale(0);
+    transition: var(--transition);
+}
+#splash-screen > *.show {
+    transform: scale(1);
+}

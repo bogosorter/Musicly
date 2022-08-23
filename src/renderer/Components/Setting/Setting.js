@@ -1,0 +1,92 @@
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
+import './setting.css';
+
+/**
+ * Component that displays a single `setting`. Its properties are `settingName`,
+ * `setting` and `modify`. In order to modify the setting, `modify` should be
+ * called. The value to be passed to the function is the entire setting.
+ */
+export default function Setting({setting, modify}) {
+
+    function setValue(e) {
+        setting.value = e.target.value;
+        modify(setting);
+    }
+    
+    // Render a select element
+    if (setting.type == 'select') {
+        const options = setting.options.map(option => {
+            return <option value={option} key={nanoid()}>{option}</option>
+        });
+
+        return (
+            <>
+                <h3>{setting.name}</h3>
+                <select className='setting' onChange={setValue} value={setting.value}>
+                    {options}
+                </select>
+            </>
+        )
+    }
+
+    // Render a number input
+    else if (setting.type == 'number') {
+
+        const [value, setValue] = useState(setting.value);
+
+        // This type requires a different setValue function, because we don't
+        // want a string
+        function storeValue(e) {
+
+            let temp = e.target.value;
+            // Prevent using comma instead of dot
+            temp = temp.replace(',', '.');
+            
+            // If the user is still typing, don't store the new value
+            if (temp[temp.length - 1] == '.' || temp == '' || temp[0] == '-') {
+                setValue(temp);
+                return;
+            }
+
+            setValue(temp);
+            setting.value = parseFloat(temp);
+            modify(setting);
+        }
+
+        return (
+            <>
+                <h3>{setting.name}</h3>
+                <input className='setting' type='value' value={value} onChange={storeValue} />
+            </>
+        )
+    }
+
+    // Render a switch for booleans
+    else if (setting.type == 'bool') {
+
+        const swtch = (
+            setting.value? <input className='form-check-input' type='checkbox' onChange={setValue} checked />
+            : <input className='form-check-input' type='checkbox' onChange={setValue} />
+        )
+
+        return (
+            <>
+                <h3>{setting.name}</h3>
+                <div className='form-check form-switch'>
+                    {swtch}
+                </div>
+            </>
+        )
+    }
+
+    // Render a text input
+    else if (setting.type == 'text') {
+        return (
+            <>
+                <h3>{setting.name}</h3>
+                <input type='text' className='setting' value={setting.value} onChange={setValue} />
+            </>
+        )
+    }
+}

@@ -1,0 +1,94 @@
+.track {
+    background-color: var(--color-02);
+    border-top: solid 1px var(--color);
+    height: 60px;
+    align-items: center;
+    transition: var(--transition);
+    padding: 0 10px;
+    width: 100%;
+}
+.track:hover, #queue .track:hover {
+    background-color: transparent;
+}
+.track-top {
+    border-top: none;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+.track-bottom {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+
+#playing-bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 40px;
+}
+.playing-bar {
+    background-color: white;
+    width: 7px;
+}
+#playing-bar-1 {
+    animation-name: playing-bar-1;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+#playing-bar-2 {
+    animation-name: playing-bar-2;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+#playing-bar-3 {
+    animation-name: playing-bar-3;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes playing-bar-1{
+    0% {
+        height: 0;
+    }
+    33% {
+        height: 20px;
+    }
+    67% {
+        height: 10;
+    }
+    100% {
+        height: 40px;
+    }
+}
+@keyframes playing-bar-2{
+    0% {
+        height: 10px;
+    }
+    33% {
+        height: 0;
+    }
+    67% {
+        height: 40px;
+    }
+    100% {
+        height: 20px;
+    }
+}
+@keyframes playing-bar-3{
+    0% {
+        height: 40px;
+    }
+    33% {
+        height: 10px;
+    }
+    67% {
+        height: 25px;
+    }
+    100% {
+        height: 15px;
+    }
+}

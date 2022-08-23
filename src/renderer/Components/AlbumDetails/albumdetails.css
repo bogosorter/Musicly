@@ -1,0 +1,10 @@
+#album-tracks {
+    max-height: 60vh;
+    overflow-y: scroll;
+    border-radius: var(--border-radius);
+}
+#genre-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}

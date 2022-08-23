@@ -1,0 +1,6 @@
+.close-svg {
+    fill: currentColor;
+}
+.button:hover .close-svg {
+    fill: red;
+}

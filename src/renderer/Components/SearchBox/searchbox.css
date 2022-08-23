@@ -1,0 +1,16 @@
+#search-container {
+    display: flex;
+    color: rgb(150, 150, 150);
+    fill:rgba(150, 150, 150);
+}
+
+#search-input, .search-input:focus {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 30px;
+    text-align: right;
+    margin-right: 20px;
+    min-width: 30px;
+    color: rgb(150, 150, 150);
+}

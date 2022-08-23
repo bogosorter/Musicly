@@ -1,0 +1,94 @@
+/**
+ * Variable used in the whole app. Please note that -dark only applies in dark
+ * theme and -light to the light theme.
+ */
+:root {
+    --bg-color-dark: rgb(54, 59, 64);
+    --bg-color-light: rgb(233, 235, 235);
+    --bg-color-light-05: rgba(233, 235, 235, 0.5);
+    --bg-color-dark-05: rgba(54, 59, 64, 0.5);
+    --bg-color-light-02: rgba(233, 235, 235, 0.2);
+    --bg-color-dark-02: rgba(54, 59, 64, 0.2);
+    --color-dark: rgb(233, 235, 235);
+    --color-dark-05: rgb(233, 235, 235, 0.5);
+    --color-dark-02: rgb(233, 235, 235, 0.2);
+    --color-light: rgb(54, 59, 64);
+    --color-light-05: rgba(54, 59, 64, 0.5);
+    --color-light-02: rgba(54, 59, 64, 0.2);
+    --border-radius: 10px;
+    --button-hover-bg-dark: rgba(255, 255, 255, 0.2);
+    --button-hover-bg-light: rgba(145, 145, 145, 0.3);
+    --transition: all .5s ease;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+}
+
+#app {
+    height: 100vh;
+    width: 100vw;
+}
+#app.theme-dark {
+    --bg-color: var(--bg-color-dark);
+    --bg-color-05: var(--bg-color-dark-05);
+    --bg-color-02: var(--bg-color-dark-02);
+    --color: var(--color-dark);
+    --color-05: var(--color-dark-05);
+    --color-02: var(--color-dark-02);
+    --button-hover-bg: var(--button-hover-bg-dark);
+
+    background-color: var(--bg-color);
+    color: var(--color);
+}
+#app.theme-light {
+    --bg-color: var(--bg-color-light);
+    --bg-color-05: var(--bg-color-light-05);
+    --bg-color-02: var(--bg-color-light-02);
+    --color: var(--color-light);
+    --color-05: var(--color-light-05);
+    --color-02: var(--color-light-02);
+    --button-hover-bg: var(--button-hover-bg-light);
+
+    background-color: var(--bg-color);
+    color: var(--color);
+}
+
+.center-children {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hide-if-not-active {
+    opacity: 1;
+    transition: var(--transition);
+}
+.inactive .hide-if-not-active {
+    opacity: 0;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.5);
+    border-radius: 3px;
+    width: 5px;
+    border: transparent;
+}
+
+#loading-div {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+}

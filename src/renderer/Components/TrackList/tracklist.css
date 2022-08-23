@@ -1,0 +1,17 @@
+#queue #track-list {
+    border-radius: var(--border-radius);
+    max-height: 68vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.disc-separator {
+    background-color: var(--color-02);
+    height: 50px;
+    padding: 0 10px;
+    border-radius: var(--border-radius);
+}
+
+.disc-separator > div > svg {
+    margin: -12px;
+}

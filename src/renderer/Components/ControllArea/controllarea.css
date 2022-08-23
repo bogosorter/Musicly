@@ -1,0 +1,58 @@
+#controll-area {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: flex-end;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,.5);
+}
+
+#queue #controll-area {
+    position: absolute;
+    height: 25vh;
+    top: -25vh;
+    box-shadow: none;
+}
+
+#controll-area-cover {
+    position: absolute;
+    bottom: 2vh;
+    left: 30px;
+    width: 23vh;
+    cursor: pointer;
+}
+
+#controll-panel {
+    width: calc(100vw - 23vh - 30px);
+    height: 20vh;
+}
+#controll-panel > * {
+    height: 10vh;
+    padding: 0 30px;
+    display: flex;
+}
+#track-details {
+    cursor: pointer;
+}
+
+#controll-area-buttons {
+    display: flex;
+    align-items: flex-start;
+}
+
+#queue #controll-panel {
+    margin-top: 5vh;
+}
+
+/* Small sample to be used in the tutorial */
+#tutorial #controll-area {
+    position: static;
+    margin-top: 50px;
+    transform: scale(0.75);
+}
+#tutorial #controll-panel {
+    /* This should be fixed with the style above, but it doesn't. Perhaps calc()
+    doesn't scale well. */
+    width: 70%;
+}

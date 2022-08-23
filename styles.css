@@ -29,7 +29,7 @@ h6 {
 #cover {
     height: 60vh;
     background-color: black;
-    background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("/assets/logo.png");
+    background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("/Musicly/assets/logo.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -43,4 +43,7 @@ h6 {
 #cover > h1 {
     font-size: 100px;
     margin: 0;
+}
+.spacer-200 {
+    height: 200px;
 }

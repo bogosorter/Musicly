@@ -1,7 +1,0 @@
-.cover {
-    aspect-ratio: 1/1;
-    border-radius: var(--border-radius);
-    background-size: cover;
-    background-position: center;
-    background-image: var(--bg-image);
-}

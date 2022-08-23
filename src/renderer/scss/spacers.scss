@@ -1,7 +1,0 @@
-$spacers: 4, 8, 12, 24, 48, 100, 200, 300, 400, 500, 600, 800, 1000;
-
-@each $spacer in $spacers {
-    .spacer-#{$spacer} {
-        height: #{$spacer}px;
-    }
-}

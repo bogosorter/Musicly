@@ -44,7 +44,7 @@ export default function Queue({playback}) {
     // background image
     let backgroundImage = `url(${emptyCover})`;
     if (playback.album.coverPath) {
-        backgroundImage = `url('file://${album.coverPath}')`;
+        backgroundImage = `url('file://${playback.album.coverPath}')`;
         // Ensure that the path is escaped: this is needed for Windows paths.
         // For some reason, backgroundImage = backgroundImage.replace('\\',
         // '\\\\') does'n work. Therefore, we have to change the backslashes to

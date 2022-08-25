@@ -12,6 +12,7 @@ h3 {
 
 h4 {
     margin-top: 40px;
+    scroll-margin-top: 100px;
 }
 
 h5 {
@@ -23,4 +24,19 @@ h6 {
 }
 .spacer-200 {
     height: 200px;
+}
+p {
+    text-align: justify;
+}
+
+.highlighter-rouge .highlight {
+    background-color: rgb(242, 244, 245);
+    border-radius: 5px;
+    padding: 2px 5px;
+}
+code:not(pre.highlight code) {
+    background-color: rgb(242, 244, 245);
+    border-radius: 5px;
+    padding: 2px 5px;
+    color: rgb(33,37,41);
 }

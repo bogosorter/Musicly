@@ -1,0 +1,69 @@
+#cover {
+    height: 70vh;
+    background-color: black;
+    background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("/Musicly/assets/logo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 100px;
+}
+
+.stripe {
+    height: 70vh;
+}
+.final-stripe {
+    height: 100vh;
+}
+/* When bootstrap's md breakpoint is reached, stripes become bigger because
+children wrap*/
+@media (max-width: 768px) {
+    .stripe {
+        height: 80vh;
+    }
+    .stripe > * {
+        height: 40vh;
+    }
+}
+
+.center-vertically {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.center-children {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+@media (max-width: 768px) {
+    .center-children-md {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+}
+
+img {
+    height: 80%;
+    border-radius: 10px;
+}
+/* These elements need to have a height set so that the images scale correctly */
+.col, .row {
+    height: 100%;
+}
+.img-left {
+    position: absolute;
+    right: 0;
+}
+.second-img-right {
+    position: absolute;
+    left: 100px;
+}

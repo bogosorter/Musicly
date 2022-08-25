@@ -87,4 +87,4 @@ ipcMain.handle('getSettings', Settings.get);
 ipcMain.handle('setSettings', (e, settings) => Settings.set(settings));
 ipcMain.handle('resetSettings', () => Settings.reset());
 ipcMain.handle('deleteAlbum', (e, albumID) => db.deleteAlbum(albumID));
-ipcMain.handle('resetLibrary', resetLibrary)
+ipcMain.handle('resetLibrary', resetLibrary);

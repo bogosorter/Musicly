@@ -19,17 +19,15 @@ import './cover.css';
  */
 export default function Cover ({album, buttons = [], parent, updateParent}) {
 
+    // Generate a unique ID for the cover
+    const id = nanoid();
+
     // Instead of manually changing all actions, it is best to just inutilize
     // events. Cover shouldn't fire events if this is a test or if parent is
     // controll area.
     let Events;
-    if (parent == 'dummy' || parent == 'controllArea') Events = { fire: () => null }
+    if (parent == 'dummy') Events = { fire: () => null }
     else Events = Evts;
-
-    // An empty cover is returned if no album is selected
-    if (!album) return (
-        <div className='cover' style={{'--bg-image': `url('${emptyCover}')`}} ></div>
-    )
     
     // Actions that the user can trigger in the `ContextMenu`
     const actions = [
@@ -45,9 +43,18 @@ export default function Cover ({album, buttons = [], parent, updateParent}) {
         );
     }
 
+    // You may notice that this code block and the following are inverted. We
+    // should check if the album exists before adding a context menu, and we
+    // could return an empty cover if it doesn't. However, React complains
+    // because we are conditionally calling a hook.
     useEffect(() => {
-        addContextMenu(document.querySelector(`#album-cover-${album.id}`), actions);
+        if (album && parent != 'controllArea') addContextMenu(document.querySelector(`#album-cover-${id}`), actions);
     })
+
+    // An empty cover is returned if no album is selected
+    if (!album) return (
+        <div className='cover' style={{'--bg-image': `url('${emptyCover}')`}} ></div>
+    )
 
     // If the current album doesn't have a defined cover, use an empty one as
     // background image
@@ -86,7 +93,7 @@ export default function Cover ({album, buttons = [], parent, updateParent}) {
     }
     
     return (
-        <div id={`album-cover-${album.id}`} className='cover center-children' style={{'--bg-image': backgroundImage}} onClick={parent != 'dummy'? actions[3].onClick : null}>
+        <div id={`album-cover-${id}`} className='cover center-children' style={{'--bg-image': backgroundImage}} onClick={parent != 'dummy'? actions[3].onClick : null}>
             {renderedButtons}
         </div>
     )

@@ -81,9 +81,10 @@ export default class PlaybackManager {
                     artwork: cover? [{ src: cover }] : []
                 };
                 navigator.mediaSession.metadata = new MediaMetadata(metadata);
-                // Listen for playing events
+                // Listen for playback events
                 navigator.mediaSession.setActionHandler('play', () => Events.fire('play'));
                 navigator.mediaSession.setActionHandler('pause', () => Events.fire('pause'));
+                navigator.mediaSession.setActionHandler('stop', () => Events.fire('stop'));
                 navigator.mediaSession.setActionHandler('nexttrack', () => Events.fire('skipFwd'));
                 navigator.mediaSession.setActionHandler('previoustrack', () => Events.fire('skipBwd'));
 

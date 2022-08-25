@@ -5,13 +5,15 @@ title: Developer documentation
 ---
 
 # DB
+
 {:.no_toc}
 
 ## Table of contents
+
 {:.no_toc}
 
 - Toc
-{:toc}
+  {:toc}
 
 ## The DB class
 

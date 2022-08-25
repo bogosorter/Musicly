@@ -52,7 +52,7 @@ Three helper modules are defined:
 
 - [`utilities`](https://m7kra.github.io/Musicly/docs/dev/utilities): Provides utilities for window management.
 
-These are managed by the [`main.js`](https://m7kra.github.io/Musicly/docs/dev/main) which also handles `ipcMain` events.
+These are managed by the [`main.js`](https://m7kra.github.io/Musicly/docs/dev/main) script which also handles `ipcMain` events.
 
 ### Renderer Process
 
@@ -60,7 +60,7 @@ Part of the program that displays the UI and manages the music playback. The hel
 
 - [`Events`](https://m7kra.github.io/Musicly/docs/dev/events): A helper module that eases sending and handling of events within the app.
 
-- [`Shortcuts`](https://m7kra.github.io/Musicly/docs/dev/shortcuts): A helper module that allow to easily set up and remove app shortcuts.
+- [`Shortcuts`](https://m7kra.github.io/Musicly/docs/dev/shortcuts): A helper module that allows to easily set up and remove app shortcuts.
 
 - [`Controller`](https://m7kra.github.io/Musicly/docs/dev/controller): The working horse of the renderer process, this module communicates with the main process, manages music playback and the application's state.
 

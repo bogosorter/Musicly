@@ -120,8 +120,6 @@ CREATE TABLE genres (
 
 ## Renderer process
 
-**A note about style:** As described above, two themes are supported: `light` and `dark`. All components should have custom styling for each of the themes. To distinguish which of them should be rendered, the class of an element enclosing all others will be set to `theme-[currentTheme]`.
-
 ### Events
 
 A bunch of events are fired and listened withing the app. To facilitate their use, this class provides a simple way to use events. Importing Events should result in a static object with the following methods:

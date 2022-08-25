@@ -219,11 +219,18 @@ export default class PlaybackManager {
     addNext(tracks) {
         // Is there any music playing?
         const playing = this.playback.position != this.playback.queue.length;
-        // Remove next tracks from queue
-        this.playback.queue.splice(this.playback.position + 1);
-        // Add new tracks
-        this.playback.queue = this.playback.queue.concat(tracks);
-
+        
+        // If tracks is a single track, keep the ones in the queue
+        if (tracks.length == 1) {
+            this.playback.queue.splice(this.playback.position + 1, 0, tracks[0]);
+        }
+        // If there are more than one tracks, remove all tracks in the queue
+        // after the currently playing one
+        else {
+            this.playback.queue.splice(this.playback.position + 1);
+            this.playback.queue = this.playback.queue.concat(tracks);
+        }
+        
         if (!playing) this.start();
         else this.updatePlayback();
     }

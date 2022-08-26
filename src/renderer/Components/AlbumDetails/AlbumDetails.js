@@ -30,7 +30,7 @@ export default function AlbumDetails({playback}) {
     );
 
     let info = {};
-    if (details.album.artist) info['Artist'] = <p className='ms-4'>{details.album.artist}</p>;
+    if (details.album.artist) info['Album Artist'] = <p className='ms-4'>{details.album.artist}</p>;
     if (genres?.length != 0) info['Genres'] = <div id='genre-container'>{genres}</div>;
 
     let renderedInfo = [];

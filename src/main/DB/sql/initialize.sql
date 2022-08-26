@@ -8,6 +8,7 @@ CREATE TABLE albums (
 CREATE TABLE tracks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
+    composer TEXT,
     albumID INTEGER,
     trackOrder INTEGER,
     disc INTEGER,

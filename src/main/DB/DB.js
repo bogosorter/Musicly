@@ -148,10 +148,10 @@ export default class DB {
         // Create a new entry on the database
         await this.db.run(`
             INSERT INTO tracks
-                (title, albumId, trackOrder, disc, path)
+                (title, composer, albumId, trackOrder, disc, path)
             VALUES
-                (?, ?, ?, ?, ?)
-        `, track.title, albumID, track.track.no, track.disk.no? track.disk.no : 1, path);
+                (?, ?, ?, ?, ?, ?)
+        `, track.title, track.composer, albumID, track.track.no, track.disk.no? track.disk.no : 1, path);
 
         // Since different tracks have different genres, we have to update the
         // genres of an album every time a new track is inserted
@@ -172,10 +172,10 @@ export default class DB {
     async createAlbum(firstTrack, directory) {
 
         // Get album artist
-        const artist = await this.db.get('SELECT * FROM artists WHERE name = ?', firstTrack.artist);
+        const artist = await this.db.get('SELECT * FROM artists WHERE name = ?', firstTrack.albumartist);
         let artistID;
         if (artist) artistID = artist.id;
-        else artistID = await this.createArtist(firstTrack.artist);
+        else artistID = await this.createArtist(firstTrack.albumartist);
 
         // Enter album to the database
         const runResult = await this.db.run(`
@@ -338,7 +338,7 @@ export default class DB {
             )${genre? ` AND albums.id IN (SELECT albumID from genres WHERE genres.genre = ?)` : ''}
         `, ...params);
         // Get matching tracks
-        const tracks = await this.db.all('SELECT * FROM tracks WHERE title LIKE ? LIMIT 10', `%${query}%`);
+        const tracks = await this.db.all('SELECT * FROM tracks WHERE title LIKE ? OR composer LIKE ? LIMIT 10', `%${query}%`, `%${query}%`);
 
         return { albums, tracks, genres }
     }
@@ -379,6 +379,7 @@ CREATE TABLE albums (
 CREATE TABLE tracks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
+    composer TEXT,
     albumID INTEGER,
     trackOrder INTEGER,
     disc INTEGER,

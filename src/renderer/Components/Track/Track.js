@@ -43,7 +43,9 @@ export default function Track({track, classes, playing, tracksToPlay, dummy = fa
             <div className='col-1 d-flex justify-content-center align-items-end'><PlayingBars playing={playing} /></div>
             <div className='col-1'>{track.trackOrder}</div>
             <div className='col-1'/>
-            <div className='col-9'>{track.title}</div>
+            <div className='col-4'>{track.title}</div>
+            <div className='col-1'/>
+            <div className='col-4'>{track.composer}</div>
         </div>
     )
 }

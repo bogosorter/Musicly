@@ -41,7 +41,7 @@ export default function TrackList({tracks, playback, parent}) {
         if (i == 0 || (track.trackOrder == 1 && parent == 'albumDetails')) classes.push('track-top');
         // If the next track has another disc number, a disk separator will be
         // put in place, so the track has to have the 'track-bottom' class
-        if (i == tracks.length - 1 || (tracks[i + 1].disc != track.disc && displayCDs)) classes.push('track-bottom');
+        if (i == tracks.length - 1 || (tracks[i + 1].disc != track.disc && parent == 'albumDetails')) classes.push('track-bottom');
 
         const tracksToPlay = tracks.slice(i);
 

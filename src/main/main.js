@@ -1,9 +1,7 @@
-import createWindow from './createWindow';
+import createWindow from './utils';
 import DB from './DB/DB';
 import Settings from './Settings/Settings';
 import { app, ipcMain, dialog } from 'electron';
-
-import { Howl } from 'howler';
 
 const db = new DB();
 db.init();

@@ -1,14 +1,50 @@
 import path from 'path';
+import { URL } from 'url';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import log from 'electron-log';
-import { resolveHtmlPath } from './util';
 
 if (process.env.NODE_ENV === 'production') {
     const sourceMapSupport = require('source-map-support');
     sourceMapSupport.install();
 }
-
 const isDebug = process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
+
+export default async function createWindow() {
+    if (isDebug) {
+        await installExtensions();
+    }
+
+    const RESOURCES_PATH = app.isPackaged
+        ? path.join(process.resourcesPath, 'assets')
+        : path.join(__dirname, '../../assets');
+
+    let mainWindow = new BrowserWindow({
+        show: false,
+        icon: path.join(RESOURCES_PATH, 'icon.png'),
+        frame: false,
+        webPreferences: {
+            preload: app.isPackaged
+                ? path.join(__dirname, 'preload.js')
+                : path.join(__dirname, '../../.erb/dll/preload.js'),
+            webSecurity: false
+        },
+    });
+
+    mainWindow.loadURL(resolveHtmlPath('index.html'));
+
+    mainWindow.on('ready-to-show', () => {
+        mainWindow.maximize();
+        mainWindow.show();
+    });
+
+    // Open urls in the user's browser
+    mainWindow.webContents.setWindowOpenHandler((edata) => {
+        shell.openExternal(edata.url);
+        return { action: 'deny' };
+    });
+
+    return mainWindow;
+};
 
 if (isDebug) {
     require('electron-debug')();
@@ -27,55 +63,16 @@ const installExtensions = async () => {
         .catch(console.log);
 };
 
-export default async function createWindow() {
-    if (isDebug) {
-        await installExtensions();
-    }
-
-    const RESOURCES_PATH = app.isPackaged
-        ? path.join(process.resourcesPath, 'assets')
-        : path.join(__dirname, '../../assets');
-
-    const getAssetPath = (...paths) => {
-        return path.join(RESOURCES_PATH, ...paths);
-    };
-
-    let mainWindow = new BrowserWindow({
-        show: false,
-        icon: getAssetPath('icon.png'),
-        frame: false,
-        webPreferences: {
-            preload: app.isPackaged
-                ? path.join(__dirname, 'preload.js')
-                : path.join(__dirname, '../../.erb/dll/preload.js'),
-            webSecurity: false
-        },
-    });
-
-    mainWindow.maximize();
-
-    mainWindow.loadURL(resolveHtmlPath('index.html'));
-
-    mainWindow.on('ready-to-show', () => {
-        if (!mainWindow) {
-            throw new Error('\'mainWindow\' is not defined');
-        }
-        if (process.env.START_MINIMIZED) {
-            mainWindow.minimize();
-        } else {
-            mainWindow.show();
-        }
-    });
-
-    mainWindow.on('closed', () => {
-        mainWindow = null;
-    });
-
-    // Open urls in the user's browser
-    mainWindow.webContents.setWindowOpenHandler((edata) => {
-        shell.openExternal(edata.url);
-        return { action: 'deny' };
-    });
-
-    return mainWindow;
-};
+let resolveHtmlPath;
+if (process.env.NODE_ENV === 'development') {
+  const port = process.env.PORT || 1212;
+  resolveHtmlPath = (htmlFileName) => {
+    const url = new URL(`http://localhost:${port}`);
+    url.pathname = htmlFileName;
+    return url.href;
+  };
+} else {
+  resolveHtmlPath = (htmlFileName) => {
+    return `file://${path.resolve(__dirname, '../renderer/', htmlFileName)}`;
+  };
+}

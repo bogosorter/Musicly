@@ -14,6 +14,7 @@
 
 .stripe {
     height: 70vh;
+    overflow-x: hidden;
 }
 .final-stripe {
     height: 100vh;
@@ -51,9 +52,10 @@ children wrap*/
     }
 }
 
-img {
-    height: 80%;
+img:not(nav img) {
+    max-height: 80%;
     border-radius: 10px;
+    max-width: 90vw;
 }
 /* These elements need to have a height set so that the images scale correctly */
 .col, .row {

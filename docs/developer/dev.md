@@ -46,25 +46,25 @@ Part of the program that interacts with the file system (creating a database, st
 
 Three helper modules are defined:
 
-- [`DB`](https://m7kra.github.io/Musicly/docs/dev/db): Manages the database. 
+- [`DB`](/Musicly/docs/dev/db): Manages the database. 
 
-- [`Settings`](https://m7kra.github.io/Musicly/docs/dev/settings): Gets and sets the user settings.
+- [`Settings`](/Musicly/docs/dev/settings): Gets and sets the user settings.
 
-- [`utilities`](https://m7kra.github.io/Musicly/docs/dev/utilities): Provides utilities for window management.
+- [`utilities`](/Musicly/docs/dev/utilities): Provides utilities for window management.
 
-These are managed by the [`main.js`](https://m7kra.github.io/Musicly/docs/dev/main) script which also handles `ipcMain` events.
+These are managed by the [`main.js`](/Musicly/docs/dev/main) script which also handles `ipcMain` events.
 
 ### Renderer Process
 
 Part of the program that displays the UI and manages the music playback. The helper modules and components were designed with a VMC structure in mind. I suspect, however, that this failed :). These are its different pieces:
 
-- [`Events`](https://m7kra.github.io/Musicly/docs/dev/events): A helper module that eases sending and handling of events within the app.
+- [`Events`](/Musicly/docs/dev/events): A helper module that eases sending and handling of events within the app.
 
-- [`Shortcuts`](https://m7kra.github.io/Musicly/docs/dev/shortcuts): A helper module that allows to easily set up and remove app shortcuts.
+- [`Shortcuts`](/Musicly/docs/dev/shortcuts): A helper module that allows to easily set up and remove app shortcuts.
 
-- [`Controller`](https://m7kra.github.io/Musicly/docs/dev/controller): The working horse of the renderer process, this module communicates with the main process, manages music playback and the application's state.
+- [`Controller`](/Musicly/docs/dev/controller): The working horse of the renderer process, this module communicates with the main process, manages music playback and the application's state.
 
-- [`Components`](https://m7kra.github.io/Musicly/docs/dev/components): A bunch of React functional components, of which `App` is the main one, rendering all the others and calling the `Controller`.
+- [`Components`](/Musicly/docs/dev/components): A bunch of React functional components, of which `App` is the main one, rendering all the others and calling the `Controller`.
 
 ## Next steps
 

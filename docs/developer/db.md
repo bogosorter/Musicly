@@ -5,15 +5,13 @@ title: Developer documentation
 ---
 
 # DB
-
 {:.no_toc}
 
 ## Table of contents
-
 {:.no_toc}
 
 - Toc
-  {:toc}
+{:toc}
 
 ## The DB class
 
@@ -21,7 +19,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 ### Methods
 
-#### init
+#### `init`
 
 **Description:** Opens the database and creates a new one if there is none. Also sets up event handlers to close the database on exit. Should be called immediately after constructing.
 
@@ -29,7 +27,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### create
+#### `create`
 
 **Description:** Creates a new database at `databasePath`.
 
@@ -37,7 +35,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### delete
+#### `delete`
 
 **Description:** Removes the database from the file system.
 
@@ -45,7 +43,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### close
+#### `close`
 
 **Description:** Closes the database
 
@@ -53,7 +51,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### openPath
+#### `openPath`
 
 **Description:** If path is a file, adds the track to a database. If it is a folder, recursively walks through it, adding all the contained tracks. While files in the same folder should be processed in a synchronized way (assuming that albums are in a same folder), files in different folders may be processed using async calls. Should return when all children processes are terminated.
 
@@ -61,7 +59,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### createTrack
+#### `createTrack`
 
 **Description:** Checks if `path` is a valid file format and has valid metadata, and inserts a new track into the database. If there is no corresponding album, creates a new one.
 
@@ -69,7 +67,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### createAlbum
+#### `createAlbum`
 
 **Description:** Inserts a new album into the database. Also tries to add a cover, if there is any in `firstTrack`'s metadata or in the album directory. If there is no corresponding artist, creates a new one.
 
@@ -77,7 +75,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** `albumID`
 
-#### deleteAlbum
+#### `deleteAlbum`
 
 **Description:** Removes an album from the database, as well as all the tracks and genres associated with it.
 
@@ -85,7 +83,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### createArtist
+#### `createArtist`
 
 **Description:** Adds an artists to the database.
 
@@ -93,7 +91,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** `artistID`
 
-#### createGenre
+#### `createGenre`
 
 **Description:** Adds a new genre to the database.
 
@@ -101,7 +99,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### deleteGenre
+#### `deleteGenre`
 
 **Description:** Deletes an entry from the `genres` table.
 
@@ -109,7 +107,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### addCover
+#### `addCover`
 
 **Description:** Adds a new cover to `coverFolder`, with the filename `[albumID].[extension]`, and to `albumDirectory` (querying the database if none was supplied), with the filename `cover.[ext]`, according to `sourceType`. Updates database so that it points to `coverFolder/[albumID].[ext]`.
 
@@ -117,7 +115,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### getLibrary
+#### `getLibrary`
 
 **Description:** Gets all the albums that match `query` and `genre`. Also returns a small amount of matching tracks and all the genres in library.
 
@@ -125,7 +123,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** `{albums, tracks, genres}`
 
-#### getAlbum
+#### `getAlbum`
 
 **Description:** Gets all the information about an album, including genres, artist and tracks.
 
@@ -133,7 +131,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** `album`
 
-#### getAlbumTracks
+#### `getAlbumTracks`
 
 **Description:** Gets the tracks mapped to `albumID`.
 

@@ -21,7 +21,7 @@ A helper module that allow to easily set up and remove app shortcuts. Please not
 
 ### Methods
 
-#### add
+#### `add`
 
 **Description:** Adds a new shortcut to the app.
 
@@ -29,7 +29,7 @@ A helper module that allow to easily set up and remove app shortcuts. Please not
 
 **Return value:** None
 
-#### remove
+#### `remove`
 
 **Description:** Removes the given `keybindings`.
 

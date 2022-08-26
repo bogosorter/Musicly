@@ -187,7 +187,7 @@ class Playback {
 | `addNext`        | Adds the supplied list of tracks to the queue, right next to the currently playing one.                                                                                                           | `tracks`                              |
 | `addToQueue`     | Adds the supplied list of tracks to the end of the queue.                                                                                                                                         | `tracks`                              |
 | `getTracks`      | Gets tracks according to the `sourceType` (`albumID`, `track`, `tracks`) and the `detail` (either an integer or a list of integers) and forwards them to `playTracks`, `addNext` or `addToQueue`. | `sourceType`, `detail`, `destination` |
-| `updatePlayback` | Updates the state of elements depending on playback.                                                                                                                                              |                                       |
+| `updatePlayback` | Updates the state of elements depending on playback.                                                                                                                                              | -                                     |
 
 `Playback` should set up event listeners for `play`, `pause`, `stop`, `seekFwd`, `seekBwd`, `skipFwd`, `skipBwd`, `setProgress` and `getTracks`.
 

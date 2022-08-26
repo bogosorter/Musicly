@@ -21,7 +21,7 @@ Class that manages app settings.
 
 ### Methods
 
-#### get
+#### `get`
 
 **Description:** Gets app settings. If none are defined, returns default settings.
 
@@ -29,7 +29,7 @@ Class that manages app settings.
 
 **Return value:** `settings`
 
-#### set
+#### `set`
 
 **Description:** Store the provided `settings`.
 
@@ -37,7 +37,7 @@ Class that manages app settings.
 
 **Return value:** None
 
-#### reset
+#### `reset`
 
 **Description:** Stores the predefined settings.
 
@@ -45,7 +45,7 @@ Class that manages app settings.
 
 **Return value:** None
 
-#### getCustomCSS
+#### `getCustomCSS`
 
 **Description:** Auxiliary method that gets the user-defined CSS, returning `''` if there is no corresponding file.
 

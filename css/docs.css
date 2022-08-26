@@ -44,3 +44,11 @@ code:not(pre.highlight code) {
     padding: 2px 5px;
     color: rgb(33,37,41);
 }
+
+#markdown-toc a, #markdown-toc a:hover, #markdown-toc a:visited {
+    color: rgb(33,37,41);
+    text-decoration: none;
+}
+#markdown-toc a:not(nav a)::after {
+    content: none;
+}

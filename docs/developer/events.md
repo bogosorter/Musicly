@@ -21,7 +21,7 @@ A bunch of events are fired and handled within the app. To facilitate their use,
 
 ### Methods
 
-#### on
+#### `on`
 
 **Description:** Adds an event listener to `event`. If `once`, `callback` should only be called once.
 
@@ -29,7 +29,7 @@ A bunch of events are fired and handled within the app. To facilitate their use,
 
 **Return Value:** `listenerID`
 
-#### fire
+#### `fire`
 
 **Description:** Calls the event listener(s) of `event`.
 
@@ -37,7 +37,7 @@ A bunch of events are fired and handled within the app. To facilitate their use,
 
 **Return Value:** None
 
-#### remove
+#### `remove`
 
 **Description:** Removes one event listener
 

@@ -55,7 +55,7 @@ export default function AlbumDetails({playback}) {
                     {renderedInfo}
                 </div>
                 <div id='album-tracks' className='col-lg-8 col-sm-5'>
-                    <TrackList tracks={details.tracks} playback={playback} displayCDs={true}/>
+                    <TrackList tracks={details.tracks} playback={playback} parent='albumDetails'/>
                 </div>
             </div>
             

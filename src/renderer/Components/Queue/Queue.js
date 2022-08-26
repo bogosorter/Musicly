@@ -65,7 +65,7 @@ export default function Queue({playback}) {
                 </div>
                 <div>
                     <div id='queue-track-container' className='center-children'>
-                        <TrackList tracks={playback.queue} playback={playback}/>
+                        <TrackList tracks={playback.queue} playback={playback} parent='queue'/>
                     </div>
                 </div>
             </div>

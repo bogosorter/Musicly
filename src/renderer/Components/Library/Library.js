@@ -69,7 +69,7 @@ export default function Library({playback}) {
                         <div className='row'>
                             {albums}
                         </div>
-                        <TrackList tracks={library.tracks} playback={playback}/>
+                        <TrackList tracks={library.tracks} playback={playback} parent='library'/>
                         <div className='spacer-400' />
                     </div>
                 </div>

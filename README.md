@@ -287,7 +287,7 @@ const [library, setLibrary] = useState({
 
 ### AlbumDetails
 
-Component rendered inside the `App`, displaying an album's details such as `Cover`, `TrackList` and artist. Also has a `ControllArea`. Accepts `playback` as property.
+Component rendered inside the `App`, displaying an album's details such as `Cover`, `TrackList` and `artist`. Also has a `ControllArea`. Accepts `playback` as property.
 
 **States**
 

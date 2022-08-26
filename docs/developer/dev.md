@@ -50,7 +50,7 @@ Three helper modules are defined:
 
 - [`Settings`](/Musicly/docs/dev/settings): Gets and sets the user settings.
 
-- [`utilities`](/Musicly/docs/dev/utilities): Provides utilities for window management.
+- `utilities`: Provides utilities for window management.
 
 These are managed by the [`main.js`](/Musicly/docs/dev/main) script which also handles `ipcMain` events.
 

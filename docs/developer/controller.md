@@ -5,11 +5,13 @@ title: Controller
 ---
 
 # Controller
+{:.no_toc}
 
 ## Table of Contents
+{:.no_toc}
 
 * TOC
-  {:toc}
+{:toc}
 
 ## Controller
 

@@ -52,9 +52,9 @@ children wrap*/
     }
 }
 
-img:not(nav img) {
+.example {
     max-height: 80%;
-    border-radius: 10px;
+    border-radius: 1vw;
     max-width: 90vw;
 }
 /* These elements need to have a height set so that the images scale correctly */
@@ -68,4 +68,11 @@ img:not(nav img) {
 .second-img-right {
     position: absolute;
     left: 100px;
+}
+.final-stripe a, .final-stripe a:hover, .final-stripe a:visited {
+    color: rgb(33,37,41);
+    text-decoration: none;
+}
+.final-stripe a:not(nav a)::after {
+    content: none;
 }

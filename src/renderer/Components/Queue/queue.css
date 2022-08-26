@@ -20,7 +20,7 @@
 
 }
 /* Hide cursor when user is not active */
-.hide-children {
+.inactive {
     cursor: none;
 }
 

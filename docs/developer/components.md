@@ -108,7 +108,7 @@ const [library, setLibrary] = useState({
 
 ## `Settings`
 
-**Description:** Displays current settings, using the `Setting` component, and allows to modify them. The settings `customCSS` and `firstTime` should not be displayed nor modified, and the new settings should be saved automatically. This component should also allow to reset the settings, reset the library and to go through the tutorial again.
+**Description:** Displays current settings, using the `Setting` component, and allows to modify them. The setting `firstTime` should not be displayed nor modified, and the new settings should be saved automatically. This component should also allow to reset the settings, reset the library and to go through the tutorial again.
 
 **Properties:** None
 

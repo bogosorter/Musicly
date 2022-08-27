@@ -75,11 +75,11 @@ In the settings, you can change you color theme and the zoom of the app. You can
 
 ## Custom Styling
 
-You can add your custom styles to the app, using CSS. Although this might seem complicated, stick around: I will give you code snippets. Advanced users that want to go beyond the examples given can use the console to inspect the different elements and selectors (`ctrl+shift+i`).
+You can add your custom styles to the app, using CSS. Although this might seem complicated, stick around: I will give you code snippets. Advanced users who want to go beyond the examples given can use the console to inspect the different elements and selectors (`ctrl+shift+i`).
 
-### File location
+While styling your app, please remember to set the theme to whathever fits your styles best, because some components rely on theme information different than the stylesheet.
 
-You custom CSS should be placed in a file called `custom.css`. This should in turn be at `[userData]/css/custom.css`. `userData` depends on the OS: `~/.config/musicly` on Linux, `~/Library/Application Support/musicly` on macOS and `%APPDATA%/musicly` on Windows.
+Custom CSS can be set in the app settings. Alternatively, you can store them in a file called `custom.css`. This should in turn be at `[userData]/css/custom.css`. `userData` depends on the OS: `~/.config/musicly` on Linux, `~/Library/Application Support/musicly` on macOS and `%APPDATA%/musicly` on Windows.
 
 ### Examples
 

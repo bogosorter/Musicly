@@ -177,6 +177,8 @@ Class that controls the state and visual appearance of various app components.
 
 ### Constructor
 
+Upon constructing, `StateManager` should implement the settings and store them in `window.settings` (for use in other components).
+
 ```js
 class StateManager {
     constructor (setView, setLoading, setTheme, setTutorial) {

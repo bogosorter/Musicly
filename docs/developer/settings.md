@@ -53,6 +53,14 @@ Class that manages app settings.
 
 **Return value:** `customCSS`
 
+#### `setCustomCSS`
+
+**Description:** Auxiliary method that saves the user-defined CSS.
+
+**Arguments:** `customCSS`
+
+**Return value:** None
+
 ## Structure
 
 The settings are stored in an object containing `subSettings`. These, in turn, have a property `type` which determines what the other properties are and what should be displayed in the `Setting` component. While `customCSS` and `firstTime` are included in the settings structure, they are not conventional. `firstTime` is only `true` on the first time the app is opened and `customCSS` is store in `customCSSPath`. To retrieve it, use the `getCustomCSS` function.

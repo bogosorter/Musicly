@@ -20,6 +20,6 @@ Musicly is a simple and elegant open-source music player.
 
 ## Download, Documentation & Contributing
 
-If you are looking to get started with Musicly, you can [download](https://github.com/m7kra/Musicly/releases) it or check out our [user documetation](https://m7kra.github.io/docs/user), were you will find a complete overview of the program's features.
+If you are looking to get started with Musicly, you can [download](https://github.com/m7kra/Musicly/releases) it or check out our [user documetation](https://m7kra.github.io/Musicly/docs/user), were you will find a complete overview of the program's features.
 
 If you want to help out, I'd love to have someone sharing their knowledge with me. I'm fairly new to React, Electron and even programming itself. All help and tips are welcome! Take a look at Musicly's [developer documentation](https://m7kra.github.io/Musicly/docs/dev).

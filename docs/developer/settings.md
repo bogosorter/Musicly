@@ -4,16 +4,16 @@ layout: docs
 title: Settings
 ---
 
-
-
 # Settings
+
 {:.no_toc}
 
 ## Table of contents
+
 {:.no_toc}
 
 * TOC
-{:toc}
+  {:toc}
 
 ## The Settings class
 

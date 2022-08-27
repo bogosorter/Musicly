@@ -5,13 +5,15 @@ title: Developer documentation
 ---
 
 # DB
+
 {:.no_toc}
 
 ## Table of contents
+
 {:.no_toc}
 
 - Toc
-{:toc}
+  {:toc}
 
 ## The DB class
 
@@ -154,8 +156,9 @@ CREATE TABLE albums (
 CREATE TABLE tracks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
+    composer TEXT,
     albumID INTEGER,
-    trackNumber INTEGER,
+    trackOrder INTEGER,
     disc INTEGER,
     path TEXT
 );
@@ -165,8 +168,9 @@ CREATE TABLE artists (
 );
 CREATE TABLE genres (
     albumID INTEGER,
-    genre TEXT
-)
+    genre TEXT,
+    UNIQUE(albumID, genre)
+);
 ```
 
 ## Paths

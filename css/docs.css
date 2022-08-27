@@ -35,8 +35,11 @@ p {
 
 .highlighter-rouge .highlight {
     background-color: rgb(242, 244, 245);
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 2px 5px;
+}
+.highlighter-rouge {
+    margin-bottom: 15px;
 }
 code:not(pre.highlight code) {
     background-color: rgb(242, 244, 245);
@@ -51,4 +54,9 @@ code:not(pre.highlight code) {
 }
 #markdown-toc a:not(nav a)::after {
     content: none;
+}
+
+img:not(nav img) {
+    max-width: 100%;
+    border-radius: 10px;
 }

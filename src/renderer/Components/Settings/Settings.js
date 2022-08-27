@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import Events from 'renderer/Events/Events';
 import { useState, useMemo } from 'react';
 import { nanoid } from 'nanoid';
+import './settings.css';
 /**
  * Component that displays current settings, using the `Setting` component, and
  * allows to modify them. The settings `customCSS` and `firstTime` should not be
@@ -29,7 +30,7 @@ export default function Settings() {
     const renderedSettings =  [];
     for (const setting in settings) {
         // Custom CSS should not be rendered
-        if (setting == 'customCSS' || setting == 'firstTime') continue;
+        if (setting == 'firstTime') continue;
 
         const modify = (newValue) => changeSetting(setting, newValue);
         renderedSettings.push(
@@ -53,14 +54,16 @@ export default function Settings() {
         <>
             <Header /><div className='header-placeholder' />
             
-            <div className='row justify-content-center'>
-                <div id='settings' className='col-11'>
-                    <div className='spacer-48' />
-                    <h1>Settings:</h1>
-                    <div className='spacer-24' />
-                    {renderedSettings}
-                    <div className='spacer-100' />
-                    {settingButtons}
+            <div id='settings'>
+                <div className='row justify-content-center'>
+                    <div className='col-11'>
+                        <div className='spacer-48' />
+                        <h1>Settings:</h1>
+                        <div className='spacer-24' />
+                        {renderedSettings}
+                        <div className='spacer-100' />
+                        {settingButtons}
+                    </div>
                 </div>
             </div>
         </>

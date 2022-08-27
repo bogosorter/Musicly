@@ -71,7 +71,7 @@ export default function SearchBox({searchParameters, genres, setLibrary, dummy =
                     onChange={setQuery}
                     spellCheck={false}
                     value={searchParameters.query}
-                    placeholder='Album, track, artist or genre'
+                    placeholder='Search in library'
                 />
                 <Button onClick={() => document.querySelector('#search-input').focus()} shortcuts={['ctrl+f', 'f']}>
                     <Search size={24} />

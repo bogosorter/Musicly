@@ -1,5 +1,8 @@
+import CodeEditor from '@uiw/react-textarea-code-editor';
+
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import './setting.css';
 
 /**
@@ -86,6 +89,32 @@ export default function Setting({setting, modify}) {
             <>
                 <h3>{setting.name}</h3>
                 <input type='text' className='setting' value={setting.value} onChange={setValue} />
+            </>
+        )
+    }
+
+    // Render a text input
+    else if (setting.type == 'code') {
+
+        // There are two different ways of saving the typed code: either by
+        // blur or by being inactive for 10 seconds
+
+        let timeoutID;
+        // Timeout that executes setValue if not called again
+        function storeValueAfterTimeout(e) {
+            setting.value = e.target.value;
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(() => {
+                modify(setting);
+            }, 10000);
+        }
+
+        return (
+            <>
+                <h3>{setting.name}</h3>
+                <div data-color-mode={window.settings.theme.value}>
+                    <CodeEditor value={setting.value} language={setting.language} onChange={storeValueAfterTimeout} onBlur={setValue} padding={15} />
+                </div>
             </>
         )
     }

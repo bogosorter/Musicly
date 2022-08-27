@@ -72,11 +72,11 @@ const content = [{
         )
     }, {
         title: 'Searching',
-        text: 'If you ever get lost in your huge library :), you can use the search box. Besides allowing to search for album title, track title and artist, genres are suggested as you type. Click on them to further filter your albums. Type \'pop-rock\' in the box bellow, and make sure that you can check and uncheck genres.',
+        text: 'If you ever get lost in your huge library :), you can use the search box. Besides allowing to search for album title, track title and artist, genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and make sure that you can check and uncheck genres.',
         dummies: <SearchDummy />
     }, {
         title: 'Albums',
-        text: 'Hovering an album cover will show buttons that allow to play and view details. Furthermore, right clicking on it will bring up a context menu with a handfull of useful actions. Give it a try!',
+        text: 'Hovering an album cover will show buttons that allow to play and view details. Furthermore, right clicking on it will bring up a context menu with a handful of useful actions. Give it a try!',
         dummies: (
             <div className='col-4'>
                 <Cover album={{id: 0}} buttons={['play', 'details']} parent='dummy' />
@@ -95,7 +95,7 @@ const content = [{
             />
         )
     }, {
-        title: 'Controll Area',
+        title: 'Control Area',
         text: 'Here you can pause, play, skip and seek the currently playing track. Furthermore, clicking on the album cover or on the track info will take you to the queue.',
         dummies: (
             <ControllArea

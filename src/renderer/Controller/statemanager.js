@@ -80,8 +80,6 @@ export default class StateManager {
      */
     setSettings(settings) {
 
-        console.log(settings);
-
         // Ensure that zoom factor as a reasonable value (in order to prevent
         // user error)
         settings.zoomFactor.value = Math.min(2, Math.max(0.5, settings.zoomFactor.value));
@@ -109,17 +107,19 @@ export default class StateManager {
 
         // Add custom css to page 
         const styleElement = document.createElement('style');
-        styleElement.innerText = settings.customCSS;
+        styleElement.innerText = settings.customCSS.value;
         styleElement.id = 'custom-css';
         document.head.appendChild(styleElement);
 
         if (settings.firstTime) this.displayTutorial();
+
+        window.settings = settings;
     }
 
     /**
      * Restores settings to their original value.
      */
-    async resetSettings(setSettings) {s
+    async resetSettings(setSettings) {
         await ipcRenderer.invoke('resetSettings');
         const settings = await ipcRenderer.invoke('getSettings');
         this.implementSettings(settings);

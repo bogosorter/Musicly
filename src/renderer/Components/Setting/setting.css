@@ -15,3 +15,17 @@
 .setting:hover, .setting:focus {
     border: 1px solid var(--color);
 }
+
+.w-tc-editor {
+    min-height: 100px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--color-05);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    color: var(--color);
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+.w-tc-editor:hover, .w-tc-editor:focus {
+    border: 1px solid var(--color);
+}

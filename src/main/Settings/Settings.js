@@ -25,7 +25,8 @@ export default class Settings {
 
         // Add custom CSS
         const customCSS = Settings.getCustomCss();
-        result.customCSS = customCSS;
+        result.customCSS = defaultSettings.customCSS;
+        result.customCSS.value = customCSS;
         
         return result;
     }
@@ -35,8 +36,12 @@ export default class Settings {
      * @param {Object} settings 
      */
     static async set(newSettings) {
-        // `customCSS` is not saved
-        delete newSettings.customCSS;
+        // Store CSS
+        if (newSettings.customCSS) {
+            Settings.setCustomCss(newSettings.customCSS);
+            delete newSettings.customCSS;
+        }
+
         await settings.set(newSettings);
     }
 
@@ -48,6 +53,7 @@ export default class Settings {
         const temp = {...defaultSettings};
         temp.firstTime = false;
         await settings.set(temp);
+        this.setCustomCss('');
     }
 
     /**
@@ -57,6 +63,14 @@ export default class Settings {
     static getCustomCss() {
         if (!fs.existsSync(customCSSPath)) return '';
         else return fs.readFileSync(customCSSPath).toString();
+    }
+
+    /**
+     * Auxiliary method that saves the user-defined CSS.
+     * @param {string} customCSS 
+     */
+    static setCustomCss(customCSS) {
+        fs.writeFileSync(customCSSPath, customCSS.value);
     }
 }
 
@@ -68,11 +82,16 @@ const defaultSettings = {
         value: 'dark'
     },
     zoomFactor: {
-        name: 'Zoom Factor',
+        name: 'Zoom',
         type: 'select',
         options: [0.7, 0.8, 0.9, 1, 1.2, 1.4, 1.6, 1.8],
         value: 1
     },
-    customCSS: '',
+    customCSS: {
+        name: 'Custom CSS',
+        type: 'code',
+        language: 'css',
+        value: '',
+    },
     firstTime: true
 }

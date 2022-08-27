@@ -1,7 +1,7 @@
 #search-container {
     display: flex;
-    color: rgb(150, 150, 150);
-    fill:rgba(150, 150, 150);
+    color: var(--color-05);
+    fill: var(--color-05);
 }
 
 #search-input, .search-input:focus {
@@ -12,5 +12,9 @@
     text-align: right;
     margin-right: 20px;
     min-width: 30px;
-    color: rgb(150, 150, 150);
+    color: var(--color-05);
+}
+
+#search-input::placeholder {
+    color: var(--color-05);
 }

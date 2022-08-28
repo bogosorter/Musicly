@@ -63,7 +63,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 #### `createTrack`
 
-**Description:** Checks if `path` is a valid file format and has valid metadata, and inserts a new track into the database. If there is no corresponding album, creates a new one.
+**Description:** Checks if `path` is a valid file format and has valid metadata, and inserts a new track into the database. If there is no corresponding album, creates a new one. Tracks that don't have album info should be added to an album called 'Unknown'.
 
 **Arguments:** `path`
 
@@ -71,7 +71,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 #### `createAlbum`
 
-**Description:** Inserts a new album into the database. Also tries to add a cover, if there is any in `firstTrack`'s metadata or in the album directory. If there is no corresponding artist, creates a new one.
+**Description:** Inserts a new album into the database. Also tries to add a cover, if there is any in `firstTrack`'s metadata or in the album directory. If there is no corresponding artist, creates a new one. Note: it is assumed that tracks in the same album also share the same folder.
 
 **Arguments:** `firstTrack`, `directory`
 
@@ -149,6 +149,7 @@ The initial SQL script to be run defines four tables: albums, tracks, artists an
 CREATE TABLE albums (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
+    directory TEXT,
     artistID INTEGER,
     discCount INTEGER,
     coverPath TEXT
@@ -187,6 +188,6 @@ The paths used by the `DB` class are these:
 
 The `DB` class is in charge of checking whether a file may be used as a track or as an image. The following formats are supported:
 
-- Music: `.flac`, `.mp3`, `.opus`, `.oga`, `.ogg`, `.aac`, `.caf`, `.m4a`, `.weba`
+- Music: `.flac`, `.mp3`, `.opus`, `.ogg`, `.aac`, `.m4a`
 
 - Image: `.png`, `.jpeg`, `.jpg`, `.jfif`, `.webp`, `.gif`, `.svg`, `.bmp`, `.ico`

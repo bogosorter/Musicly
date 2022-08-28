@@ -10,6 +10,7 @@
     height: 50px;
     padding: 0 10px;
     border-radius: var(--border-radius);
+    width: 100%;
 }
 
 .disc-separator > div > svg {

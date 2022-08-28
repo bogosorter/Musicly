@@ -8,9 +8,9 @@
     "music",
     "music player"
   ],
-  "homepage": "https://m7kra.github.io",
+  "homepage": "https://m7kra.github.io/Musicly",
   "bugs": {
-    "url": "https://m7kra.github.io"
+    "url": "https://github.com/m7kra/Musicly/issues"
   },
   "repository": {
     "type": "git",
@@ -165,7 +165,6 @@
   },
   "build": {
     "productName": "Musicly",
-    "appId": "org.erb.ElectronReact",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -174,20 +173,6 @@
       "package.json"
     ],
     "afterSign": ".erb/scripts/notarize.js",
-    "mac": {
-      "target": {
-        "target": "default",
-        "arch": [
-          "arm64",
-          "x64"
-        ]
-      },
-      "type": "distribution",
-      "hardenedRuntime": true,
-      "entitlements": "assets/entitlements.mac.plist",
-      "entitlementsInherit": "assets/entitlements.mac.plist",
-      "gatekeeperAssess": false
-    },
     "dmg": {
       "contents": [
         {
@@ -204,7 +189,7 @@
     },
     "linux": {
       "target": [
-        "deb"
+        "deb", "rpm", "AppImage", "snap"
       ],
       "category": "Music"
     },
@@ -221,7 +206,7 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "mikra",
+      "owner": "m7kra",
       "repo": "musicly"
     }
   },

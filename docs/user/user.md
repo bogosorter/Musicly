@@ -149,7 +149,7 @@ The following code implements a (rather horrible!) monochrome theme - image bell
     --button-hover-bg-color: rgba(33, 180, 33, 0.2);
 }
 
-.cover {
+.cover, #queue {
     /* Turn all images green */
     filter: grayscale(100%) brightness(80%) sepia(300%) hue-rotate(50deg) saturate(200%);
 }

@@ -143,7 +143,28 @@ const [settings, setSettings] = useState({});
 
 **Properties:** None
 
-**States:**
+**Hooks:**
+
+```js
+// Which items are to be displayed in the context menu
+const [items, setItems] = useState([]);
+// The coordinates of the context menu
+const [position, setPosition] = useState({x:0, y:0});
+// Whether the context menu should be shown
+const [visible, setVisibility] = useState(false);
+```
+
+## `Logger`
+
+**Description:** Displays a list of log messages. In a structure similar to the one of `ContextMenu`, it should desinged in such a way that it is called only once. From then on, a function, `log`, should be used to add new log messages.
+
+**Properties:** None
+
+**Hooks:**
+```js
+// Whether component is visible or not
+const [visible, setVisibility] = useState([]);
+```
 
 ```js
 // Which items are to be displayed in the context menu

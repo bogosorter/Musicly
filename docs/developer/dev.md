@@ -13,7 +13,7 @@ title: Developer documentation
 {:.no_toc}
 
 * TOC
-  {:toc}
+{:toc}
 
 ## A couple remarks
 
@@ -71,8 +71,6 @@ Part of the program that displays the UI and manages the music playback. The hel
 ## Next steps
 
 These are a couple things that I'm planning to add to the app later on:
-
-- Allow to set custom CSS in the settings.
 
 - Queue management (for now, you can only see which tracks are going to play next).
 

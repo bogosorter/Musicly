@@ -309,6 +309,22 @@ class StateManager {
 
 **Return value:** None
 
+#### `log`
+
+**Description:** Logs the `message` using the `Logger` component.
+
+**Arguments:** `message`
+
+**Return value:** None
+
+#### `test`
+
+**Description:** Makes some things to test github copilot.
+
+**Arguments:** `testArgument`
+
+**Return value:** `result`
+
 ### Event listeners
 
-`StateManager` should set up event listeners for `setView`, `getLibrary`, `getAlbumDetails`, `getSettings`, `setSettings`, `open`, `addCover`, `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`, `resetLibrary` and `resetSettings`.  
+`StateManager` should set up event listeners for `setView`, `getLibrary`, `getAlbumDetails`, `getSettings`, `setSettings`, `open`, `addCover`, `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`, `resetLibrary`, `resetSettings` and `log`. In addition, `log` should also be listened on `ipcRenderer`.

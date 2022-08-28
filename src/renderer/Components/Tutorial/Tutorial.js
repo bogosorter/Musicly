@@ -10,8 +10,8 @@ import { nanoid } from 'nanoid';
 import { useReducer, useMemo } from 'react';
 import './tutorial.css';
 import icon from '../../../../assets/icon.png';
-import queue1 from '../../../../assets/queue-1.png';
-import queue2 from '../../../../assets/queue-2.png';
+import queue from '../../../../assets/queue.png';
+import inactive from '../../../../assets/inactivity.png';
 
 /**
  * Component that renders a brief introductory tutorial, based on a series of
@@ -61,10 +61,10 @@ const content = [{
         title: 'Welcome!',
         text: <p style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</p>
     }, {
-        title: 'Controll Button',
-        text: 'This is the controll button. If you hover over it, it will unfold and reveal a series of usefull buttons: clicking on the icon will render the library view, and the cog will take you to the settings. Finally, the plus button allows you to enter new albums to your library. Try clicking a few on the dummie bellow!',
+        title: 'Control Button',
+        text: 'This is the control button. If you hover it, it will unfold and reveal two useful buttons: the cog will take you to the settings and the plus button allows you to enter new albums to your library. Try hovering the dummy bellow!',
         dummies: (
-            <div id='controll-button-container' style={{'--container-width': '180px'}}>
+            <div id='control-button-container' style={{'--container-width': '180px'}}>
                 <Button><Logo size={52}/></Button>
                 <Button><Settings size={16}/></Button>
                 <Button><Plus size={28}/></Button>
@@ -72,7 +72,7 @@ const content = [{
         )
     }, {
         title: 'Searching',
-        text: 'If you ever get lost in your huge library :), you can use the search box. Besides allowing to search for album title, track title and artist, genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and make sure that you can check and uncheck genres.',
+        text: 'If you ever get lost in your huge library :), you can use the search box. Besides allowing to search for album title, track title, artist and composer, genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and make sure that you can check and uncheck genres.',
         dummies: <SearchDummy />
     }, {
         title: 'Albums',
@@ -96,7 +96,7 @@ const content = [{
         )
     }, {
         title: 'Control Area',
-        text: 'Here you can pause, play, skip and seek the currently playing track. Furthermore, clicking on the album cover or on the track info will take you to the queue.',
+        text: 'Here you can pause, play, skip and seek the currently playing track. Clicking on the track info or on the music note will take you to the queue.',
         dummies: (
             <ControllArea
                 playback={{
@@ -110,20 +110,20 @@ const content = [{
         )
     }, {
         title: 'Queue',
-        text: 'On the queue, you can view the current cover and track info on fullscreen, and, scrolling down, see the tracks that will play next',
+        text: 'On the queue, you can view the tracks that will play next and the cover on fullscreen.',
         dummies: (
             <div className='w-100 row'>
                 <div className='spacer-24' />
                 <div className='col-6'>
-                    <img src={queue1} style={{borderRadius: 'var(--border-radius)', width: '100%'}} />
+                    <img src={queue} style={{borderRadius: 'var(--border-radius)', width: '100%'}} />
                 </div>
                 <div className='col-6'>
-                    <img src={queue2} style={{borderRadius: 'var(--border-radius)', width: '100%'}} />
+                    <img src={inactive} style={{borderRadius: 'var(--border-radius)', width: '100%'}} />
                 </div>
             </div>
         )
     }, {
-        title: 'Aditional info',
-        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see our complete <a href='https://rc4-studio.github.io' target='_blank'>documentation</a> (including how to customize your app's appearence). We hope you like the app!</>
+        title: 'Additional info',
+        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
     }
 ];

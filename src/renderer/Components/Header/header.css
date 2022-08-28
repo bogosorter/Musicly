@@ -15,7 +15,7 @@
     height: 8vh;
 }
 
-#controll-button-container {
+#control-button-container {
     margin: 20px;
     height: 60px;
     width: 60px;
@@ -30,6 +30,6 @@
 }
 /* Depending on whether the heading is applied, it may have 2 or 3 buttons.
 Therefore, we need to define a new variable */
-#controll-button-container:hover {
+#control-button-container:hover {
     width: var(--container-width);
 }

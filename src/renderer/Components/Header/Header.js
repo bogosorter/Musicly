@@ -43,7 +43,7 @@ export default function Header({ setLibrary = null }) {
     return (
         <div className='header d-flex hide-if-not-active w-100'>
             <div className='w-50'>
-                <div id='controll-button-container' style={{'--container-width': `${navigationButtons.length * 60}px`}}>
+                <div id='control-button-container' style={{'--container-width': `${navigationButtons.length * 60}px`}}>
                     {navigationButtons}
                 </div>
             </div>

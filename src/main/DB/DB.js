@@ -11,7 +11,7 @@ const databaseFolder = app.getPath('userData') + '/database/';
 const databasePath = app.getPath('userData') + '/database/database.db';
 const coverFolder = app.getPath('userData') + '/database/covers';
 
-const supportedAudioFormats = ['.flac', '.mp3', '.opus', '.oga', '.ogg', '.aac', '.caf', '.m4a', '.weba'];
+const supportedAudioFormats = ['.flac', '.mp3', '.opus', '.ogg', '.aac', '.m4a'];
 const supportedImageFormats = ['.png', '.jpeg', '.jpg', '.jfif'];
 
 /**
@@ -132,18 +132,25 @@ export default class DB {
         if (temp) return;
 
         const track = (await mm.parseFile(path)).common;
+        let directory = dirname(path);
 
-        // Get album id. I would like to prevent matching of albums with the
-        // same name, but don't know how to do it. I used to check for the
-        // artist's name, but some albums have different artists on different tracks.
+        // If track doesn't have album info, add it to unknown album
+        if (!track.album) {
+            track.album = 'Unknown album';
+            track.albumartist = 'Unknown artist';
+            // Unknown album path is '/'
+            directory = '/';
+        }
+
+        // Get album id. It is assumed that tracks from the same album are in
+        // the same folder
         const album = await this.db.get(`
-            SELECT albums.id FROM albums
-            JOIN artists ON albums.artistID = artists.id
-            WHERE albums.title = ?
-        `, track.album);
+            SELECT id FROM albums
+            WHERE title = ? AND directory = ?
+        `, track.album, directory);
         let albumID;
         if (album) albumID = album.id;
-        else albumID = await this.createAlbum(track, dirname(path));
+        else albumID = await this.createAlbum(track, directory);
 
         // Create a new entry on the database
         await this.db.run(`
@@ -151,7 +158,7 @@ export default class DB {
                 (title, composer, albumId, trackOrder, disc, path)
             VALUES
                 (?, ?, ?, ?, ?, ?)
-        `, track.title, track.composer, albumID, track.track.no, track.disk.no? track.disk.no : 1, path);
+        `, track.title? track.title : 'Unknown', track.composer, albumID, track.track.no, track.disk.no? track.disk.no : 1, path);
 
         // Since different tracks have different genres, we have to update the
         // genres of an album every time a new track is inserted
@@ -180,10 +187,10 @@ export default class DB {
         // Enter album to the database
         const runResult = await this.db.run(`
             INSERT INTO albums
-                (title, artistID, discCount)
+                (title, directory, artistID, discCount)
             VALUES
-                (?, ?, ?)
-        `, firstTrack.album, artistID, firstTrack.disk.of? firstTrack.disk.of : 1);
+                (?, ?, ?, ?)
+        `, firstTrack.album, directory, artistID, firstTrack.disk.of? firstTrack.disk.of : 1);
 
         // Add cover if it is included in metadata
         if (firstTrack.picture) {
@@ -319,7 +326,7 @@ export default class DB {
 
         // Return whole library if search is empty
         if (query == '' && genre == '') {
-            const albums = await this.db.all('SELECT * FROM albums');
+            const albums = await this.db.all('SELECT * FROM albums ORDER BY id DESC');
             return { albums, tracks: {}, genres }
         }
 
@@ -336,6 +343,7 @@ export default class DB {
                 tracks.title LIKE ? OR
                 artists.name LIKE ?
             )${genre? ` AND albums.id IN (SELECT albumID from genres WHERE genres.genre = ?)` : ''}
+            ORDER BY albums.id DESC
         `, ...params);
         // Get matching tracks
         const tracks = await this.db.all('SELECT * FROM tracks WHERE title LIKE ? OR composer LIKE ? LIMIT 10', `%${query}%`, `%${query}%`);
@@ -372,6 +380,7 @@ const structure = `
 CREATE TABLE albums (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
+    directory TEXT,
     artistID INTEGER,
     discCount INTEGER,
     coverPath TEXT

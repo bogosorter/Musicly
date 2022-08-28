@@ -1,6 +1,7 @@
 CREATE TABLE albums (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
+    directory TEXT,
     artistID INTEGER,
     discCount INTEGER,
     coverPath TEXT

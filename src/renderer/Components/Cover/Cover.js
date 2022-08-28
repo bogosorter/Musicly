@@ -24,7 +24,7 @@ export default function Cover ({album, buttons = [], parent, updateParent}) {
 
     // Instead of manually changing all actions, it is best to just inutilize
     // events. Cover shouldn't fire events if this is a test or if parent is
-    // controll area.
+    // control area.
     let Events;
     if (parent == 'dummy') Events = { fire: () => null }
     else Events = Evts;

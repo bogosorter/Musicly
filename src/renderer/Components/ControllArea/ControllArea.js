@@ -56,11 +56,11 @@ export default function ControllArea({playback, dummy = false}) {
     })
 
     return (
-        <div id='controll-area'>
-            <div id='controll-area-cover' onClick={displayQueue}>
+        <div id='control-area'>
+            <div id='control-area-cover' onClick={displayQueue}>
                 <Cover album={playback.album} parent='controllArea' />
             </div>
-            <div id='controll-panel'>
+            <div id='control-panel'>
                 <div className='hide-if-not-active'>
                     <ProgressBar getProgress={playback.progress} dummy={dummy} />
                 </div>
@@ -69,7 +69,7 @@ export default function ControllArea({playback, dummy = false}) {
                         <h3>{playback.track? playback.track.title : 'Nothing playing'}</h3>
                         <p>{playback.track? playback.album.title : null}</p>
                     </div>
-                    <div id='controll-area-buttons' className='col hide-if-not-active'>
+                    <div id='control-area-buttons' className='col hide-if-not-active'>
                         {controllButtons}
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-#controll-area {
+#control-area {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -8,14 +8,14 @@
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,.5);
 }
 
-#queue #controll-area {
+#queue #control-area {
     position: absolute;
     height: 25vh;
     top: -25vh;
     box-shadow: none;
 }
 
-#controll-area-cover {
+#control-area-cover {
     position: absolute;
     bottom: 2vh;
     left: 30px;
@@ -23,11 +23,11 @@
     cursor: pointer;
 }
 
-#controll-panel {
+#control-panel {
     width: calc(100vw - 23vh - 30px);
     height: 20vh;
 }
-#controll-panel > * {
+#control-panel > * {
     height: 10vh;
     padding: 0 30px;
     display: flex;
@@ -36,22 +36,22 @@
     cursor: pointer;
 }
 
-#controll-area-buttons {
+#control-area-buttons {
     display: flex;
     align-items: flex-start;
 }
 
-#queue #controll-panel {
+#queue #control-panel {
     margin-top: 5vh;
 }
 
 /* Small sample to be used in the tutorial */
-#tutorial #controll-area {
+#tutorial #control-area {
     position: static;
     margin-top: 50px;
     transform: scale(0.75);
 }
-#tutorial #controll-panel {
+#tutorial #control-panel {
     /* This should be fixed with the style above, but it doesn't. Perhaps calc()
     doesn't scale well. */
     width: 70%;

@@ -1,0 +1,20 @@
+#logger-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#logger {
+    position: fixed;
+    left: calc(50vw - 500px);
+    top: calc(50vh - 250px);
+    width: 1000px;
+    height: 500px;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    padding: 50px;
+    overflow-y: scroll;
+}

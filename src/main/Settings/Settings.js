@@ -38,7 +38,7 @@ export default class Settings {
     static async set(newSettings) {
         // Store CSS
         if (newSettings.customCSS) {
-            Settings.setCustomCss(newSettings.customCSS);
+            Settings.setCustomCss(newSettings.customCSS.value);
             delete newSettings.customCSS;
         }
 
@@ -70,7 +70,7 @@ export default class Settings {
      * @param {string} customCSS 
      */
     static setCustomCss(customCSS) {
-        fs.writeFileSync(customCSSPath, customCSS.value);
+        fs.writeFileSync(customCSSPath, customCSS);
     }
 }
 

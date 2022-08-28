@@ -19,8 +19,8 @@ function createHowl(o) {
     };
 }
 
-contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer);
-contextBridge.exposeInMainWorld('Howl', (o) => createHowl(o));
+contextBridge.exposeInMainWorld('ipcRenderer', {on: ipcRenderer.on.bind(this), invoke: ipcRenderer.invoke});
+contextBridge.exposeInMainWorld('Howl', createHowl.bind(this));
 contextBridge.exposeInMainWorld('webFrame', {
     setZoomFactor: (value) => webFrame.setZoomFactor(value)
 });

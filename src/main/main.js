@@ -32,7 +32,7 @@ async function open() {
         properties: ['openDirectory'],
     });
     for (const path of result.filePaths) await db.openPath(path);
-    return await db.getLibrary({query: '', genre: ''})
+    return await db.getLibrary({query: '', genre: ''});
 }
 
 /**
@@ -86,3 +86,14 @@ ipcMain.handle('setSettings', (e, settings) => Settings.set(settings));
 ipcMain.handle('resetSettings', () => Settings.reset());
 ipcMain.handle('deleteAlbum', (e, albumID) => db.deleteAlbum(albumID));
 ipcMain.handle('resetLibrary', resetLibrary);
+
+// Handle exceptions
+process.on('uncaughtException', (err) => {
+    const error = {
+        type: 'error',
+        title: 'An error occured',
+        message: 'Try to restart Musicly and, if the error persists, please contact me at https://github.com/m7kra/Musicly/issues or inboxaljezur@gmail.com, with the following error: ' + err.message
+    };
+    dialog.showMessageBoxSync(error);
+    app.exit(1);
+});

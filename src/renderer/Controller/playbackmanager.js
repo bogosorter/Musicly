@@ -1,6 +1,4 @@
 import Events from 'renderer/Events/Events';
-//import { Howl } from 'howler';
-//import { ipcRenderer } from 'electron';
 
 /**
  * Class that controls what is playing, what will play next, what to pause, etc.
@@ -90,6 +88,13 @@ export default class PlaybackManager {
 
                 // Play the track and update UI
                 Events.fire('play');
+            },
+            onloaderror: (id, err) => {
+                // Error code 4 indicates that track doesn't exist
+                if (err == 4) {
+                    Events.fire('log', `Track doesn\'t exist: ${this.playback.track.path}`);
+                    this.skipFwd();
+                }
             }
         });
 

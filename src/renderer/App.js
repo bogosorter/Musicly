@@ -5,6 +5,7 @@ import Settings from './Components/Settings/Settings';
 import { ContextMenu } from './Components/ContextMenu/ContextMenu';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
 import Tutorial from './Components/Tutorial/Tutorial';
+import { Logger } from './Components/Logger/Logger';
 
 import Controller from './Controller/controller';
 import { useState, useMemo } from 'react';
@@ -69,6 +70,7 @@ export default function App() {
                 <Settings />
         }
             <ContextMenu />
+            <Logger />
             {loadingDiv}
             {tutorial? <Tutorial setTutorial={setTutorial}/> : null}
             {splashScreenRendered}

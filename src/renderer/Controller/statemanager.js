@@ -1,4 +1,5 @@
 import Events from 'renderer/Events/Events';
+import { log } from 'renderer/Components/Logger/Logger';
 
 export default class StateManager {
     constructor(setView, setLoading, setTheme, setTutorial) {
@@ -13,6 +14,8 @@ export default class StateManager {
             // is saved as false
             this.setSettings(settings);
         });
+        console.log(ipcRenderer);
+        ipcRenderer.on('log', (e, message) => log(message));
 
         // `StateManager` should set up event listeners for `setView`,
         // `getLibrary`, `getAlbumDetails`, `getSettings`, `setSettings`,
@@ -32,7 +35,8 @@ export default class StateManager {
         Events.on('deleteGenre', this.deleteGenre.bind(this));
         Events.on('windowButton', this.windowButton.bind(this));
         Events.on('displayTutorial', this.displayTutorial.bind(this));
-        Events.on('resetLibrary', this.resetLibrary.bind(this))
+        Events.on('resetLibrary', this.resetLibrary.bind(this));
+        Events.on('log', (message) => log(message));
     }
 
     /**

@@ -8,7 +8,7 @@ import Tutorial from './Components/Tutorial/Tutorial';
 import { Logger } from './Components/Logger/Logger';
 
 import Controller from './Controller/controller';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import 'bootstrap/scss/bootstrap.scss';
 import './scss/spacers.scss';
 import './App.css';
@@ -57,6 +57,30 @@ export default function App() {
     // Splash screen should only be loaded on the first call
     const [splashScreen, setSplashScreen] = useState(true);
     const splashScreenRendered = splashScreen? <SplashScreen setSplashScreen={setSplashScreen} /> : null;
+
+    
+    // If user is not active for 2 minutes, change view to the queue
+    let timeoutID;
+    // This function should be called when any movement is registered
+    function inactivityTimeout() {
+        if (view == 'queue') return;
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+            setView('queue');
+        } , 120000);
+    }
+    useEffect(() => {
+        // Register event listeners for keyboard and scrolling to activate timeout
+        window.addEventListener('keydown', inactivityTimeout);
+        window.addEventListener('scroll', inactivityTimeout, true);
+
+        inactivityTimeout();
+
+        return () => {
+            window.removeEventListener('keydown', inactivityTimeout);
+            window.removeEventListener('scroll', inactivityTimeout);
+        }
+    })
 
     return (
         <div id='app' className={'theme-' + theme}>

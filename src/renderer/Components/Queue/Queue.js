@@ -38,6 +38,8 @@ export default function Queue({playback}) {
         document.onmousemove = activate;
         document.onclick = activate;
         document.querySelector('#queue #track-list').onscroll = activate;
+
+        if (active) activate();
     });
 
     // If the current album doesn't have a defined cover, use an empty one as

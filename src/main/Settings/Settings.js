@@ -92,6 +92,12 @@ const defaultSettings = {
         options: [0.7, 0.8, 0.9, 1, 1.2, 1.4, 1.6, 1.8],
         value: 1
     },
+    inactiveTime: {
+        name: 'How many minutes before inactivity?',
+        type: 'select',
+        options: [0.5, 1, 2, 3, 4, 5],
+        value: 2
+    },
     customCSS: {
         name: 'Custom CSS',
         type: 'code',

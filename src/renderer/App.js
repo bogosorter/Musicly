@@ -67,7 +67,7 @@ export default function App() {
         clearTimeout(timeoutID);
         timeoutID = setTimeout(() => {
             setView('queue');
-        } , 120000);
+        }, window.settings.inactiveTime.value * 60000);
     }
     useEffect(() => {
         // Register event listeners for keyboard and scrolling to activate timeout

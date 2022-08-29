@@ -6,7 +6,6 @@ import Track from '../Track/Track';
 import ControllArea from '../ControllArea/ControllArea';
 import Button from '../Button/Button';
 
-import { nanoid } from 'nanoid';
 import { useReducer, useMemo } from 'react';
 import './tutorial.css';
 import icon from '../../../../assets/icon.png';
@@ -22,17 +21,17 @@ export default function Tutorial({setTutorial}) {
     const [currentSlide, changeSlide] = useReducer((state, change) => state + change, 0);
 
     // Here, the slide skeleton of `content` is converted in to real html
-    const slides = useMemo(() => content.map(slide => 
-            <div className='slide' key={nanoid()}>
-                <h1>{slide.title}</h1>
-                <div className='spacer-12' />
-                <p className='fs-5'>{slide.text}</p>
-                <div className='center-children'>
-                    {slide.dummies}
-                </div>
-                <div className='spacer-24' />
+    const slides = useMemo(() => content.map((slide, index) =>
+        <div className='slide' key={index}>
+            <h1>{slide.title}</h1>
+            <div className='spacer-12' />
+            <p className='fs-5'>{slide.text}</p>
+            <div className='center-children'>
+                {slide.dummies}
             </div>
-        ), []);
+            <div className='spacer-24' />
+        </div>
+    ), []);
 
     const previousButton = currentSlide != 0 && <Button onClick={() => changeSlide(-1)} type='outline'>Previous</Button>;
     const nextButton = currentSlide < content.length - 1?

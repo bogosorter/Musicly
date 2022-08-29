@@ -6,7 +6,6 @@ import { Plus } from '../Icons/Icons';
 
 import Events from 'renderer/Events/Events';
 import { useState, useMemo, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import TrackList from '../TrackList/TrackList';
 import './library.css';
 import Button from '../Button/Button';
@@ -33,9 +32,9 @@ export default function Library({playback}) {
     // Pass setLibrary to the controller
     useMemo(() => Events.fire('getLibrary', {query: '', genre: ''}, setLibrary), []);
 
-    let albums = library.albums.map(album => {
+    let albums = library.albums.map((album, index) => {
         const title = limitTitle(album.title);
-        return <div className='col-xxl-2 col-lg-3 col-md-4 col-sm-6 p-xxl-2 p-3' key={nanoid()}>
+        return <div className='col-xxl-2 col-lg-3 col-md-4 col-sm-6 p-xxl-2 p-3' key={index}>
             <Cover album={album} buttons={['play', 'details']} parent={'library'} updateParent={setLibrary}/>
             <div className='spacer-8'></div>
             <h5 className='text-center'>{title}</h5>

@@ -76,19 +76,19 @@ export default function Cover ({album, buttons = [], parent, updateParent}) {
             actions[0].onClick();
         };
         renderedButtons.push(
-            <Button onClick={onClick} type='round' key={nanoid()}><Play /></Button>
+            <Button onClick={onClick} type='round' key={renderedButtons.length}><Play /></Button>
         )
     }
     if (buttons.includes('details')) {
         renderedButtons.push(
-            <div className='ms-4' key={nanoid()}/>
+            <div className='ms-4' key={renderedButtons.length}/>
         );
         const onClick = (e) => {
             e.stopPropagation();
             actions[3].onClick();
         };
         renderedButtons.push(
-            <Button onClick={onClick} type='round' key={nanoid()}><List /></Button>
+            <Button onClick={onClick} type='round' key={renderedButtons.length}><List /></Button>
         );
     }
     

@@ -4,7 +4,6 @@ import Button from '../Button/Button';
 
 import Events from 'renderer/Events/Events';
 import { useState, useMemo } from 'react';
-import { nanoid } from 'nanoid';
 import './settings.css';
 /**
  * Component that displays current settings, using the `Setting` component, and
@@ -34,9 +33,9 @@ export default function Settings() {
 
         const modify = (newValue) => changeSetting(setting, newValue);
         renderedSettings.push(
-            <div key={nanoid()}>
+            <div key={renderedSettings.length}>
                 <div className='spacer-24' />
-                <Setting settingName={setting} setting={settings[setting]} modify={modify} key={nanoid()}/>
+                <Setting settingName={setting} setting={settings[setting]} modify={modify}/>
             </div>
         );
     }
@@ -46,8 +45,8 @@ export default function Settings() {
         { onClick: () => Events.fire('resetLibrary'), text: 'Reset Library' },
         { onClick: () => Events.fire('displayTutorial'), text: 'Tutorial' }
     ];
-    settingButtons = settingButtons.map(button =>
-        <Button onClick={button.onClick} type='outline' key={nanoid()}>{button.text}</Button>    
+    settingButtons = settingButtons.map((button, index) =>
+        <Button onClick={button.onClick} type='outline' key={index}>{button.text}</Button>    
     )
 
     return (

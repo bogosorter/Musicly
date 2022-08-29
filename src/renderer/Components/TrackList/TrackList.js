@@ -2,7 +2,6 @@ import Track from '../Track/Track';
 
 import { CD } from '../Icons/Icons';
 import { useReducer } from 'react';
-import { nanoid } from 'nanoid';
 import './tracklist.css';
 import Events from 'renderer/Events/Events';
 
@@ -30,7 +29,7 @@ export default function TrackList({tracks, playback, parent}) {
         // CDs should have a banner displaying it.
         if (track.trackOrder == 1 && parent == 'albumDetails') {
             trackList.push(
-                <div className={`row disc-separator mb-4 ${track.disc > 1? 'mt-4' : ''}`} key={nanoid()}>
+                <div className={`row disc-separator mb-4 ${track.disc > 1? 'mt-4' : ''}`} key={`discSeparator${i}`}>
                     <div className='col-1 center-children'><CD/></div>
                     <div className='col-1 d-flex align-items-center'>{track.disc}</div>
                 </div>
@@ -46,7 +45,7 @@ export default function TrackList({tracks, playback, parent}) {
         const tracksToPlay = tracks.slice(i);
 
         trackList.push(
-            <Track track={track} classes={classes} playing={playing} tracksToPlay={tracksToPlay} key={nanoid()}/>
+            <Track track={track} classes={classes} playing={playing} tracksToPlay={tracksToPlay} key={i}/>
         )
     }
 

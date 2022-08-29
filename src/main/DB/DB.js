@@ -3,13 +3,13 @@ import { open } from 'sqlite';
 import mm from 'music-metadata';
 
 import process from 'process';
-import { extname, dirname, join } from 'path';
+import path from 'path';
 import { app } from 'electron';
 import fs from 'fs';
 
-const databaseFolder = app.getPath('userData') + '/database/';
-const databasePath = app.getPath('userData') + '/database/database.db';
-const coverFolder = app.getPath('userData') + '/database/covers';
+const databaseFolder = path.join(app.getPath('userData'), 'database');
+const databasePath = path.join(app.getPath('userData'), 'database', 'database.db');
+const coverFolder = path.join(app.getPath('userData'), 'database', 'covers');
 
 const supportedAudioFormats = ['.flac', '.mp3', '.opus', '.ogg', '.aac', '.m4a'];
 const supportedImageFormats = ['.png', '.jpeg', '.jpg', '.jfif'];
@@ -122,17 +122,17 @@ export default class DB {
      * database. If there is no corresponding album, creates a new one.
      * @param {string} track
      */
-    async createTrack(path) {
+    async createTrack(trackPath) {
 
         // Check if path is a valid file format
-        if (!supportedAudioFormats.includes(extname(path))) return;
+        if (!supportedAudioFormats.includes(path.extname(trackPath))) return;
 
         // Check if track is already in the database
-        const temp = await this.db.get('SELECT id FROM tracks WHERE path = ?', path);
+        const temp = await this.db.get('SELECT id FROM tracks WHERE path = ?', trackPath);
         if (temp) return;
 
-        const track = (await mm.parseFile(path)).common;
-        let directory = dirname(path);
+        const track = (await mm.parseFile(trackPath)).common;
+        let directory = path.dirname(trackPath);
 
         // If track doesn't have album info, add it to unknown album
         if (!track.album) {
@@ -158,7 +158,7 @@ export default class DB {
                 (title, composer, albumId, trackOrder, disc, path)
             VALUES
                 (?, ?, ?, ?, ?, ?)
-        `, track.title? track.title : 'Unknown', track.composer, albumID, track.track.no, track.disk.no? track.disk.no : 1, path);
+        `, track.title? track.title : 'Unknown', track.composer, albumID, track.track.no, track.disk.no? track.disk.no : 1, trackPath);
 
         // Since different tracks have different genres, we have to update the
         // genres of an album every time a new track is inserted
@@ -280,16 +280,16 @@ export default class DB {
         if (!albumDirectory) {
             // Path has to be retrieved from a track
             const track = await this.db.get('SELECT * FROM tracks WHERE albumID = ?', albumID);
-            albumDirectory =  dirname(track.path);
+            albumDirectory =  path.dirname(track.path);
         }
 
         // Create new files according to source type
         let extension;
         if (sourceType == 'path') {
-            extension = extname(source);
-            let toPath = join(coverFolder, `${albumID}${extension}`);
+            extension = path.extname(source);
+            let toPath = path.join(coverFolder, `${albumID}${extension}`);
             await fs.copyFile(source, toPath, () => null);
-            toPath = join(albumDirectory, `cover${extension}`);
+            toPath = path.join(albumDirectory, `cover${extension}`);
             fs.copyFile(source, toPath, () => null);
         } else {
             const extensions = {
@@ -297,16 +297,16 @@ export default class DB {
                 'image/png': 'png',
             }
             extension = extensions[source.format];
-            let toPath = join(coverFolder, `${albumID}${extension}`);
+            let toPath = path.join(coverFolder, `${albumID}${extension}`);
             await fs.writeFile(toPath, source.data, () => null);
-            toPath = join(albumDirectory, `cover${extension}`);
+            toPath = path.join(albumDirectory, `cover${extension}`);
             fs.writeFile(toPath, source.data, () => null);
         }
 
         // Add the new path to the database. Note that this piece of code:
         // ?t=${new Date().getTime()} is used to prevent caching of old images
         // when the cover is changed.
-        await this.db.run('UPDATE albums SET coverPath = ? WHERE id = ?', join(coverFolder, `${albumID}${extension}?t=${new Date().getTime()}`), albumID);
+        await this.db.run('UPDATE albums SET coverPath = ? WHERE id = ?', path.join(coverFolder, `${albumID}${extension}?t=${new Date().getTime()}`), albumID);
     }
 
     /**

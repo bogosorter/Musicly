@@ -1,6 +1,5 @@
 import CodeEditor from '@uiw/react-textarea-code-editor';
 
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import './setting.css';
@@ -19,8 +18,8 @@ export default function Setting({setting, modify}) {
     
     // Render a select element
     if (setting.type == 'select') {
-        const options = setting.options.map(option => {
-            return <option value={option} key={nanoid()}>{option}</option>
+        const options = setting.options.map((option, index) => {
+            return <option value={option} key={index}>{option}</option>
         });
 
         return (

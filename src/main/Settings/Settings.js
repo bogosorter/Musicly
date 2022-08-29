@@ -1,8 +1,10 @@
 import settings from 'electron-settings';
 import fs from 'fs';
 import { app } from 'electron';
+import path from 'path';
 
-const customCSSPath = app.getPath('userData') + `/css/custom.css`;
+const customCSSDirectory = path.join(app.getPath('userData'), 'css');
+const customCSSPath = path.join(app.getPath('userData'), 'css', 'custom.css');
 
 /**
  * Class that manages app settings. Settings are represented as an array
@@ -70,6 +72,9 @@ export default class Settings {
      * @param {string} customCSS 
      */
     static setCustomCss(customCSS) {
+        // Create directory if it doesn't exist
+        if (!fs.existsSync(customCSSDirectory)) fs.mkdirSync(customCSSDirectory);
+
         fs.writeFileSync(customCSSPath, customCSS);
     }
 }

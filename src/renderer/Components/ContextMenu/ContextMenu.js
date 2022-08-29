@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import './contextmenu.css';
 
@@ -27,12 +26,12 @@ function ContextMenu() {
     // Whether the context menu should be shown
     [visible, setVisibility] = useState(false);
 
-    const renderedItems = items.map(item => {
+    const renderedItems = items.map((item, index) => {
         const onClick = () => {
             item.onClick();
             setVisibility(false);
         }
-        return <div className='context-menu-item center-children' onClick={onClick} key={nanoid()}><p>{item.text}</p></div>;
+        return <div className='context-menu-item center-children' onClick={onClick} key={index}><p>{item.text}</p></div>;
     });
 
     useEffect(() => {

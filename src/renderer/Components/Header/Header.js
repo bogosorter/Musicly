@@ -2,7 +2,6 @@ import Button from '../Button/Button';
 import { Logo, Back, Settings, Plus, Play, Line, Square, Close } from '../Icons/Icons';
 
 import Events from 'renderer/Events/Events';
-import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import './header.css'
 
@@ -25,8 +24,8 @@ export default function Header({ setLibrary = null }) {
     } else {
         navigationButtons = [{ onClick: () => Events.fire('setView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]
     }
-    navigationButtons = navigationButtons.map(button => {
-        return <Button onClick={button.onClick} key={nanoid()} shortcuts={button.shortcuts}>{button.content}</Button>
+    navigationButtons = navigationButtons.map((button, index) => {
+        return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>
     });
 
     // Buttons that handle window position and size
@@ -35,9 +34,9 @@ export default function Header({ setLibrary = null }) {
         {event: 'maximize', content: <Square size={24} />},
         {event: 'close', content: <Close size={24} />},
     ]
-    windowButtons = windowButtons.map(button => {
+    windowButtons = windowButtons.map((button, index) => {
         const onClick = () => Events.fire('windowButton', button.event);
-        return <Button onClick={onClick} key={nanoid()}>{button.content}</Button>
+        return <Button onClick={onClick} key={index}>{button.content}</Button>
     });
 
     return (

@@ -6,7 +6,6 @@ import Genre from '../Genre/Genre';
 
 import Events from 'renderer/Events/Events';
 import { useMemo, useState } from 'react';
-import { nanoid } from 'nanoid';
 import './albumdetails.css';
 
 /**
@@ -25,8 +24,8 @@ export default function AlbumDetails({playback}) {
 
     useMemo(() => Events.fire('getAlbumDetails', setDetails), []);
 
-    const genres = details.album.genres?.map(genre =>
-        <Genre genre={genre} key={nanoid()}/>
+    const genres = details.album.genres?.map((genre, index) =>
+        <Genre genre={genre} key={index}/>
     );
 
     let info = {};
@@ -36,7 +35,7 @@ export default function AlbumDetails({playback}) {
     let renderedInfo = [];
     for (const key in info) {
         renderedInfo.push(
-            <div className='d-flex' key={nanoid()}><h5>{key}:</h5>{info[key]}</div>
+            <div className='d-flex' key={renderedInfo.length}><h5>{key}:</h5>{info[key]}</div>
         );
     }
 

@@ -5,7 +5,6 @@ import { SkipBwd, SkipFwd, Play, Pause, Square, Queue } from '../Icons/Icons';
 
 import Evts from 'renderer/Events/Events';
 import { useReducer, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import './controllarea.css';
 import Shortcuts from 'renderer/Shortcuts/Shortcuts';
 
@@ -38,8 +37,8 @@ export default function ControllArea({playback, dummy = false}) {
         { onClick: () => Events.fire('stop'), content: <Square />},
         { onClick: () => Events.fire('setView', 'queue'), content: <Queue size={24}/>, shortcuts: ['ctrl+q', 'q']},
     ];
-    controllButtons = controllButtons.map(button => {
-        return <Button onClick={button.onClick} key={nanoid()} shortcuts={button.shortcuts}>{button.content}</Button>;
+    controllButtons = controllButtons.map((button, index) => {
+        return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>;
     });
 
     // Clicking in the album cover or track info should redirect user to the

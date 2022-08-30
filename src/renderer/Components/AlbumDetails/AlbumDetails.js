@@ -14,15 +14,7 @@ import './albumdetails.css';
  * as property.
  * @param {Object} properties 
  */
-export default function AlbumDetails({playback}) {
-
-    // Info about what should be displayed in the AlbumDetails component
-    const [details, setDetails] = useState({
-        album: {}, // Generic album info
-        tracks: [], // List of album tracks
-    });
-
-    useMemo(() => Events.fire('getAlbumDetails', setDetails), []);
+export default function AlbumDetails({details, playback}) {
 
     const genres = details.album.genres?.map((genre, index) =>
         <Genre genre={genre} key={index}/>
@@ -49,7 +41,7 @@ export default function AlbumDetails({playback}) {
             </div>
             <div className='row justify-content-center'>
                 <div className='col-lg-3 col-sm-6'>
-                    <Cover album={details.album} buttons={['play']} parent={'albumDetails'} updateParent={setDetails} />
+                    <Cover album={details.album} buttons={['play']} parent={'albumDetails'} />
                     <div className='spacer-8' />
                     {renderedInfo}
                 </div>

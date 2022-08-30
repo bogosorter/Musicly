@@ -12,18 +12,12 @@ import './settings.css';
  * This component should also allow to reset the settings, reset the library and
  * to go through the tutorial again.
  */
-export default function Settings() {
-
-    // Variable that stores current settings
-    const [settings, setSettings] = useState({});
-    
-    useMemo(() => Events.fire('getSettings', setSettings), []);
+export default function Settings({settings}) {
 
     function changeSetting(setting, newValue) {
         let newSettings = {...settings};
         newSettings[setting] = newValue;
-        setSettings(newSettings)
-        Events.fire('setSettings', newSettings);
+        Events.fire('saveSettings', newSettings);
     }
 
     const renderedSettings =  [];
@@ -35,7 +29,7 @@ export default function Settings() {
         renderedSettings.push(
             <div key={renderedSettings.length}>
                 <div className='spacer-24' />
-                <Setting settingName={setting} setting={settings[setting]} modify={modify}/>
+                <Setting settingName={setting} setting={settings[setting]} modify={modify} theme={settings.theme.value}/>
             </div>
         );
     }

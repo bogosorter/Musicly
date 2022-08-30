@@ -6,23 +6,24 @@ import { useEffect, useState } from 'react';
 import './header.css'
 
 /**
- * Component that displays the app's header bar, with app navigation utilities
- * and window buttons. Specifically, people should be able to access `library`,
- * `settings` and open files (if a `setLibrary` function is provided), as well
- * as the normal three window control buttons.
+ * Displays the app's header bar, with app navigation utilities and window
+ * buttons. Specifically, people should be able to access `settings` and open
+ * files if a `library` is true (meaning that the parent of the component is
+ * `Library`), and go back to the library otherwise. Furthermore, the normal
+ * three window control buttons have to be displayed.
  */
-export default function Header({ setLibrary = null }) {
+export default function Header({ library = false }) {
 
     let navigationButtons;
-    // If setLibrary, parent is library
-    if (setLibrary) {
+    // If library, parent is library
+    if (library) {
         navigationButtons = [
             { onClick: () => null, content: <Logo size={52}/> },
-            { onClick: () => Events.fire('setView', 'settings'), content: <Settings size={16}/>, shortcuts: ['ctrl+s', 's'] },
-            { onClick: () => Events.fire('open', setLibrary), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']}
+            { onClick: () => Events.fire('changeView', 'settings'), content: <Settings size={16}/>, shortcuts: ['ctrl+s', 's'] },
+            { onClick: () => Events.fire('open'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']}
         ]
     } else {
-        navigationButtons = [{ onClick: () => Events.fire('setView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]
+        navigationButtons = [{ onClick: () => Events.fire('changeView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]
     }
     navigationButtons = navigationButtons.map((button, index) => {
         return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>

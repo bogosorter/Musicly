@@ -35,7 +35,7 @@ export default function ControllArea({playback, dummy = false}) {
         { onClick: () => Events.fire('play'), content: <Play />, shortcuts: [' ']},
         { onClick: () => Events.fire('skipFwd'), content: <SkipFwd /> },
         { onClick: () => Events.fire('stop'), content: <Square />},
-        { onClick: () => Events.fire('setView', 'queue'), content: <Queue size={24}/>, shortcuts: ['ctrl+q', 'q']},
+        { onClick: () => Events.fire('changeView', 'queue'), content: <Queue size={24}/>, shortcuts: ['ctrl+q', 'q']},
     ];
     controllButtons = controllButtons.map((button, index) => {
         return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>;
@@ -44,7 +44,7 @@ export default function ControllArea({playback, dummy = false}) {
     // Clicking in the album cover or track info should redirect user to the
     // queue
     function displayQueue() {
-        if (playback.track) Events.fire('setView', 'queue'); 
+        if (playback.track) Events.fire('changeView', 'queue'); 
     }
 
     // Add shortcuts for seeking

@@ -19,7 +19,7 @@ export default function Queue({playback}) {
 
     // If nothing is playing, return to library
     if (!playback.track) {
-        Events.fire('setView', 'library');
+        Events.fire('changeView', 'library');
         return;
     }
     

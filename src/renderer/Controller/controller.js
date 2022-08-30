@@ -2,8 +2,8 @@ import PlaybackManager from './playbackmanager';
 import StateManager from './statemanager';
 
 export default class Controller {
-    constructor(setView, setPlayback, setLoading, setTheme, setTutorial) {
+    constructor(setView, setLibrary, setAlbumDetails, setSettings, setPlayback, setLoading, addLog) {
         this.playback = new PlaybackManager(setPlayback);
-        this.stateManager = new StateManager(setView, setLoading, setTheme, setTutorial);
+        this.stateManager = new StateManager(setView, setLibrary, setAlbumDetails, setSettings, setPlayback, setLoading);
     }
 }

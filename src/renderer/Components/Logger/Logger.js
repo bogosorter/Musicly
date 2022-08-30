@@ -7,27 +7,11 @@ let log;
 let messages = [];
 
 /**
- * Displays a list of log messages. In a structure similar to the one of
- * `ContextMenu`, it should desinged in such a way that it is called only once.
- * From then on, a function, `log`, should be used to add new log messages.
+ * Displays a list of log messages.
  */
-function Logger() {
+export default function Logger({messages, reset}) {
 
-    // Whether component is visible or not
-    const [visible, setVisibility] = useState(false);
-
-    // Add a new message to the list of messages
-    log = (message) => {
-        messages = [...messages, message];
-        setVisibility(true);
-    }
-
-    function ok () {
-        setVisibility(false);
-        messages = [];
-    }
-
-    if (!visible) return <></>;
+    if (messages.length == 0) return <></>;
 
     return (
         <>
@@ -39,10 +23,8 @@ function Logger() {
                     <div key={index}>{message}</div>
                 )) }
                 <div className='spacer-24' />
-                <Button onClick={ok} type='outline'>OK</Button>
+                <Button onClick={reset} type='outline'>OK</Button>
             </div>
         </>
     );
 }
-
-export { log, Logger };

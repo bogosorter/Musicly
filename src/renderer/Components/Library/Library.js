@@ -16,33 +16,16 @@ import Button from '../Button/Button';
  * `playback` as property.
  * @param {Object} properties 
  */
-export default function Library({playback}) {
-
-    // Info about what should be displayed in the library component
-    const [library, setLibrary] = useState({
-        searchParameters: {
-            query: '',
-            genre: ''
-        },
-        albums: [], // Array of albums that match the search parameters
-        tracks: [], // Array of tracks that match the search parameters
-        genres: [] // Array of all genres in library 
-    });
-
-    // Pass setLibrary to the controller
-    useMemo(() => Events.fire('getLibrary', {query: '', genre: ''}, setLibrary), []);
+export default function Library({library, playback}) {
 
     let albums = library.albums.map((album, index) => {
         const title = limitTitle(album.title);
         return <div className='col-xxl-2 col-lg-3 col-md-4 col-sm-6 p-xxl-2 p-3' key={index}>
-            <Cover album={album} buttons={['play', 'details']} parent={'library'} updateParent={setLibrary}/>
+            <Cover album={album} buttons={['play', 'details']} parent={'library'}/>
             <div className='spacer-8'></div>
             <h5 className='text-center'>{title}</h5>
         </div>;
     });
-    // If no albums match the search parameters, display a button that allows
-    // add more 
-    if (albums.length  == 0) albums = <Button onClick={() => Events.fire('open', setLibrary)}><Plus /></Button>
 
     // Keep track of scrolling state
     useEffect(() => {
@@ -54,7 +37,7 @@ export default function Library({playback}) {
 
     return (
         <>
-            <Header setLibrary={setLibrary} /><div className='header-placeholder' />
+            <Header library={true} /><div className='header-placeholder' />
             <div className='spacer-24'/>
             <div id='library' onScroll={updateScroll}>
                 <div className='row justify-content-center'>
@@ -62,13 +45,15 @@ export default function Library({playback}) {
                         <div className='d-flex center-children'>
                             <h1>Library:</h1>
                             <div className='w-100'></div>
-                            <SearchBox searchParameters={library.searchParameters} genres={library.genres} setLibrary={setLibrary} />
+                            <SearchBox searchParameters={library.searchParameters} genres={library.genres} />
                         </div>
                         <div className='spacer-48' />
                         <div className='row'>
                             {albums}
                         </div>
                         <TrackList tracks={library.tracks} playback={playback} parent='library'/>
+                        <div className='spacer-24' />
+                        <Button onClick={() => Events.fire('open')} type='outline'>Add music to library</Button>
                         <div className='spacer-400' />
                     </div>
                 </div>

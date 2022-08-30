@@ -17,7 +17,7 @@ import './cover.css';
  * options: `playAlbum`, `addAlbumToQueue`, `albumDetail`, `addCover` and
  * `deleteAlbum`.
  */
-export default function Cover ({album, buttons = [], parent, updateParent}) {
+export default function Cover ({album, buttons = [], parent}) {
 
     // Generate a unique ID for the cover
     const id = nanoid();
@@ -34,12 +34,12 @@ export default function Cover ({album, buttons = [], parent, updateParent}) {
         { text: 'Play', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'playTracks')},
         { text: 'Play Next', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addNext') },
         { text: 'Add to Queue', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addToQueue') },
-        { text: 'Album Details', onClick: () => Events.fire('setView', 'albumDetails', album.id) },
-        { text: 'Add Cover', onClick: () => Events.fire('addCover', album.id, parent, updateParent) },
+        { text: 'Album Details', onClick: () => Events.fire('changeView', 'albumDetails', album.id) },
+        { text: 'Add Cover', onClick: () => Events.fire('addCover', album.id, parent) },
     ];
     if (parent == 'library') {
         actions.push(
-            { text: 'Delete from Library', onClick: () => Events.fire('deleteAlbum', album.id, updateParent) }
+            { text: 'Delete from Library', onClick: () => Events.fire('deleteAlbum', album.id) }
         );
     }
 

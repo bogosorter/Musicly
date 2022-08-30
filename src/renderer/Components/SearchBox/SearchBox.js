@@ -11,7 +11,7 @@ import './searchbox.css';
  * filter. Accepts `searchParameters` as property and a property `dummy`,
  * defaulting to false, that should only be true inside tutorial.s
  */
-export default function SearchBox({searchParameters, genres, setLibrary, dummy = false}) {
+export default function SearchBox({searchParameters, genres, dummy = false}) {
 
     // Changes search parameters to the new query
     function setQuery(e) {
@@ -31,7 +31,7 @@ export default function SearchBox({searchParameters, genres, setLibrary, dummy =
     }
     // Calls the controller's method for searching
     function search() {
-        if (!dummy) Events.fire('getLibrary', searchParameters, setLibrary);
+        if (!dummy) Events.fire('getLibrary', searchParameters);
         // If search box is a dummy, setLibrary is used to update its props in
         // the parent component
         else setLibrary({...searchParameters});

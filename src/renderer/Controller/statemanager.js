@@ -2,31 +2,29 @@ import Events from 'renderer/Events/Events';
 import { log } from 'renderer/Components/Logger/Logger';
 
 export default class StateManager {
-    constructor(setView, setLoading, setTheme, setTutorial) {
-        this.setViewInApp = setView;
+    constructor(setView, setLibrary, setAlbumDetails, setSettings, setPlayback, setLoading, addLog) {
+        this.setView = setView;
+        this.setLibrary = setLibrary;
+        this.setAlbumDetails = setAlbumDetails;
+        this.setSettings = setSettings;
         this.setLoading = setLoading;
-        this.setTheme = setTheme;
-        this.setTutorial = setTutorial;
+        this.addLog = addLog;
 
         // Apply settings
         ipcRenderer.invoke('getSettings').then(settings => {            
             // implementSettings is not called directly to ensure that firstTime
             // is saved as false
-            this.setSettings(settings);
+            this.saveSettings(settings);
         });
-        console.log(ipcRenderer);
-        ipcRenderer.on('log', (e, message) => log(message));
 
         // `StateManager` should set up event listeners for `setView`,
-        // `getLibrary`, `getAlbumDetails`, `getSettings`, `setSettings`,
-        
-        // `open`, `addCover`, `deleteAlbum`, `addGenre`, `deleteGenre`,
-        // `windowButton`.
-        Events.on('setView', this.setView.bind(this));
+        // `getLibrary`, `getSettings`, `setSettings`, `open`, `addCover`,
+        // `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`,
+        // `resetLibrary`, `resetSettings` and `log`. In addition, `log` should
+        // also be listened on `ipcRenderer`.
+        Events.on('changeView', this.changeView.bind(this));
         Events.on('getLibrary', this.getLibrary.bind(this));
-        Events.on('getAlbumDetails', this.getAlbumDetails.bind(this));
-        Events.on('getSettings', this.getSettings.bind(this));
-        Events.on('setSettings', this.setSettings.bind(this));
+        Events.on('saveSettings', this.saveSettings.bind(this));
         Events.on('resetSettings', this.resetSettings.bind(this));
         Events.on('open', this.open.bind(this));
         Events.on('addCover', this.addCover.bind(this));
@@ -34,60 +32,42 @@ export default class StateManager {
         Events.on('addGenre', this.addGenre.bind(this));
         Events.on('deleteGenre', this.deleteGenre.bind(this));
         Events.on('windowButton', this.windowButton.bind(this));
-        Events.on('displayTutorial', this.displayTutorial.bind(this));
         Events.on('resetLibrary', this.resetLibrary.bind(this));
-        Events.on('log', (message) => log(message));
+        Events.on('log', this.log.bind(this));
+        ipcRenderer.on('log', (e, message) => this.log(message));
+
+        this.getLibrary();
     }
 
     /**
-     * Sets the app view to `view`. If `view == albumDetails`, updates
-     * `viewingAlbumID` to `albumID`.
+     * Sets the app view to `view`, updating album details if needed according
+     * to albumID.
      * @param {string} view 
      * @param {int} albumID 
      */
-    setView(view, albumID = 0) {
-        if (view == 'albumDetails') this.viewingAlbumID = albumID;
-        this.setViewInApp(view);
+    async changeView(view, albumID = 0) {
+        if (view == 'albumDetails') {
+            const album = await ipcRenderer.invoke('getAlbum', albumID);
+            const tracks = await ipcRenderer.invoke('getAlbumTracks', albumID);
+            this.setAlbumDetails({album, tracks});
+        }
+        this.setView(view);
     }
 
     /**
-     * Gets the library according to `searchParameters` and passes them to
-     * `setLibrary`.
+     * Gets the library according to `searchParameters` and updates the
+     * `Library` component.
      */
-     async getLibrary(searchParameters, setLibrary) {
+    async getLibrary(searchParameters = {query: '', genre: ''}) {
         let library = await ipcRenderer.invoke('getLibrary', searchParameters);
         library.searchParameters = searchParameters;
-        setLibrary(library);
-    }
-
-    /**
-     * Gets the details of the album that matches `viewingAlbumID` and calls
-     * `setDetails` with them.
-     */
-    async getAlbumDetails(setDetails) {
-        const album = await ipcRenderer.invoke('getAlbum', this.viewingAlbumID);
-        const tracks = await ipcRenderer.invoke('getAlbumTracks', this.viewingAlbumID);
-        setDetails({album, tracks});
-    }
-
-    /**
-     * Gets the current settings and passes them on to `setSettings`.
-     */
-     async getSettings(setSettings) {
-        const settings = await ipcRenderer.invoke('getSettings');
-        this.implementSettings(settings);
-        setSettings(settings);
+        this.setLibrary(library);
     }
 
     /**
      * Sets the provided settings and makes the necessary changes to the app.
      */
-    setSettings(settings) {
-
-        // Ensure that zoom factor as a reasonable value (in order to prevent
-        // user error)
-        settings.zoomFactor.value = Math.min(2, Math.max(0.5, settings.zoomFactor.value));
-
+    saveSettings(settings) {
         this.implementSettings(settings);
 
         // First time is always saved as false
@@ -96,14 +76,10 @@ export default class StateManager {
     }
 
     /**
-     * Make the necessary changes to the app so that it fits current `settings`.
-     * If `displayTutorial`, this setting should be set to false after the
-     * tutorial component finishes.
+     * Adapts the app to the current `settings`.
      */
-    implementSettings(settings) {
-        this.setTheme(settings.theme.value);
-
-        webFrame.setZoomFactor(settings.zoomFactor.value);
+    implementSettings(settings) {        
+        webFrame.setZoomFactor(parseFloat(settings.zoomFactor.value));
 
         // Remove custom css if there is any (prevents accumulating multiple css
         // elements if user has changed it various times)
@@ -115,42 +91,40 @@ export default class StateManager {
         styleElement.id = 'custom-css';
         document.head.appendChild(styleElement);
 
-        if (settings.firstTime) this.displayTutorial();
-
-        window.settings = settings;
+        this.setSettings(settings);
     }
 
     /**
      * Restores settings to their original value.
      */
-    async resetSettings(setSettings) {
+    async resetSettings() {
         await ipcRenderer.invoke('resetSettings');
         const settings = await ipcRenderer.invoke('getSettings');
         this.implementSettings(settings);
-        setSettings(settings);
     }
 
     /**
      * Calls the main process' `open` handler and refreshes the library after
      * it.
      */
-    async open(setLibrary) {
+    async open() {
         // Add a progress spinner
         this.setLoading(true);
         await ipcRenderer.invoke('open');
-        this.getLibrary({query: '', genre: ''}, setLibrary);
+        this.getLibrary();
         // Remove the spinner
         this.setLoading(false);
     }
 
     /**
      * Calls the main process' `addCover` handler and refreshes the component
-     * that called it according to `caller` (`albumDetails` or `ibrary`).
+     * that called it according to `caller`.
      */
-    async addCover(albumID, caller, updateComponent) {
+    async addCover(albumID, caller) {
         // Add a progress spinner
+        this.setLoading(true);
         await ipcRenderer.invoke('addCover', albumID);
-        if (caller == 'library') this.getLibrary({query: '', genre: ''}, updateComponent);
+        if (caller == 'library') this.getLibrary();
         else this.getAlbumDetails(updateComponent);
     }
 
@@ -158,11 +132,11 @@ export default class StateManager {
      * Calls the main process' `deleteAlbum` handler and refreshes the library
      * after it.
      */
-    async deleteAlbum(albumID, setLibrary) {
+    async deleteAlbum(albumID) {
         // Add a progress spinner
         this.setLoading(true);
         await ipcRenderer.invoke('deleteAlbum', albumID);
-        this.getLibrary({query: '', genre: ''}, setLibrary);
+        this.getLibrary();
         // Remove the spinner
         this.setLoading(false);
     }
@@ -170,17 +144,17 @@ export default class StateManager {
     /**
      * Adds a genre to an album and updates the `AlbumDetails` component.
      */
-    async addGenre(genre, albumID, setDetails) {
+    async addGenre(genre, albumID) {
         await ipcRenderer.invoke('addGenre', genre, albumID);
-        this.getAlbumDetails(setDetails);
+        this.setView('albumDetails', albumID);
     }
 
     /**
      * Deletes a genre from an album and updates the `AlbumDetails` component.
      */
-    async deleteGenre(genre, albumID, setDetails) {
+    async deleteGenre(genre, albumID) {
         await ipcRenderer.invoke('deleteGenre', genre, albumID);
-        this.getAlbumDetails(setDetails);
+        this.setView('albumDetails', albumID);
     }
 
     /**
@@ -191,16 +165,16 @@ export default class StateManager {
     }
 
     /**
-     * Displays an introductory tutorial.
-     */
-    displayTutorial() {
-        this.setTutorial(true);
-    }
-
-    /**
      * Deletes the database.
      */
     async resetLibrary() {
         await ipcRenderer.invoke('resetLibrary');
+    }
+
+    /**
+     * Logs the `message` using the `Logger` component.
+     */
+    log(message) {
+        this.addLog(message);
     }
 }

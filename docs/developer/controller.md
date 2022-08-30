@@ -21,7 +21,7 @@ Class that manages the app. Data access, state managing and music playing are it
 
 ```js
 class Controller {
-    constructor(setView, setPlayback, setLoading, setTheme, setTutorial) {
+    constructor(setView, setLibrary, setAlbumDetails, setSettings, setPlayback, setLoading, addLog) {
         ...
         this.playback = new Playback(...);
         this.stateManager = new StateManager(...);
@@ -181,7 +181,7 @@ Upon constructing, `StateManager` should implement the settings and store them i
 
 ```js
 class StateManager {
-    constructor (setView, setLoading, setTheme, setTutorial) {
+    constructor (setView, setLoading, setLibrary, setAlbumDetails, SetSettings, addLog) {
         ...
     }
 }
@@ -189,39 +189,23 @@ class StateManager {
 
 ### Methods
 
-#### `setView`
+#### `changeView`
 
-**Description:** Sets the app view to `view`. If `view == albumDetails`, updates `viewingAlbumID` to `albumID`.
+**Description:** Sets the app view to `view`, updating album details if needed according to albumID.
 
-**Arguments:** `view`,` albumID = 0`
+**Arguments:** `view`,`[albumID]`
 
 **Return value:** None
 
 #### `getLibrary`
 
-**Description:** Gets the library according to `searchParameters` and passes them to `setLibrary`.
+**Description:** Gets the library according to `searchParameters` and updates the `Library` component.
 
-**Arguments:** `searchParameters`, `setLibrary`
-
-**Return value:** None
-
-#### `getAlbumDetails`
-
-**Description:** Gets the details of the album that matches `viewingAlbumID` and calls `setDetails` with them.
-
-**Arguments:** `setDetails`
+**Arguments:** `searchParameters`
 
 **Return value:** None
 
-#### `getSettings`
-
-**Description:** Gets the current settings and passes them on to `setSettings`.
-
-**Arguments:** `setSettings`
-
-**Return value:** None
-
-#### `setSettings`
+#### `saveSettings`
 
 **Description:** Sets the provided settings and makes the necessary changes to the app. `firstTime` should always be saved as false.
 
@@ -241,7 +225,7 @@ class StateManager {
 
 **Description:** Restores settings to their original value.
 
-**Arguments:** `setSettings`
+**Arguments:** None
 
 **Return value:** None
 
@@ -249,7 +233,7 @@ class StateManager {
 
 **Description:** Calls the main process' `open` handler and refreshes the library after it.
 
-**Arguments:** `setLibrary`
+**Arguments:** None
 
 **Return value:** None
 
@@ -257,7 +241,7 @@ class StateManager {
 
 **Description:** Calls the main process' `addCover` handler and refreshes the component that called it according to `caller`.
 
-**Arguments:** `albumID`, `caller` (`albumDetails` or `library`), `updateComponent`
+**Arguments:** `albumID`, `caller` (`albumDetails` or `library`)
 
 **Return value:** None
 
@@ -265,7 +249,7 @@ class StateManager {
 
 **Description:** Calls the main process' `deleteAlbum` handler and refreshes the library after it.
 
-**Arguments:** `albumID`, `setLibrary`
+**Arguments:** `albumID`
 
 **Return value:** None
 
@@ -273,7 +257,7 @@ class StateManager {
 
 **Description:** Adds a genre to an album and updates the `AlbumDetails` component.
 
-**Arguments:** `genre`, `albumID`, `setDetails`
+**Arguments:** `genre`, `albumID`
 
 **Return value:** None
 
@@ -281,7 +265,7 @@ class StateManager {
 
 **Description:** Deletes a genre from an album and updates the `AlbumDetails` component.
 
-**Arguments:** `genre`, `albumID`, `setDetails`
+**Arguments:** `genre`, `albumID`
 
 **Return value:** None
 
@@ -290,14 +274,6 @@ class StateManager {
 **Description:** Calls the main process's `windowButton` handler.
 
 **Arguments:** `button`
-
-**Return value:** None
-
-#### `displayTutorial`
-
-**Description:** Displays an introductory tutorial.
-
-**Arguments:** None
 
 **Return value:** None
 
@@ -317,14 +293,6 @@ class StateManager {
 
 **Return value:** None
 
-#### `test`
-
-**Description:** Makes some things to test github copilot.
-
-**Arguments:** `testArgument`
-
-**Return value:** `result`
-
 ### Event listeners
 
-`StateManager` should set up event listeners for `setView`, `getLibrary`, `getAlbumDetails`, `getSettings`, `setSettings`, `open`, `addCover`, `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`, `resetLibrary`, `resetSettings` and `log`. In addition, `log` should also be listened on `ipcRenderer`.
+`StateManager` should set up event listeners for `changeView`, `getLibrary`, `saveSettings`, `resetSettings`, `open`, `addCover`, `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`, `resetLibrary`, `resetSettings` and `log`. In addition, `log` should also be listened on `ipcRenderer`.

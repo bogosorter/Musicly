@@ -17,7 +17,7 @@ title: Developer documentation
 
 ## A couple remarks
 
-I'm not a seasoned programmer. In fact, my adventure in programming started about two years ago, in a somewhat unstable way. A couple courses, YouTube videos, etc. Therefore, my code isn't great. You should expect to find some errors, and a lot of bad practices. I have, though, made some effort to write clean and understandable code, forcing myself to write a lot of comments (to many?) and to make a structured project (actually the first complete one).
+I'm not a seasoned programmer. In fact, my journey in programming started about two years ago, in a somewhat unstable way. A couple courses, YouTube videos, etc. Therefore, my code isn't great. You should expect to find some errors, and a lot of bad practices. I have, though, made some effort to write clean and understandable code, forcing myself to write a lot of comments (to many?) and to make a structured project (actually the first complete one).
 
 This explains how this project came to be. Given that I'm inexperienced, I would appreciate any kind of feedback: pull requests, issues, comments or just a thumbs-up!
 

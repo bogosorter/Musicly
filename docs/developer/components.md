@@ -15,7 +15,7 @@ title: Controller
 
 ## `App`
 
-**Description:** This is the main component. It stores a series of states and renders four other components (`Library`, `Settings`, `AlbumDetails` and `Queue`) according to `view`. It also renders a bunch of other components used throughout the app: a `ContextMenu`, a spinner if `loading` and a `Tutorial` if `tutorial`.
+**Description:** This is the main component. It stores a series of states and renders four other components (`Library`, `Settings`, `AlbumDetails` and `Queue`) according to `view`. It also renders a bunch of other components used throughout the app: a `ContextMenu`, a spinner if `loading` and a `Tutorial` if `settings.firstTime`.
 
 **Properties:** None
 
@@ -23,6 +23,17 @@ title: Controller
 
 ```js
 const [view, setView] = useState('library');
+
+// Info about the user's library
+const [library, setLibrary] = useState({
+    searchParameters: {
+        query: '',
+        genre: ''
+    },
+    albums: [], // Array of albums that match the search parameters
+    tracks: [], // Array of tracks that match the search parameters
+    genres: [] // Array of all genres in library 
+});
 
 // Info about what is playing and the queue
 const [playback, setPlayback] = useState({
@@ -34,17 +45,29 @@ const [playback, setPlayback] = useState({
     playing: () => false // Is playback playing or paused?
 });
 
+// Info about what should be displayed in the AlbumDetails component
+const [details, setDetails] = useState({
+    album: {}, // Generic album info
+    tracks: [], // List of album tracks
+});
+
+// Variable that stores current settings
+const [settings, setSettings] = useState({});
+
+// Logs that the user should see
+const [logs, addLog] = useReducer((state, message) => {
+    // To reset the logs, use 'reset' as the message
+    if (message === 'reset') {
+        return [];
+    }
+    return [...state, message];
+}, [])
+
 // Controlls whether a spinner should be shown
 const [loading, setLoading] = useState(false);
 
-// Controlls which class should be added to the App component
-const [theme, setTheme] = useState('dark');
-
-// Controlls whether a tutorial should be shown
-const [tutorial, setTutorial] = useState(false);
-
 const controller = useMemo(
-    new Controller(setView, setPlayback, setLoading, setTheme, setTutorial)
+    new Controller(setView, setLibrary, setDetails, setSettings, setPlayback, setLoading, addLog)
 );
 ```
 
@@ -52,38 +75,13 @@ const controller = useMemo(
 
 **Description:** Component rendered inside the `App`, displaying a `SearchBox`, library albums, a `TrackList` that matches search parameters and a `ControllArea`.
 
-**Properties:** `playback`
-
-**Hooks:**
-
-```js
-// Info about what should be displayed in the library component
-const [library, setLibrary] = useState({
-    searchParameters: {
-        query: '',
-        genre: ''
-    },
-    albums: [], // Array of albums that match the search parameters
-    tracks: [], // Array of tracks that match the search parameters
-    genres: [] // Array of all genres in library 
-});
-```
+**Properties:** `library`, `playback`
 
 ## `AlbumDetails`
 
 **Description:** Component rendered inside the `App`, displaying an album's details such as `Cover`, `TrackList` and `artist`. Also has a `ControllArea`.
 
-**Properties:** `playback`
-
-**Hooks:**
-
-```js
-// Info about what should be displayed in the AlbumDetails component
-const [details, setDetails] = useState({
-    album: {}, // Generic album info
-    tracks: [], // List of album tracks
-});
-```
+**Properties:** `details`, `playback`
 
 ## `Queue`
 
@@ -91,39 +89,17 @@ const [details, setDetails] = useState({
 
 **Properties:** `playback`
 
-**Hooks:**
-
-```js
-// Info about what should be displayed in the library component
-const [library, setLibrary] = useState({
-    searchParameters: {
-        query: '',
-        genre: ''
-    },
-    albums: [], // Array of albums that match the search parameters
-    tracks: [], // Array of tracks that match the search parameters
-    genres: [] // Array of all genres in library 
-});
-```
-
 ## `Settings`
 
 **Description:** Displays current settings, using the `Setting` component, and allows to modify them. The setting `firstTime` should not be displayed nor modified, and the new settings should be saved automatically. This component should also allow to reset the settings, reset the library and to go through the tutorial again.
 
-**Properties:** None
-
-**Hooks:**
-
-```js
-// Variable that stores current settings
-const [settings, setSettings] = useState({});
-```
+**Properties:** `settings`
 
 ## `Header`
 
-**Description:** Displays the app's header bar, with app navigation utilities and window buttons. Specifically, people should be able to access `settings` and open files if a `setLibrary` function is provided, and go back to the library is `setLibrary == undefined`. Furthermore, the normal three window control buttons have be displayed.
+**Description:** Displays the app's header bar, with app navigation utilities and window buttons. Specifically, people should be able to access `settings` and open files if a `library` is true (meaning that the parent of the component is `Library`), and go back to the library otherwise. Furthermore, the normal three window control buttons have to be displayed.
 
-**Properties:** `setLibrary = undefined`
+**Properties:** `library`
 
 ## `ControllArea`
 
@@ -135,7 +111,7 @@ const [settings, setSettings] = useState({});
 
 **Description:** Displays an album cover. Some buttons are displayed according to the value of `buttons` (`play` for playing the album and `details` for a detailed album view). Right clicking on the album should bring up a context menu with the following options: play album, add album to queue, album details, add cover and delete album.
 
-**Properties:** `album`, `buttons = []` (may contain `play` and `details`), `setLibrary`.
+**Properties:** `album`, `buttons = []`, `parent` (may contain `play` and `details`).
 
 ## `ContextMenu`
 
@@ -156,30 +132,15 @@ const [visible, setVisibility] = useState(false);
 
 ## `Logger`
 
-**Description:** Displays a list of log messages. In a structure similar to the one of `ContextMenu`, it should desinged in such a way that it is called only once. From then on, a function, `log`, should be used to add new log messages.
+**Description:** Displays a list of log messages.
 
-**Properties:** None
-
-**Hooks:**
-```js
-// Whether component is visible or not
-const [visible, setVisibility] = useState([]);
-```
-
-```js
-// Which items are to be displayed in the context menu
-const [items, setItems] = useState([]);
-// The coordinates of the context menu
-const [position, setPosition] = useState({x:0, y:0});
-// Whether the context menu should be shown
-const [visible, setVisibility] = useState(false);
-```
+**Properties:** `messages`, `reset`
 
 ## `SearchBox`
 
-**Description:** Allows users to type in a `query` and choose one `genre` filter. Accepts `searchParameters`, `genres` (all the genres in the database) and `setLibrary` as properties.
+**Description:** Allows users to type in a `query` and choose one `genre` filter.
 
-**Properties:** `searchParameters`, `genres` and `setLibrary`
+**Properties:** `searchParameters`, `genres`
 
 ## `TrackList`
 
@@ -195,7 +156,7 @@ const [visible, setVisibility] = useState(false);
 
 ## `Setting`
 
-**Description:** Displays a single `setting`. In order to modify the setting, `modify` should be called. The value to be passed to the function is the entire setting. Here is an example:
+**Description:** Displays a single `setting`. A property `theme` is needed because code input depends on it. In order to modify the setting, `modify` should be called. The value to be passed to the function is the entire setting. Here is an example:
 
 ```js
 setting = {
@@ -208,7 +169,7 @@ setting.selected = 'dark';
 modify(setting);
 ```
 
-**Properties:** `setting`, `modify`
+**Properties:** `setting`, `modify`, `theme`
 
 ## `Tutorial`
 

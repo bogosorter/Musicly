@@ -129,9 +129,9 @@ class Playback {
 
 #### `playTracks`
 
-**Description:** Immediately stops current playback and plays the supplied list of tracks. Tracks that were played previously are to be kept in `playback.queue`.
+**Description:** Immediately stops current playback and plays the supplied list of tracks. Tracks that were played previously are to be kept in `playback.queue`. `jump` is used when tracks are chosen from the `AlbumDetails` component. Even when choosing the third track, the user expects to be able to go back to the second one. Therefore, `tracks` represents all the CD's tracks and `jump` would be 2.
 
-**Arguments:** `tracks`
+**Arguments:** `tracks`, `jump`
 
 **Return value:** None
 
@@ -147,7 +147,7 @@ class Playback {
 
 **Description:** Adds the supplied list of tracks to the end of the queue.
 
-**Arguments:** `tracks`
+**Arguments:** `tracks`, `jump`
 
 **Return value:** None
 
@@ -155,7 +155,7 @@ class Playback {
 
 **Description:** Gets tracks according to `sourceType` and `detail` and forwards them to `playTracks`, `addNext` or `addToQueue` according to `destination`.
 
-**Arguments:** `sourceType` (`albumID`, `track` or `tracks`), `detail` (depending on the value of `sourceType`, an integer, a track or a list of tracks).
+**Arguments:** `sourceType` (`albumID`, `track` or `tracks`), `detail` (depending on the value of `sourceType`, an integer, a track or a list of tracks), `destination`, `jump = 0`.
 
 **Return value:** None
 

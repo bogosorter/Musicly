@@ -93,7 +93,7 @@ const controller = useMemo(
 
 **Description:** Displays current settings, using the `Setting` component, and allows to modify them. The setting `firstTime` should not be displayed nor modified, and the new settings should be saved automatically. This component should also allow to reset the settings, reset the library and to go through the tutorial again.
 
-**Properties:** `settings`
+**Properties:** `settings`, `displayTutorial`
 
 ## `Header`
 
@@ -138,9 +138,9 @@ const [visible, setVisibility] = useState(false);
 
 ## `SearchBox`
 
-**Description:** Allows users to type in a `query` and choose one `genre` filter.
+**Description:** Allows users to type in a `query` and choose one `genre` filter. If it is a dummy, parameters should be passed to `setParameters` instead.
 
-**Properties:** `searchParameters`, `genres`
+**Properties:** `searchParameters`, `genres`, `dummy = false`, `[setParameters]`.
 
 ## `TrackList`
 
@@ -152,11 +152,11 @@ const [visible, setVisibility] = useState(false);
 
 **Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. The last property specifies which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
 
-**Properties:** `track`, `classes`, `playing`,  and `tracksToPlay`
+**Properties:** `track`, `classes`, `playing`,  and `tracksToAdd`, `jump`
 
 ## `Setting`
 
-**Description:** Displays a single `setting`. A property `theme` is needed because code input depends on it. In order to modify the setting, `modify` should be called. The value to be passed to the function is the entire setting. Here is an example:
+**Description:** Displays a single `setting`. In order to modify the setting, `modify` should be called. The value to be passed to the function is the entire setting. Here is an example:
 
 ```js
 setting = {
@@ -169,7 +169,7 @@ setting.selected = 'dark';
 modify(setting);
 ```
 
-**Properties:** `setting`, `modify`, `theme`
+**Properties:** `setting`, `modify`,
 
 ## `Tutorial`
 

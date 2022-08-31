@@ -12,7 +12,7 @@ import './settings.css';
  * This component should also allow to reset the settings, reset the library and
  * to go through the tutorial again.
  */
-export default function Settings({settings}) {
+export default function Settings({settings, displayTutorial}) {
 
     function changeSetting(setting, newValue) {
         let newSettings = {...settings};
@@ -37,7 +37,7 @@ export default function Settings({settings}) {
     let settingButtons = [
         { onClick: () => Events.fire('resetSettings', setSettings), text: 'Reset Settings' },
         { onClick: () => Events.fire('resetLibrary'), text: 'Reset Library' },
-        { onClick: () => Events.fire('displayTutorial'), text: 'Tutorial' }
+        { onClick: () => displayTutorial(), text: 'Tutorial' }
     ];
     settingButtons = settingButtons.map((button, index) =>
         <Button onClick={button.onClick} type='outline' key={index}>{button.text}</Button>    

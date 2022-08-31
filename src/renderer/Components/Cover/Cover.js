@@ -48,7 +48,7 @@ export default function Cover ({album, buttons = [], parent}) {
     // could return an empty cover if it doesn't. However, React complains
     // because we are conditionally calling a hook.
     useEffect(() => {
-        if (album && parent != 'controllArea') addContextMenu(document.querySelector(`#album-cover-${id}`), actions);
+        if (album) addContextMenu(document.querySelector(`#album-cover-${id}`), actions);
     })
 
     // An empty cover is returned if no album is selected

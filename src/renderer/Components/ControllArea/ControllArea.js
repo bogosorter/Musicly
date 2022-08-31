@@ -41,12 +41,6 @@ export default function ControllArea({playback, dummy = false}) {
         return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>;
     });
 
-    // Clicking in the album cover or track info should redirect user to the
-    // queue
-    function displayQueue() {
-        if (playback.track) Events.fire('changeView', 'queue'); 
-    }
-
     // Add shortcuts for seeking
     useEffect(() => {
         Shortcuts.add(() => { Events.fire('seekBwd'); forceUpdate(); }, 'arrowleft');
@@ -56,7 +50,7 @@ export default function ControllArea({playback, dummy = false}) {
 
     return (
         <div id='control-area'>
-            <div id='control-area-cover' onClick={displayQueue}>
+            <div id='control-area-cover'>
                 <Cover album={playback.album} parent='controllArea' />
             </div>
             <div id='control-panel'>

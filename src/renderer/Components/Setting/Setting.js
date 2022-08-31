@@ -9,7 +9,7 @@ import './setting.css';
  * `setting` and `modify`. In order to modify the setting, `modify` should be
  * called. The value to be passed to the function is the entire setting.
  */
-export default function Setting({setting, modify, theme}) {
+export default function Setting({setting, modify}) {
 
     function setValue(e) {
         setting.value = e.target.value;
@@ -111,7 +111,7 @@ export default function Setting({setting, modify, theme}) {
         return (
             <>
                 <h3>{setting.name}</h3>
-                <div data-color-mode={theme}>
+                <div data-color-mode={window.settings.theme.value}>
                     <CodeEditor value={setting.value} language={setting.language} onChange={storeValueAfterTimeout} onBlur={setValue} padding={15} />
                 </div>
             </>

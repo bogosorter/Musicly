@@ -13,7 +13,7 @@ import './track.css';
  * track is clicked (in a CD, for instance, you want the user to be able choose
  * a track and play all the ones that come after it).
  */
-export default function Track({track, classes, playing, tracksToPlay, dummy = false}) {
+export default function Track({track, classes, playing, tracksToAdd, jump, dummy = false}) {
 
     // Instead of manually changing all actions, it is best to just inutilize
     // events.
@@ -28,9 +28,9 @@ export default function Track({track, classes, playing, tracksToPlay, dummy = fa
         { text: 'Play Track', onClick: () => Events.fire('getTracks', 'track', track, `playTracks`) },
         { text: 'Play Track Next', onClick: () => Events.fire('getTracks', 'track', track, `addNext`) },
         { text: 'Add Track to Queue', onClick: () => Events.fire('getTracks', 'track', track, `addToQueue`) },
-        { text: 'Play Tracks', onClick: () => Events.fire('getTracks', 'tracks', tracksToPlay, `playTracks`) },
-        { text: 'Play Tracks next', onClick: () => Events.fire('getTracks', 'tracks', tracksToPlay, `addNext`) },
-        { text: 'Add Tracks to Queue', onClick: () => Events.fire('getTracks', 'tracks', tracksToPlay, `addToQueue`) }
+        { text: 'Play Tracks', onClick: () => Events.fire('getTracks', 'tracks', tracksToAdd, `playTracks`, jump) },
+        { text: 'Play Tracks next', onClick: () => Events.fire('getTracks', 'tracks', tracksToAdd, `addNext`) },
+        { text: 'Add Tracks to Queue', onClick: () => Events.fire('getTracks', 'tracks', tracksToAdd, `addToQueue`) }
     ];
 
     const id = nanoid();

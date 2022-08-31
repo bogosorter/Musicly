@@ -54,6 +54,7 @@ export default function App() {
 
     // Variable that stores current settings
     const [settings, setSettings] = useState({});
+    window.settings = settings;
 
     // Logs that the user should see
     const [logs, addLog] = useReducer((state, message) => {
@@ -115,12 +116,12 @@ export default function App() {
                 <AlbumDetails details={details} playback={playback} /> :
             view == 'queue'?
                 <Queue playback={playback} /> :
-                <Settings settings={settings}/>
+                <Settings settings={settings} displayTutorial={() => setSettings({...settings, firstTime: true})}/>
         }
             <ContextMenu />
             <Logger messages={logs} reset={() => addLog('reset')}/>
             {loadingDiv}
-            {settings.firstTime? <Tutorial setTutorial={setTutorial}/> : null}
+            {settings.firstTime? <Tutorial dismissTutorial={() => setSettings({...settings, firstTime: false})}/> : null}
             {splashScreenRendered}
         </div>
     );

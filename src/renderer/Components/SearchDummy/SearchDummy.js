@@ -12,7 +12,7 @@ export default function SearchDummy() {
         <SearchBox
             searchParameters={searchParameters}
             genres={['Classical', 'Rock', 'Pop', 'Pop-Rock', 'Jazz', 'Funk']}
-            setLibrary={setParameters}
+            setParameters={setParameters}
             dummy={true}
         />
     )

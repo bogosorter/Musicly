@@ -207,13 +207,19 @@ export default class PlaybackManager {
 
     /**
      * Immediately stops current playback and plays the supplied list of tracks.
-     * Tracks that played previously are to be kept in the queue.
+     * Tracks that played previously are to be kept in the queue. `jump` is used
+     * when tracks are chosen from the `AlbumDetails` component. Even when
+     * choosing the third track, the user expects to be able to go back to the
+     * second one. Therefore, `tracks` represents all the CD's tracks and `jump`
+     * would be 2.
      */
-    playTracks(tracks) {
+    playTracks(tracks, jump) {
         // Remove next tracks from queue
         this.playback.queue.splice(this.playback.position);
         // Add new tracks and advance position
         this.playback.queue = this.playback.queue.concat(tracks);
+
+        this.playback.position += jump;
 
         this.start();
     }
@@ -258,7 +264,7 @@ export default class PlaybackManager {
      * tracks) and the detail (either an integer or a list of integers)
      * and forwards them to playTracks, addNext or addToQueue.
      */
-    async getTracks(sourceType, detail, destination) {
+    async getTracks(sourceType, detail, destination, jump = 0) {
         let tracks = [];
         switch(sourceType) {
             case 'albumID':
@@ -273,7 +279,7 @@ export default class PlaybackManager {
         }
         switch (destination) {
             case 'playTracks':
-                this.playTracks(tracks);
+                this.playTracks(tracks, jump);
                 break;
             case 'addNext':
                 this.addNext(tracks);

@@ -11,7 +11,7 @@ import './searchbox.css';
  * filter. Accepts `searchParameters` as property and a property `dummy`,
  * defaulting to false, that should only be true inside tutorial.s
  */
-export default function SearchBox({searchParameters, genres, dummy = false}) {
+export default function SearchBox({searchParameters, genres, dummy = false, setParameters}) {
 
     // Changes search parameters to the new query
     function setQuery(e) {
@@ -34,7 +34,7 @@ export default function SearchBox({searchParameters, genres, dummy = false}) {
         if (!dummy) Events.fire('getLibrary', searchParameters);
         // If search box is a dummy, setLibrary is used to update its props in
         // the parent component
-        else setLibrary({...searchParameters});
+        else setParameters({...searchParameters});
     }
 
     // SearchBox should display a genre filter. When none is selected, a genre
@@ -67,13 +67,13 @@ export default function SearchBox({searchParameters, genres, dummy = false}) {
         <div id='search-box'>
             <div id='search-container'>
                 <input
-                    id='search-input'
+                    id={dummy? 'search-dummy' : 'search-input'}
                     onChange={setQuery}
                     spellCheck={false}
                     value={searchParameters.query}
                     placeholder='Search in library'
                 />
-                <Button onClick={() => document.querySelector('#search-input').focus()} shortcuts={['ctrl+f', 'f']}>
+                <Button onClick={() => document.querySelector(dummy? '#search-dummy' : '#search-input').focus()} shortcuts={['ctrl+f', 'f']}>
                     <Search size={24} />
                 </Button>
             </div>

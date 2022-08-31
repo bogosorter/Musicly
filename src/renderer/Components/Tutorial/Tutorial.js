@@ -61,7 +61,7 @@ const content = [{
         text: <div style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</div>
     }, {
         title: 'Control Button',
-        text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <Settings size={15} /> will take you to the settings and <Plus size={24} /> allows you to enter new albums to your library. Try hovering the button bellow!</>,
+        text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <Settings size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,
         dummies: (
             <div id='control-button-container' style={{'--container-width': '180px'}}>
                 <Button><Logo size={52}/></Button>
@@ -71,7 +71,7 @@ const content = [{
         )
     }, {
         title: 'Searching',
-        text: 'Use this box to filter for album title, track title, artist and composer. In addition, genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and try to check and uncheck genres.',
+        text: 'Use this box to filter for album title, track title, artist and composer. Genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and try to check and uncheck genres.',
         dummies: <SearchDummy />
     }, {
         title: 'Albums',

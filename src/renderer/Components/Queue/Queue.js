@@ -10,6 +10,8 @@ import './queue.css';
 // Timeout used to detect inactivity. Should be accessible to all instances of
 // Queue.
 let timeoutId;
+// Used to block sleeping
+let blockerID;
 
 /**
  * Component rendered inside the `App`, containing a `ControllArea` and the
@@ -33,15 +35,6 @@ export default function Queue({playback}) {
         timeoutId = setTimeout(() => setActive(false), 2000);
     }
 
-    // Set up event handlers for activate
-    useEffect(() => {
-        document.onmousemove = activate;
-        document.onclick = activate;
-        document.querySelector('#queue #track-list').onscroll = activate;
-
-        if (active) activate();
-    });
-
     // If the current album doesn't have a defined cover, use an empty one as
     // background image
     let backgroundImage = `url(${emptyCover})`;
@@ -57,6 +50,23 @@ export default function Queue({playback}) {
     // Variable that contains the id of the playing track, only if playback is
     // not paused.
     const currentTrackId = playback.track && playback.playing() && playback.track.id;
+
+    // Set up event handlers for activate
+    useEffect(() => {
+        // Set up event handlers for activate
+        document.addEventListener('mousemove', activate);
+        document.addEventListener('keydown', activate);
+        document.addEventListener('scroll', activate, true);
+
+        if (active) activate();
+
+        return () => {
+            // Remove event handlers for activate
+            document.removeEventListener('mousemove', activate);
+            document.removeEventListener('keydown', activate);
+            document.removeEventListener('scroll', activate, true);
+        }
+    });
     
     return (
         <div id='queue' style={{'--bg-image': backgroundImage}} className={active? 'active' : 'inactive'}>

@@ -88,6 +88,9 @@ export default class PlaybackManager {
 
                 // Play the track and update UI
                 Events.fire('play');
+
+                // Block sleeping if view is queue
+                ipcRenderer.invoke('blockSleep');
             },
             onloaderror: (id, err) => {
                 // Error code 4 indicates that track doesn't exist
@@ -111,6 +114,7 @@ export default class PlaybackManager {
     play() {
         if (this.howl) {
             this.howl.play();
+            ipcRenderer.invoke('blockSleep');
         }
     }
 
@@ -122,6 +126,7 @@ export default class PlaybackManager {
         if (this.howl) {
             this.howl.pause();
         }
+        ipcRenderer.invoke('unblockSleep');
     }
 
     /**
@@ -140,6 +145,7 @@ export default class PlaybackManager {
             playing: () => false
         }
         this.updatePlayback();
+        ipcRenderer.invoke('unblockSleep');
     }
 
     /**
@@ -177,6 +183,8 @@ export default class PlaybackManager {
             this.playback.playing = () => false;
             this.playback.progress = () => 0;
             this.updatePlayback();
+
+            ipcRenderer.invoke('unblockSleep');
         }
     }
 

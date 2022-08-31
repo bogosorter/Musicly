@@ -53,7 +53,8 @@ export default function Library({library, playback}) {
                         </div>
                         <TrackList tracks={library.tracks} playback={playback} parent='library'/>
                         <div className='spacer-24' />
-                        <Button onClick={() => Events.fire('open')} type='outline'>Add music to library</Button>
+                        <Button onClick={() => Events.fire('open', 'folder')} type='outline'>Add albums to library</Button>
+                        <Button onClick={() => Events.fire('open', 'file')} type='outline'>Add files to library</Button>
                         <div className='spacer-400' />
                     </div>
                 </div>

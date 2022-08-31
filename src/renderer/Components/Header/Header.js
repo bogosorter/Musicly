@@ -20,7 +20,7 @@ export default function Header({ library = false }) {
         navigationButtons = [
             { onClick: () => null, content: <Logo size={52}/> },
             { onClick: () => Events.fire('changeView', 'settings'), content: <Settings size={16}/>, shortcuts: ['ctrl+s', 's'] },
-            { onClick: () => Events.fire('open'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']}
+            { onClick: () => Events.fire('open', 'folder'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']}
         ]
     } else {
         navigationButtons = [{ onClick: () => Events.fire('changeView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]

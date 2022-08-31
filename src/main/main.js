@@ -29,7 +29,7 @@ app.whenReady().then( async () => {
  */
 async function open(dialogType) {
     const result = await dialog.showOpenDialog(mainWindow, {
-        properties: [dialogType == 'folder'? 'openDirectory' : 'openFile', 'multiSelections'],
+        properties: [dialogType == 'folder'? 'openDirectory' : 'openFile'],
     });
     for (const path of result.filePaths) await db.openPath(path);
 }
@@ -81,7 +81,7 @@ let blockID;
  * Prevents the PC from going to sleep.
  */
 function blockSleep() {
-    console.log('blocking');
+    unblockSleep();
     blockID = powerSaveBlocker.start('prevent-display-sleep');
 }
 

@@ -51,6 +51,7 @@ export default class StateManager {
             const tracks = await ipcRenderer.invoke('getAlbumTracks', albumID);
             this.setAlbumDetails({album, tracks});
         }
+
         this.setView(view);
     }
 
@@ -107,10 +108,10 @@ export default class StateManager {
      * Calls the main process' `open` handler and refreshes the library after
      * it.
      */
-    async open() {
+    async open(type = 'folder') {
         // Add a progress spinner
         this.setLoading(true);
-        await ipcRenderer.invoke('open');
+        await ipcRenderer.invoke('open', type);
         this.getLibrary();
         // Remove the spinner
         this.setLoading(false);
@@ -124,8 +125,10 @@ export default class StateManager {
         // Add a progress spinner
         this.setLoading(true);
         await ipcRenderer.invoke('addCover', albumID);
-        if (caller == 'library') this.getLibrary();
-        else this.getAlbumDetails(updateComponent);
+        this.getLibrary();
+        this.getAlbumDetails(albumID);
+
+        this.setLoading(false);
     }
 
     /**
@@ -169,6 +172,7 @@ export default class StateManager {
      */
     async resetLibrary() {
         await ipcRenderer.invoke('resetLibrary');
+        this.getLibrary();
     }
 
     /**

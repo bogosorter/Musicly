@@ -73,41 +73,7 @@ const content = [{
         title: 'Searching',
         text: 'Use this box to filter for album title, track title, artist and composer. Genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and try to check and uncheck genres.',
         dummies: <SearchDummy />
-    }, {
-        title: 'Albums',
-        text: 'Hovering an album cover will show buttons that allow to play and view details. A menu pops-up if you right click it',
-        dummies: (
-            <div className='col-4'>
-                <Cover album={{id: 0}} buttons={['play', 'details']} parent='dummy' />
-            </div>
-        )
-    }, {
-        title: 'Tracks',
-        text: 'These are the actual music tracks. You may click on them to play or right click to bring up a menu',
-        dummies: (
-            <Track
-                track={{ title: 'Super cool track', trackOrder: 1 }}
-                classes={[ 'track-top', 'track-bottom' ]}
-                tracksToPlay={[]}
-                playing={true}
-                dummy={true}
-            />
-        )
-    }, {
-        title: 'Queue',
-        text: 'On the queue view, you can view the tracks that will play next and the cover on fullscreen.',
-        dummies: (
-            <div className='w-100 row'>
-                <div className='spacer-24' />
-                <div className='col-6'>
-                    <img src={queue} style={{borderRadius: 'var(--border-radius)', width: '100%'}} />
-                </div>
-                <div className='col-6'>
-                    <img src={inactive} style={{borderRadius: 'var(--border-radius)', width: '100%'}} />
-                </div>
-            </div>
-        )
-    }, {
+    },{
         title: 'Additional info',
         text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
     }

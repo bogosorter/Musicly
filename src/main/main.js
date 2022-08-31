@@ -89,10 +89,7 @@ function blockSleep() {
  * Removes the current sleep block.
  */
 function unblockSleep() {
-    console.log('blockID:')
-    console.log(blockID);
     if (blockID != undefined) {
-        console.log('unblocking');
         powerSaveBlocker.stop(blockID);
     }
 }

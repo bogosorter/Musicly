@@ -35,7 +35,9 @@ export default function Track({track, classes, playing, tracksToAdd, jump, dummy
 
     const id = nanoid();
     useEffect(() => {
-        addContextMenu(document.querySelector(`#track-${id}`), actions);
+        const element = document.querySelector(`#track-${id}`)
+        addContextMenu(element, actions);
+        if (playing) element.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
 
     return (

@@ -1,7 +1,7 @@
 import createWindow from './utils';
 import DB from './DB/DB';
 import Settings from './Settings/Settings';
-import { app, ipcMain, dialog } from 'electron';
+import { app, ipcMain, dialog, powerSaveBlocker } from 'electron';
 
 const db = new DB();
 db.init();
@@ -27,12 +27,11 @@ app.whenReady().then( async () => {
 /**
  * Calls `showOpenDialogSync` and adds the resulting files/folders to library.
  */
-async function open() {
+async function open(dialogType) {
     const result = await dialog.showOpenDialog(mainWindow, {
-        properties: ['openDirectory'],
+        properties: [dialogType == 'folder'? 'openDirectory' : 'openFile', 'multiSelections'],
     });
     for (const path of result.filePaths) await db.openPath(path);
-    return await db.getLibrary({query: '', genre: ''});
 }
 
 /**
@@ -75,7 +74,30 @@ function windowButton(button) {
     }
 }
 
-ipcMain.handle('open', open);
+
+let blockID;
+
+/**
+ * Prevents the PC from going to sleep.
+ */
+function blockSleep() {
+    console.log('blocking');
+    blockID = powerSaveBlocker.start('prevent-display-sleep');
+}
+
+/**
+ * Removes the current sleep block.
+ */
+function unblockSleep() {
+    console.log('blockID:')
+    console.log(blockID);
+    if (blockID != undefined) {
+        console.log('unblocking');
+        powerSaveBlocker.stop(blockID);
+    }
+}
+
+ipcMain.handle('open', (e, dialogType) => open(dialogType));
 ipcMain.handle('addCover', (e, albumID) => addCover(albumID));
 ipcMain.handle('windowButton', (e, button) => windowButton(button));
 ipcMain.handle('getLibrary', (e, searchParameters) => db.getLibrary(searchParameters));
@@ -86,6 +108,8 @@ ipcMain.handle('setSettings', (e, settings) => Settings.set(settings));
 ipcMain.handle('resetSettings', () => Settings.reset());
 ipcMain.handle('deleteAlbum', (e, albumID) => db.deleteAlbum(albumID));
 ipcMain.handle('resetLibrary', resetLibrary);
+ipcMain.handle('blockSleep', () => blockSleep());
+ipcMain.handle('unblockSleep', () => unblockSleep());
 
 // Handle exceptions
 process.on('uncaughtException', (err) => {
@@ -96,4 +120,4 @@ process.on('uncaughtException', (err) => {
     };
     dialog.showMessageBoxSync(error);
     app.exit(1);
-});
+})

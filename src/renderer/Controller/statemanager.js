@@ -72,14 +72,13 @@ export default class StateManager {
         this.implementSettings(settings);
 
         // First time is always saved as false
-        settings.firstTime = false;
-        ipcRenderer.invoke('setSettings', settings);
+        ipcRenderer.invoke('setSettings', {...settings, firstTime: false});
     }
 
     /**
      * Adapts the app to the current `settings`.
      */
-    implementSettings(settings) {        
+    implementSettings(settings) {   
         webFrame.setZoomFactor(parseFloat(settings.zoomFactor.value));
 
         // Remove custom css if there is any (prevents accumulating multiple css

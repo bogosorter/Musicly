@@ -38,6 +38,7 @@ export default function Library({library, playback}) {
     return (
         <>
             <Header library={true} /><div className='header-placeholder' />
+            <div className='spacer-48'/>
             <div className='spacer-24'/>
             <div id='library' onScroll={updateScroll}>
                 <div className='row justify-content-center'>

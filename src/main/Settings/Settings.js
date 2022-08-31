@@ -2,6 +2,7 @@ import settings from 'electron-settings';
 import fs from 'fs';
 import { app } from 'electron';
 import path from 'path';
+import { platform } from 'os';
 
 const customCSSDirectory = path.join(app.getPath('userData'), 'css');
 const customCSSPath = path.join(app.getPath('userData'), 'css', 'custom.css');
@@ -90,7 +91,7 @@ const defaultSettings = {
         name: 'Zoom',
         type: 'select',
         options: ['0.7', '0.8', '0.9', '1', '1.2', '1.4', '1.6', '1.8'],
-        value: '1'
+        value: platform() == 'win32'? '0.8' : '1'
     },
     inactiveTime: {
         name: 'How many minutes before inactivity?',

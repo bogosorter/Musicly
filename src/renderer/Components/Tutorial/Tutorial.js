@@ -58,7 +58,7 @@ export default function Tutorial({dismissTutorial}) {
 // `title`, `text` and `image`
 const content = [{
         title: 'Welcome!',
-        text: <div style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</div>
+        text: <p style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</p>
     }, {
         title: 'Control Button',
         text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <Settings size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,

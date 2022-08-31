@@ -43,8 +43,8 @@ export default function ControllArea({playback, dummy = false}) {
 
     // Add shortcuts for seeking
     useEffect(() => {
-        Shortcuts.add(() => { Events.fire('seekBwd'); forceUpdate(); }, 'arrowleft');
-        Shortcuts.add(() => { Events.fire('seekFwd'); forceUpdate(); }, 'arrowright');
+        Shortcuts.add(() => Events.fire('seekBwd'), 'arrowleft');
+        Shortcuts.add(() => Events.fire('seekFwd'), 'arrowright');
         return () => Shortcuts.remove('arrowleft', 'arrowright');
     })
 

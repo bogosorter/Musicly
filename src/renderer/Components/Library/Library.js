@@ -38,11 +38,11 @@ export default function Library({library, playback}) {
     return (
         <>
             <Header library={true} /><div className='header-placeholder' />
-            <div className='spacer-48'/>
             <div className='spacer-24'/>
             <div id='library' onScroll={updateScroll}>
                 <div className='row justify-content-center'>
                     <div className='col-11'>
+                        <div className='spacer-48' />
                         <div className='d-flex center-children'>
                             <h1>Library:</h1>
                             <div className='w-100'></div>

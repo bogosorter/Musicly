@@ -21,9 +21,9 @@ The main script puts together all the logic in the main process. It initializes 
 
 ### `open`
 
-**Description:** Calls `showOpenDialogSync` and adds the resulting files/folders to the library.
+**Description:** Calls `showOpenDialogSync` and adds the resulting folders/files to the library.
 
-**Arguments:** None
+**Arguments:** `dialogType` (`folder` or `file`)
 
 **Return value:** None
 
@@ -98,3 +98,19 @@ The main script puts together all the logic in the main process. It initializes 
 **Arguments:** None
 
 **Return value:** None
+
+### `blockSleep`
+
+**Description:** Prevents the PC from going to sleep.
+
+**Arguments:** None
+
+**Return Value:** None
+
+### `unblockSleep`
+
+**Description:** Removes the current sleep block.
+
+**Arguments:** None
+
+**Return Value:** None

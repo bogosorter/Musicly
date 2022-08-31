@@ -233,7 +233,7 @@ class StateManager {
 
 **Description:** Calls the main process' `open` handler and refreshes the library after it.
 
-**Arguments:** None
+**Arguments:** `type = folder` (`folder` or `file`)
 
 **Return value:** None
 

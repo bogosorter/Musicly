@@ -16,8 +16,6 @@ Musicly is a simple and elegant open-source music player.
 
 - Inactivity mode: Musicly detects when you are inactive and displays the album's cover and track info.
 
-- Cross-Platform: Support for Linux, Windows and MacOS
-
 ## Download, Documentation & Contributing
 
 If you are looking to get started with Musicly, you can [download](https://github.com/m7kra/Musicly/releases) it or check out our [user documetation](https://m7kra.github.io/Musicly/docs/user), were you will find a complete overview of the program's features.

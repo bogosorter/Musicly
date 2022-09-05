@@ -37,7 +37,6 @@ export default function Track({track, classes, playing, tracksToAdd, jump, dummy
     useEffect(() => {
         const element = document.querySelector(`#track-${id}`)
         addContextMenu(element, actions);
-        if (playing) element.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
 
     return (

@@ -29,8 +29,9 @@ export default function ProgressBar({getProgress, dummy = false}) {
         // The progress bar should not move if user is currently dragging it.
         if (!dragging) displayProgress(getProgress());
 
-        // Update next time in .5s
-        if (!dummy) timeoutId = setTimeout(updateProgress, 500);
+        // Update next time in .25s
+        clearTimeout(timeoutId);
+        if (!dummy) timeoutId = setTimeout(updateProgress, 250);
     }
 
     // Function that changes the progress bar to the relative location of the
@@ -81,9 +82,31 @@ export default function ProgressBar({getProgress, dummy = false}) {
             setProgress(e, true);
         });
 
+        // Listen to seek events
+        //const id1 = Events.on('seekFwd', updateProgress);
+        //const id2 = Events.on('seekBwd', updateProgress);
+
         // First call to `updateProgress` which will originate a succession of updates
         updateProgress();
-    })
+
+        const id1 = Events.on('seekBwd', updateProgress);
+        const id2 = Events.on('seekFwd', updateProgress);
+
+        return () => {
+            // Clear all timeouts
+            clearTimeout(timeoutId);
+
+            // Remove all event listeners
+            progressBarContainer.removeEventListener('click', setProgress);
+            progressBarButton.removeEventListener('dragstart', setProgress);
+            progressBarButton.removeEventListener('drag', setProgress);
+            progressBarButton.removeEventListener('dragend', setProgress);
+
+            // Remove all event listeners
+            Events.remove(id1);
+            Events.remove(id2);
+        }
+    });
 
     return (
         <div id='progress-bar-container'>

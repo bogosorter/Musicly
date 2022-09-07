@@ -67,18 +67,6 @@ export default class PlaybackManager {
             // Setup mediaSession info. For some reason, this only works inside
             // the onplay callback
             onload: () => {
-
-                // Get album cover if it exits
-                const cover = this.getCover(this.playback.album.coverPath);
-
-                // Setup media session metadata
-                let metadata = {
-                    title: this.playback.track.title,
-                    album: this.playback.album.title,
-                    artist: this.playback.album.artist,
-                    artwork: cover? [{ src: cover }] : []
-                };
-                navigator.mediaSession.metadata = new MediaMetadata(metadata);
                 // Listen for playback events
                 navigator.mediaSession.setActionHandler('play', () => Events.fire('play'));
                 navigator.mediaSession.setActionHandler('pause', () => Events.fire('pause'));
@@ -88,9 +76,6 @@ export default class PlaybackManager {
 
                 // Play the track and update UI
                 Events.fire('play');
-
-                // Block sleeping if view is queue
-                ipcRenderer.invoke('blockSleep');
             },
             onloaderror: (id, err) => {
                 // Error code 4 indicates that track doesn't exist
@@ -103,6 +88,21 @@ export default class PlaybackManager {
 
         this.playback.playing = this.howl.playing;
         this.playback.progress = () => this.howl.seek() / this.howl.duration();
+
+        // Get album cover if it exits
+        const cover = this.getCover(this.playback.album.coverPath);
+
+        // Setup media session metadata
+        let metadata = {
+            title: this.playback.track.title,
+            album: this.playback.album.title,
+            artist: this.playback.album.artist,
+            artwork: cover? [{ src: cover }] : []
+        };
+        navigator.mediaSession.metadata = new MediaMetadata(metadata);
+
+        // Block sleeping if view is queue
+        ipcRenderer.invoke('blockSleep');
 
         this.updatePlayback();
     }
@@ -227,7 +227,7 @@ export default class PlaybackManager {
         // Add new tracks and advance position
         this.playback.queue = this.playback.queue.concat(tracks);
 
-        this.playback.position += jump;
+        this.playback.position = jump;
 
         this.start();
     }

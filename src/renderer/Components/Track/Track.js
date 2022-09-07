@@ -13,7 +13,7 @@ import './track.css';
  * track is clicked (in a CD, for instance, you want the user to be able choose
  * a track and play all the ones that come after it).
  */
-export default function Track({track, classes, playing, tracksToAdd, jump, dummy = false}) {
+export default function Track({track, classes, playing, tracks, jump, dummy = false}) {
 
     // Instead of manually changing all actions, it is best to just inutilize
     // events.
@@ -28,16 +28,25 @@ export default function Track({track, classes, playing, tracksToAdd, jump, dummy
         { text: 'Play Track', onClick: () => Events.fire('getTracks', 'track', track, `playTracks`) },
         { text: 'Play Track Next', onClick: () => Events.fire('getTracks', 'track', track, `addNext`) },
         { text: 'Add Track to Queue', onClick: () => Events.fire('getTracks', 'track', track, `addToQueue`) },
-        { text: 'Play Tracks', onClick: () => Events.fire('getTracks', 'tracks', tracksToAdd, `playTracks`, jump) },
-        { text: 'Play Tracks next', onClick: () => Events.fire('getTracks', 'tracks', tracksToAdd, `addNext`) },
-        { text: 'Add Tracks to Queue', onClick: () => Events.fire('getTracks', 'tracks', tracksToAdd, `addToQueue`) }
+        { text: 'Play Tracks', onClick: () => Events.fire('getTracks', 'tracks', tracks, `playTracks`, jump) },
+        { text: 'Play Tracks next', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addNext`) },
+        { text: 'Add Tracks to Queue', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addToQueue`) }
     ];
 
     const id = nanoid();
     useEffect(() => {
-        const element = document.querySelector(`#track-${id}`)
+        let element = document.querySelector(`#track-${id}`)
         addContextMenu(element, actions);
-    });
+
+        // If the track is playing and not a child of library, scroll to it.
+        element = document.querySelector(`#track-${id}:not(#library #track-${id})`);
+        if (playing && element) {
+            element.scrollIntoView({behavior: 'smooth', block: 'center'});
+            // A second call is made because, the first one will only show up
+            // the queue, and not actually scroll to it
+            setTimeout(() => element.scrollIntoView({behavior: 'smooth', block: 'center'}), 500);
+        }
+    }, [playing]);
 
     return (
         <div id={`track-${id}`} className={classes.join(' ')} onClick={actions[3].onClick}>

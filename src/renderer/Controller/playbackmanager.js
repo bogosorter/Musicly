@@ -180,6 +180,7 @@ export default class PlaybackManager {
             this.playback.album = null;
             this.playback.track = null;
             this.playback.queue = [];
+            this.playback.position = 0;
             this.playback.playing = () => false;
             this.playback.progress = () => 0;
             this.updatePlayback();
@@ -215,18 +216,13 @@ export default class PlaybackManager {
 
     /**
      * Immediately stops current playback and plays the supplied list of tracks.
-     * Tracks that played previously are to be kept in the queue. `jump` is used
-     * when tracks are chosen from the `AlbumDetails` component. Even when
-     * choosing the third track, the user expects to be able to go back to the
-     * second one. Therefore, `tracks` represents all the CD's tracks and `jump`
-     * would be 2.
+     * Even when choosing the third track in a list, the user expects to be able
+     * to go back to the second one. This is why `jump` is used: `tracks`
+     * represents all the tracks and `jump` would be 2.
      */
     playTracks(tracks, jump) {
         // Remove next tracks from queue
-        this.playback.queue.splice(this.playback.position);
-        // Add new tracks and advance position
-        this.playback.queue = this.playback.queue.concat(tracks);
-
+        this.playback.queue = tracks
         this.playback.position = jump;
 
         this.start();

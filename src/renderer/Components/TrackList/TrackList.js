@@ -42,13 +42,8 @@ export default function TrackList({tracks, playback, parent}) {
         // put in place, so the track has to have the 'track-bottom' class
         if (i == tracks.length - 1 || (tracks[i + 1].disc != track.disc && parent == 'albumDetails')) classes.push('track-bottom');
 
-        // If the parent is `AlbumDetails`, we want to make use of the `jump`
-        // feature of `getTracks`, instead of slicing the tracks to play
-        const tracksToAdd = parent == 'albumDetails'? tracks : tracks.slice(i);
-        const jump = parent == 'albumDetails'? i : 0;
-
         trackList.push(
-            <Track track={track} classes={classes} playing={playing} tracksToAdd={tracksToAdd} jump={jump} key={i}/>
+            <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i}/>
         )
     }
 

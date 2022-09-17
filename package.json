@@ -189,7 +189,7 @@
     },
     "linux": {
       "target": [
-        "deb", "rpm", "AppImage", "snap"
+        "deb", "snap"
       ],
       "category": "Music"
     },

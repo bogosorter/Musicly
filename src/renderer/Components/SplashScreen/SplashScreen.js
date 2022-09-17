@@ -7,10 +7,10 @@ export default function SplashScreen({setSplashScreen}) {
 
     useEffect(() => {
         setTimeout(() => {
-            document.querySelector('#splash-screen > *').classList.add('show');
+            document.querySelector('#splash-screen > *')?.classList.add('show');
         }, 100);
         setTimeout(() => {
-            document.querySelector('#splash-screen').classList.add('hide');
+            document.querySelector('#splash-screen')?.classList.add('hide');
         }, 1500);
         setTimeout(() => setSplashScreen(false), 2000);
     })

@@ -121,12 +121,17 @@ export default class StateManager {
      * that called it according to `caller`.
      */
     async addCover(albumID, caller) {
+        console.log(caller);
         // Add a progress spinner
         this.setLoading(true);
         await ipcRenderer.invoke('addCover', albumID);
-        this.getLibrary();
-        this.getAlbumDetails(albumID);
 
+        // Update covers everywhere
+        const album = await ipcRenderer.invoke('getAlbum', albumID);
+        const tracks = await ipcRenderer.invoke('getAlbumTracks', albumID);
+        this.setAlbumDetails({album, tracks});
+        this.getLibrary();
+        
         this.setLoading(false);
     }
 

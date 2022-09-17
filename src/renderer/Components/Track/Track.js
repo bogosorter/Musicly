@@ -38,15 +38,13 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
         let element = document.querySelector(`#track-${id}`)
         addContextMenu(element, actions);
 
-        // If the track is playing and not a child of library, scroll to it.
-        element = document.querySelector(`#track-${id}:not(#library #track-${id})`);
+        // If the track is playing and not a child of library or of inactive
+        // queue, scroll to it.
+        element = document.querySelector(`#track-${id}:not(#library #track-${id}, #queue.inactive #track-${id})`);
         if (playing && element) {
-            element.scrollIntoView({behavior: 'smooth', block: 'center'});
-            // A second call is made because, the first one will only show up
-            // the queue, and not actually scroll to it
             setTimeout(() => element.scrollIntoView({behavior: 'smooth', block: 'center'}), 500);
         }
-    }, [playing]);
+    });
 
     return (
         <div id={`track-${id}`} className={classes.join(' ')} onClick={actions[3].onClick}>

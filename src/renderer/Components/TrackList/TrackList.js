@@ -41,7 +41,6 @@ export default function TrackList({tracks, playback, parent}) {
         // If the next track has another disc number, a disk separator will be
         // put in place, so the track has to have the 'track-bottom' class
         if (i == tracks.length - 1 || (tracks[i + 1].disc != track.disc && parent == 'albumDetails')) classes.push('track-bottom');
-
         trackList.push(
             <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i}/>
         )

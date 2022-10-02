@@ -252,8 +252,7 @@ export default class DB {
         // Split on commas and slashes
         const splitted = genre.split(/[,\/]/);
         for (const genre of splitted) {
-            console.log(genre, genre.split(','));
-            await this.db.run('INSERT OR IGNORE INTO genres (albumID, genre) VALUES (?, ?)', albumID, genre);
+            await this.db.run('INSERT OR IGNORE INTO genres (albumID, genre) VALUES (?, ?)', albumID, genre.trim());
         }
     }
 

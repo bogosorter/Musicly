@@ -3,6 +3,7 @@ import Cover from '../Cover/Cover';
 import ControllArea from '../ControllArea/ControllArea';
 import TrackList from '../TrackList/TrackList';
 import Genre from '../Genre/Genre';
+import GenreCreator from '../GenreCreator/GenreCreator';
 
 import Events from 'renderer/Events/Events';
 import { useMemo, useState } from 'react';
@@ -17,8 +18,11 @@ import './albumdetails.css';
 export default function AlbumDetails({details, playback}) {
 
     const genres = details.album.genres?.map((genre, index) =>
-        <Genre genre={genre} key={index}/>
+        <Genre genre={genre} key={index} onClick={() => Events.fire('deleteGenre', genre, details.album.id)} deleteButton={true}/>
     );
+    genres.push(
+        <GenreCreator createGenre={(genre) => Events.fire('createGenre', genre, details.album.id)} key={genres.length}/>
+    )
 
     let info = {};
     if (details.album.artist) info['Album Artist'] = <p className='ms-4'>{details.album.artist}</p>;

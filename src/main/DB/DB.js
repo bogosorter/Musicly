@@ -163,7 +163,7 @@ export default class DB {
         // Since different tracks have different genres, we have to update the
         // genres of an album every time a new track is inserted
         if (track.genre) for (const genre of track.genre) {
-            await this.db.run('INSERT OR IGNORE INTO genres (albumID, genre) VALUES (?, ?)', albumID, genre);
+            this.createGenre(genre, albumID);
         }
     }
 
@@ -249,7 +249,12 @@ export default class DB {
      * @param {int} albumID 
      */
     async createGenre(genre, albumID) {
-         await this.db.run('INSERT INTO genres (albumID, genre) VALUES (?, ?)', albumID, genre);
+        // Split on commas and slashes
+        const splitted = genre.split(/[,\/]/);
+        for (const genre of splitted) {
+            console.log(genre, genre.split(','));
+            await this.db.run('INSERT OR IGNORE INTO genres (albumID, genre) VALUES (?, ?)', albumID, genre);
+        }
     }
 
     /**

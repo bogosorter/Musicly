@@ -1,0 +1,11 @@
+#genre-input {
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: var(--color);
+    text-align: center;
+}
+#genre-input:placeholder {
+    color: var(--color);
+}

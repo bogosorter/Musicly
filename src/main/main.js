@@ -128,6 +128,8 @@ ipcMain.handle('getSettings', Settings.get);
 ipcMain.handle('setSettings', (e, settings) => Settings.set(settings));
 ipcMain.handle('resetSettings', () => Settings.reset());
 ipcMain.handle('deleteAlbum', (e, albumID) => db.deleteAlbum(albumID));
+ipcMain.handle('createGenre', (e, genre, albumID) => db.createGenre(genre, albumID));
+ipcMain.handle('deleteGenre', (e, genre, albumID) => db.deleteGenre(genre, albumID));
 ipcMain.handle('resetLibrary', resetLibrary);
 ipcMain.handle('blockSleep', () => blockSleep());
 ipcMain.handle('unblockSleep', () => unblockSleep());

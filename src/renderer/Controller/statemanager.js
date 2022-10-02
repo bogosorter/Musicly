@@ -29,7 +29,7 @@ export default class StateManager {
         Events.on('open', this.open.bind(this));
         Events.on('addCover', this.addCover.bind(this));
         Events.on('deleteAlbum', this.deleteAlbum.bind(this));
-        Events.on('addGenre', this.addGenre.bind(this));
+        Events.on('createGenre', this.createGenre.bind(this));
         Events.on('deleteGenre', this.deleteGenre.bind(this));
         Events.on('windowButton', this.windowButton.bind(this));
         Events.on('resetLibrary', this.resetLibrary.bind(this));
@@ -157,9 +157,10 @@ export default class StateManager {
     /**
      * Adds a genre to an album and updates the `AlbumDetails` component.
      */
-    async addGenre(genre, albumID) {
-        await ipcRenderer.invoke('addGenre', genre, albumID);
-        this.setView('albumDetails', albumID);
+    async createGenre(genre, albumID) {
+        await ipcRenderer.invoke('createGenre', genre, albumID);
+        // Reload info
+        this.changeView('albumDetails', albumID);
     }
 
     /**
@@ -167,7 +168,8 @@ export default class StateManager {
      */
     async deleteGenre(genre, albumID) {
         await ipcRenderer.invoke('deleteGenre', genre, albumID);
-        this.setView('albumDetails', albumID);
+        // Reload info
+        this.changeView('albumDetails', albumID);
     }
 
     /**

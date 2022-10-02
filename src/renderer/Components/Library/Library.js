@@ -68,8 +68,8 @@ export default function Library({library, playback}) {
 // Limits title to a fixed number of characters
 const LIMIT = 20;
 function limitTitle(title) {
-    let temp = title.substring(0, 20);
+    let temp = title.substring(0, LIMIT);
     temp.trim();
-    if (title.length > 20) temp += '...';
+    if (title.length > LIMIT) temp += '...';
     return temp;
 }

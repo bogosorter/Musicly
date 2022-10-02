@@ -16,13 +16,14 @@ export default function Button({onClick, type = 'box', shortcuts, children}) {
     if (type == 'round') classes.push('round-button');
     if (type == 'outline') classes.push('outline-button');
 
-    // Setup shortcuts
-    if (shortcuts) {
-        useEffect(() => {
+    // Setup the shortcuts
+    useEffect(() => {
+        // Setup shortcuts
+        if (shortcuts) {
             Shortcuts.add(onClick, ...shortcuts);
             return () => Shortcuts.remove(...shortcuts);
-        });
-    }
+        }
+    });
     
     return (
         <div onClick={onClick} className={classes.join(' ')}>

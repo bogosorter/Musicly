@@ -2,6 +2,7 @@ import Library from './Components/Library/Library';
 import AlbumDetails from './Components/AlbumDetails/AlbumDetails';
 import Queue from './Components/Queue/Queue';
 import Settings from './Components/Settings/Settings';
+import MiniPlayer from './Components/MiniPlayer/MiniPlayer';
 import { ContextMenu } from './Components/ContextMenu/ContextMenu';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
 import Tutorial from './Components/Tutorial/Tutorial';
@@ -14,10 +15,11 @@ import './scss/spacers.scss';
 import './App.css';
 
 /**
- * This is the main component. It stores a series of states and renders four
- * views (`Library`, `Settings`, `AlbumDetails` and `Queue`) according to
- * `view`. It also renders a `ContextMenu`, a spinner if `loading` and a
- * `Tutorial` if `tutorial`.
+ * This is the main component. It stores a series of states and renders five
+ * other components (`Library`, `Settings`, `AlbumDetails`, `Queue` and
+ * `MiniPlayer`) according to `view`. It also renders a bunch of other
+ * components used throughout the app: a `ContextMenu`, a spinner if `loading`
+ * and a `Tutorial` if `settings.firstTime`.
  */
 export default function App() {
     // The `App` component sets up four states: `view`, `playback`, `loading`,
@@ -94,17 +96,22 @@ export default function App() {
 
     // Set up event handlers for activate
     useEffect(() => {
-        window.addEventListener('mousedown', activate);
-        window.addEventListener('keypress', activate);
-        window.addEventListener('scroll', activate, true);
+        clearTimeout(timeoutID);
+        if (view != 'queue' && view != 'miniplayer') {
+            console.log(view);
+            
+            window.addEventListener('mousedown', activate);
+            window.addEventListener('keypress', activate);
+            window.addEventListener('scroll', activate, true);
 
-        if (view != 'queue') activate();
+            activate();
 
-        return () => {
-            window.removeEventListener('mousedown', activate);
-            window.removeEventListener('keypress', activate);
-            window.removeEventListener('scroll', activate, true);
-        }
+            return () => {
+                window.removeEventListener('mousedown', activate);
+                window.removeEventListener('keypress', activate);
+                window.removeEventListener('scroll', activate, true);
+            }
+        }        
     });
 
     return (
@@ -116,7 +123,9 @@ export default function App() {
                 <AlbumDetails details={details} playback={playback} /> :
             view == 'queue'?
                 <Queue playback={playback} /> :
-                <Settings settings={settings} displayTutorial={() => setSettings({...settings, firstTime: true})}/>
+            view == 'settings'?
+                <Settings settings={settings} displayTutorial={() => setSettings({...settings, firstTime: true})}/> :
+                <MiniPlayer playback={playback} />
         }
             <ContextMenu />
             <Logger messages={logs} reset={() => addLog('reset')}/>

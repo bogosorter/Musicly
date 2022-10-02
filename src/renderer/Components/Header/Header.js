@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import { Logo, Back, Settings, Plus, Play, Line, Square, Close } from '../Icons/Icons';
+import { Logo, Back, Settings, Plus, Play, Line, Square, Close, Collapse } from '../Icons/Icons';
 
 import Events from 'renderer/Events/Events';
 import { useEffect, useState } from 'react';
@@ -7,10 +7,10 @@ import './header.css'
 
 /**
  * Displays the app's header bar, with app navigation utilities and window
- * buttons. Specifically, people should be able to access `settings` and open
- * files if a `library` is true (meaning that the parent of the component is
- * `Library`), and go back to the library otherwise. Furthermore, the normal
- * three window control buttons have to be displayed.
+ * buttons. Specifically, people should be able to access `settings`, open files
+ * and enter mini player mode if `library` is true (meaning that the parent of
+ * the component is `Library`), and go back to the library otherwise.
+ * Furthermore, the normal three window control buttons have to be displayed.
  */
 export default function Header({ library = false }) {
 
@@ -20,7 +20,8 @@ export default function Header({ library = false }) {
         navigationButtons = [
             { onClick: () => null, content: <Logo size={52}/> },
             { onClick: () => Events.fire('changeView', 'settings'), content: <Settings size={16}/>, shortcuts: ['ctrl+s', 's'] },
-            { onClick: () => Events.fire('open', 'folder'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']}
+            { onClick: () => Events.fire('open', 'folder'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']},
+            { onClick: () => Events.fire('changeView', 'miniplayer'), content: <Collapse size={20}/>, shortcuts: ['ctrl+m', 'm'] }
         ]
     } else {
         navigationButtons = [{ onClick: () => Events.fire('changeView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]

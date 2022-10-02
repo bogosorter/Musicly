@@ -1,7 +1,7 @@
 import createWindow from './utils';
 import DB from './DB/DB';
 import Settings from './Settings/Settings';
-import { app, ipcMain, dialog, powerSaveBlocker } from 'electron';
+import { app, ipcMain, dialog, powerSaveBlocker, screen } from 'electron';
 
 const db = new DB();
 db.init();
@@ -94,6 +94,30 @@ function unblockSleep() {
     }
 }
 
+/**
+ * **Description:** Does the main-side preparations for the mini-player mode,
+ * i.e., changes the window size to 400x80px, sets it to be always on top and
+ * moves it to the lower right corner.
+ */
+function setMiniPlayer() {
+    console.log('setting');
+    mainWindow.unmaximize();
+    mainWindow.setSize(400, 80);
+    mainWindow.setResizable(false);
+    mainWindow.setAlwaysOnTop(true);
+    const bounds = screen.getPrimaryDisplay().bounds;
+    mainWindow.setPosition(bounds.width - 410, bounds.height - 100, false);
+}
+
+/**
+ * Undoes the main-side preparations for the mini-player mode.
+ */
+function unsetMiniPlayer() {
+    mainWindow.setResizable(true);
+    mainWindow.maximize();
+    mainWindow.setAlwaysOnTop(false);
+}
+
 ipcMain.handle('open', (e, dialogType) => open(dialogType));
 ipcMain.handle('addCover', (e, albumID) => addCover(albumID));
 ipcMain.handle('windowButton', (e, button) => windowButton(button));
@@ -107,6 +131,8 @@ ipcMain.handle('deleteAlbum', (e, albumID) => db.deleteAlbum(albumID));
 ipcMain.handle('resetLibrary', resetLibrary);
 ipcMain.handle('blockSleep', () => blockSleep());
 ipcMain.handle('unblockSleep', () => unblockSleep());
+ipcMain.handle('setMiniPlayer', () => setMiniPlayer());
+ipcMain.handle('unsetMiniPlayer', () => unsetMiniPlayer());
 
 // Handle exceptions
 process.on('uncaughtException', (err) => {
@@ -117,4 +143,4 @@ process.on('uncaughtException', (err) => {
     };
     dialog.showMessageBoxSync(error);
     app.exit(1);
-})
+});

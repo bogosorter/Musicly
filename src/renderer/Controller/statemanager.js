@@ -40,8 +40,9 @@ export default class StateManager {
     }
 
     /**
-     * Sets the app view to `view`, updating album details if needed according
-     * to albumID.
+     * Sets the app view to `view`, updating album details if needed, according
+     * to albumID. Should call the main processes's `setMiniPlayer` if `view ==
+     * miniplayer`.
      * @param {string} view 
      * @param {int} albumID 
      */
@@ -50,6 +51,11 @@ export default class StateManager {
             const album = await ipcRenderer.invoke('getAlbum', albumID);
             const tracks = await ipcRenderer.invoke('getAlbumTracks', albumID);
             this.setAlbumDetails({album, tracks});
+        } else if (view == 'miniplayer') {
+            console.log('invoking');
+            ipcRenderer.invoke('setMiniPlayer');
+        } else if (view == 'library') {
+            ipcRenderer.invoke('unsetMiniPlayer');
         }
 
         this.setView(view);

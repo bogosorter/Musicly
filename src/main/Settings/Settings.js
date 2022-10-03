@@ -21,17 +21,18 @@ export default class Settings {
      */
     static async get() {
         // Get the stored settings and decide whether to use the default ones
-        const definedSettings = await settings.get()
-        let result = defaultSettings;
+        let definedSettings = await settings.get()
         
-        if (Object.keys(definedSettings).length > 1) result = definedSettings;
+        // To ensure version compatibility, copy all the missing properties to
+        // the defined settings
+        definedSettings = {...defaultSettings, ...definedSettings};
 
         // Add custom CSS
         const customCSS = Settings.getCustomCss();
-        result.customCSS = defaultSettings.customCSS;
-        result.customCSS.value = customCSS;
+        definedSettings.customCSS = defaultSettings.customCSS;
+        definedSettings.customCSS.value = customCSS;
         
-        return result;
+        return definedSettings;
     }
 
     /**
@@ -98,6 +99,11 @@ const defaultSettings = {
         type: 'select',
         options: ['0.5', '1', '2', '3', '4', '5'],
         value: '3'
+    },
+    miniPlayer: {
+        name: 'Minimize triggers mini-player-mode',
+        type: 'bool',
+        value: true
     },
     customCSS: {
         name: 'Custom CSS',

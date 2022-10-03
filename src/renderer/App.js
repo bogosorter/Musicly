@@ -97,9 +97,7 @@ export default function App() {
     // Set up event handlers for activate
     useEffect(() => {
         clearTimeout(timeoutID);
-        if (view != 'queue' && view != 'miniplayer') {
-            console.log(view);
-            
+        if (view != 'queue' && view != 'miniplayer') {            
             window.addEventListener('mousedown', activate);
             window.addEventListener('keypress', activate);
             window.addEventListener('scroll', activate, true);

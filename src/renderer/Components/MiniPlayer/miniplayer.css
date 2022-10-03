@@ -10,7 +10,6 @@
     width: 100vh;
     height: 100vh;
     -webkit-app-region: drag;
-    image-rendering: pixelated;
 }
 #mini-player-cover > * {
     width: 100%;

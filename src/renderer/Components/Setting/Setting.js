@@ -67,6 +67,11 @@ export default function Setting({setting, modify}) {
     // Render a switch for booleans
     else if (setting.type == 'bool') {
 
+        function setValue(e) {
+            setting.value = e.target.checked;
+            modify(setting);
+        }
+
         const swtch = (
             setting.value? <input className='form-check-input' type='checkbox' onChange={setValue} checked />
             : <input className='form-check-input' type='checkbox' onChange={setValue} />

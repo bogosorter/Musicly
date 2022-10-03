@@ -7,10 +7,11 @@ import './header.css'
 
 /**
  * Displays the app's header bar, with app navigation utilities and window
- * buttons. Specifically, people should be able to access `settings`, open files
- * and enter mini player mode if `library` is true (meaning that the parent of
- * the component is `Library`), and go back to the library otherwise.
- * Furthermore, the normal three window control buttons have to be displayed.
+ * buttons. Specifically, people should be able to access `settings` and open
+ * files if `library` is true (meaning that the parent of the component is
+ * `Library`), and go back to the library otherwise. The normal three window
+ * control buttons must be displayed, and minimize should trigger mini player if
+ * `settings.miniPlayer == true`.
  */
 export default function Header({ library = false }) {
 
@@ -21,7 +22,6 @@ export default function Header({ library = false }) {
             { onClick: () => null, content: <Logo size={52}/> },
             { onClick: () => Events.fire('changeView', 'settings'), content: <Settings size={16}/>, shortcuts: ['ctrl+s', 's'] },
             { onClick: () => Events.fire('open', 'folder'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']},
-            { onClick: () => Events.fire('changeView', 'miniplayer'), content: <Collapse size={20}/>, shortcuts: ['ctrl+m', 'm'] }
         ]
     } else {
         navigationButtons = [{ onClick: () => Events.fire('changeView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]
@@ -31,14 +31,16 @@ export default function Header({ library = false }) {
     });
 
     // Buttons that handle window position and size
+    const minimizeAction = window.settings.miniPlayer && window.settings.miniPlayer.value?
+        () => Events.fire('changeView', 'miniplayer') :
+        () => Events.fire('windowButton', 'minimize');
     let windowButtons = [
-        {event: 'minimize', content: <Line size={16} />},
-        {event: 'maximize', content: <Square size={24} />},
-        {event: 'close', content: <Close size={24} />},
+        {onClick: minimizeAction, content: <Line size={16} />},
+        {onClick: () => Events.fire('windowButton', 'maximize'), content: <Square size={24} />},
+        {onClick: () => Events.fire('windowButton', 'close'), content: <Close size={24} />},
     ]
     windowButtons = windowButtons.map((button, index) => {
-        const onClick = () => Events.fire('windowButton', button.event);
-        return <Button onClick={onClick} key={index}>{button.content}</Button>
+        return <Button onClick={button.onClick} key={index}>{button.content}</Button>
     });
 
     return (

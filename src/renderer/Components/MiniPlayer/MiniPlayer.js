@@ -1,4 +1,4 @@
-import { Play, Pause, SkipFwd, SkipBwd, Fullscreen, Line } from '../Icons/Icons';
+import { Play, Pause, SkipFwd, SkipBwd, Fullscreen, Line, Close } from '../Icons/Icons';
 import Button from '../Button/Button';
 import Cover from '../Cover/Cover';
 import Shortcuts from 'renderer/Shortcuts/Shortcuts';
@@ -7,7 +7,12 @@ import Events from 'renderer/Events/Events';
 import { useReducer, useState, useCallback, useEffect } from 'react';
 import './miniplayer.css';
 
-
+/**
+ * Renders a mini-player view, with the ability to return to normal, play,
+ * pause, skip forward and skip backward. Should also display cover and current
+ * track name. A close button should change the view back to the library and
+ * minimize.
+ */
 export default function MiniPlayer({playback}) {
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -20,6 +25,10 @@ export default function MiniPlayer({playback}) {
         { onClick: () => Events.fire('play'), content: <Play />, shortcuts: [' ']},
         { onClick: () => Events.fire('skipFwd'), content: <SkipFwd /> },
         { onClick: () => Events.fire('changeView', 'library'), content: <Fullscreen size={20}/>, shortcuts: ['escape', 'alt+leftarrow']},
+        { onClick: () => {
+            Events.fire('windowButton', 'minimize');
+            Events.fire('changeView', 'library');
+        }, content: <Close/>},
     ];
 
     controllButtons = controllButtons.map((button, index) => {

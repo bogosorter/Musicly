@@ -52,7 +52,6 @@ export default class StateManager {
             const tracks = await ipcRenderer.invoke('getAlbumTracks', albumID);
             this.setAlbumDetails({album, tracks});
         } else if (view == 'miniplayer') {
-            console.log('invoking');
             ipcRenderer.invoke('setMiniPlayer');
         } else if (view == 'library') {
             ipcRenderer.invoke('unsetMiniPlayer');

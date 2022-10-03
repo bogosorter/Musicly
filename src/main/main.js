@@ -106,7 +106,7 @@ function setMiniPlayer() {
     mainWindow.setResizable(false);
     mainWindow.setAlwaysOnTop(true);
     const bounds = screen.getPrimaryDisplay().bounds;
-    mainWindow.setPosition(bounds.width - 410, bounds.height - 100, false);
+    mainWindow.setPosition(bounds.width - 425, bounds.height - 110, false);
 }
 
 /**

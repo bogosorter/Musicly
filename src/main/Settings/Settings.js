@@ -101,9 +101,15 @@ const defaultSettings = {
         value: '3'
     },
     miniPlayer: {
-        name: 'Minimize triggers mini-player-mode',
+        name: 'Minimize button triggers mini-player mode',
         type: 'bool',
         value: true
+    },
+    miniPlayerSize: {
+        name: 'Mini-player size',
+        type: 'select',
+        options: ['small', 'medium', 'large'],
+        value: platform() == 'win32'? 'small' : 'medium'
     },
     customCSS: {
         name: 'Custom CSS',

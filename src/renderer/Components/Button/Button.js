@@ -7,7 +7,7 @@ import './button.css';
  * `onClick` and `type` (`box`, `round`, `nodecor`, defaulting to `box`) as
  * properties.
  */
-export default function Button({onClick, type = 'box', shortcuts, children}) {
+export default function Button({onClick, type = 'box', shortcuts, children, size = null}) {
 
     // Depending on the type of the button, different classes are added
     const classes = ['button'];
@@ -26,7 +26,7 @@ export default function Button({onClick, type = 'box', shortcuts, children}) {
     });
     
     return (
-        <div onClick={onClick} className={classes.join(' ')}>
+        <div onClick={onClick} className={classes.join(' ')} style={size ? {minHeight: size, minWidth: size} : null}>
             {children}
         </div>
     );

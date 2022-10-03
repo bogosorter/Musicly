@@ -96,17 +96,19 @@ function unblockSleep() {
 
 /**
  * **Description:** Does the main-side preparations for the mini-player mode,
- * i.e., changes the window size to 400x80px, sets it to be always on top and
+ * i.e., changes the window size, sets it to be always on top and
  * moves it to the lower right corner.
  */
-function setMiniPlayer() {
-    console.log('setting');
+async function setMiniPlayer() {
+    const size = (await Settings.get()).miniPlayerSize.value;
+    const width = size == 'small'? 250 : size == 'medium'? 300 : 400;
+    const height = size == 'small'? 60 : size == 'medium'? 70 : 90;
     mainWindow.unmaximize();
-    mainWindow.setSize(400, 80);
+    mainWindow.setSize(width, height);
     mainWindow.setResizable(false);
     mainWindow.setAlwaysOnTop(true);
     const bounds = screen.getPrimaryDisplay().bounds;
-    mainWindow.setPosition(bounds.width - 425, bounds.height - 110, false);
+    mainWindow.setPosition(bounds.width - width - 25, bounds.height - height - 20, false);
 }
 
 /**

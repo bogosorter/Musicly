@@ -35,7 +35,7 @@ export default function Settings({settings, displayTutorial}) {
     }
 
     let settingButtons = [
-        { onClick: () => Events.fire('resetSettings', setSettings), text: 'Reset Settings' },
+        { onClick: () => Events.fire('resetSettings'), text: 'Reset Settings' },
         { onClick: () => Events.fire('resetLibrary'), text: 'Reset Library' },
         { onClick: () => displayTutorial(), text: 'Tutorial' }
     ];
@@ -54,7 +54,7 @@ export default function Settings({settings, displayTutorial}) {
                         <h1>Settings:</h1>
                         <div className='spacer-24' />
                         {renderedSettings}
-                        <div className='spacer-100' />
+                        <div className='spacer-24' />
                         {settingButtons}
                     </div>
                 </div>

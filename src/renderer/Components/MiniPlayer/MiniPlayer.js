@@ -19,20 +19,22 @@ export default function MiniPlayer({playback}) {
     Events.on('play', forceUpdate);
     Events.on('pause', forceUpdate);
 
+    const size = window.settings.miniPlayerSize.value;
+    const sizeFactor = size == 'small'? 0.6 : size == 'medium'? 0.75 : 1;
     let controllButtons = [
-        { onClick: () => Events.fire('skipBwd'), content: <SkipBwd /> },
-        playback.playing()? { onClick: () => Events.fire('pause'), content: <Pause />, shortcuts: [' '] } :
-        { onClick: () => Events.fire('play'), content: <Play />, shortcuts: [' ']},
-        { onClick: () => Events.fire('skipFwd'), content: <SkipFwd /> },
-        { onClick: () => Events.fire('changeView', 'library'), content: <Fullscreen size={20}/>, shortcuts: ['escape', 'alt+leftarrow']},
+        { onClick: () => Events.fire('skipBwd'), content: <SkipBwd size={32 * sizeFactor} /> },
+        playback.playing()? { onClick: () => Events.fire('pause'), content: <Pause size={32 * sizeFactor} />, shortcuts: [' '] } :
+        { onClick: () => Events.fire('play'), content: <Play size={32 * sizeFactor} />, shortcuts: [' ']},
+        { onClick: () => Events.fire('skipFwd'), content: <SkipFwd size={32 * sizeFactor} /> },
+        { onClick: () => Events.fire('changeView', 'library'), content: <Fullscreen size={20 * sizeFactor}/>, shortcuts: ['escape', 'alt+leftarrow']},
         { onClick: () => {
             Events.fire('windowButton', 'minimize');
             Events.fire('changeView', 'library');
-        }, content: <Close/>},
+        }, content: <Close size={32 * sizeFactor}/>},
     ];
 
     controllButtons = controllButtons.map((button, index) => {
-        return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>;
+        return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts} size={60 * sizeFactor}>{button.content}</Button>;
     });
 
     return (
@@ -41,7 +43,7 @@ export default function MiniPlayer({playback}) {
                 <Cover album={playback.album} parent='miniplayer' />
             </div>
             <div id='mini-player-content'>
-                <div id='mini-player-track-title'><h4>{limitTitle(playback.track?.title)}</h4></div>
+                <div id='mini-player-track-title'><h4 style={{fontSize: `calc((1.275rem + 0.3vw) * ${sizeFactor})`}}>{limitTitle(playback.track?.title)}</h4></div>
                 <div id='mini-player-buttons'>
                     {controllButtons}
                 </div>

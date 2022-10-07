@@ -44,12 +44,12 @@ export default function AlbumDetails({details, playback}) {
                 <div className='col-11'><h1>{details.album.title}</h1></div>
             </div>
             <div className='row justify-content-center'>
-                <div className='col-lg-3 col-sm-6'>
+                <div className='col-lg-3 col-sm-4'>
                     <Cover album={details.album} buttons={['play']} parent={'albumDetails'} />
                     <div className='spacer-8' />
                     {renderedInfo}
                 </div>
-                <div id='album-tracks' className='col-lg-8 col-sm-5'>
+                <div id='album-tracks' className='col-lg-8 col-sm-7'>
                     <TrackList tracks={details.tracks} playback={playback} parent='albumDetails'/>
                 </div>
             </div>

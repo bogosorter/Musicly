@@ -54,10 +54,10 @@ export default function ControllArea({playback, dummy = false}) {
                 <Cover album={playback.album} parent='controllArea' />
             </div>
             <div id='control-panel'>
-                <div className='hide-if-not-active'>
+                <div id='control-panel-child-1' className='hide-if-not-active'>
                     <ProgressBar getProgress={playback.progress} dummy={dummy} />
                 </div>
-                <div>
+                <div id='control-panel-child-2'>
                     <div id='track-details' className='w-100'>
                         <h3>{playback.track? playback.track.title : 'Nothing playing'}</h3>
                         <p>{playback.track? playback.album.title : null}</p>

@@ -7,6 +7,11 @@
     padding: 0 10px;
     width: 100%;
 }
+@media (max-width: 1000px) {
+    .track {
+        height: 80px;
+    }
+}
 .track:hover, #queue .track:hover {
     background-color: transparent;
 }

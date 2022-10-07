@@ -16,7 +16,7 @@
 }
 
 #control-button-container {
-    margin: 20px;
+    margin: 10px;
     height: 60px;
     width: 60px;
     border-radius: var(--border-radius);

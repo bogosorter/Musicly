@@ -51,7 +51,7 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
             <div className='col-1 d-flex justify-content-center align-items-end'><PlayingBars playing={playing} /></div>
             <div className='col-1'>{track.trackOrder}</div>
             <div className='col-1'/>
-            <div className='col-4'>{track.title}</div>
+            <div className='col-4'>{limitTitle(track.title)}</div>
             <div className='col-1'/>
             <div className='col-4'>{track.composer}</div>
         </div>
@@ -73,4 +73,13 @@ function PlayingBars({playing}) {
             <div id='playing-bar-3' className='playing-bar'></div>
         </div>
     )
+}
+
+// Limits title to a fixed number of characters
+const LIMIT = 50;
+function limitTitle(title) {
+    let temp = title.substring(0, LIMIT);
+    temp.trim();
+    if (title.length > LIMIT) temp += '...';
+    return temp;
 }

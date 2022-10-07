@@ -59,12 +59,13 @@ export default function App() {
     window.settings = settings;
 
     // Logs that the user should see
-    const [logs, addLog] = useReducer((state, message) => {
+    const [logs, addLog] = useReducer((state, change) => {
         // To reset the logs, use 'reset' as the message
-        if (message === 'reset') {
+        if (message == 'reset') {
             return [];
+            return [...state];
         }
-        return [...state, message];
+        return [...state, detail];
     }, []);
 
     // Controlls whether a spinner should be shown

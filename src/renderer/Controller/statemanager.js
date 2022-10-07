@@ -190,6 +190,6 @@ export default class StateManager {
      * Logs the `message` using the `Logger` component.
      */
     log(message) {
-        this.addLog(message);
+        this.addLog(['add', message]);
     }
 }

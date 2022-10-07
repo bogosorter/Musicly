@@ -80,7 +80,7 @@ export default class PlaybackManager {
             onloaderror: (id, err) => {
                 // Error code 4 indicates that track doesn't exist
                 if (err == 4) {
-                    Events.fire('log', `Track doesn\'t exist: ${this.playback.track.path}`);
+                    Events.fire('log', {type: 'error', message: `Track doesn\'t exist: ${this.playback.track.path}`});
                     this.skipFwd();
                 }
             }

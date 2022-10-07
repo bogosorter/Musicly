@@ -12,6 +12,8 @@ Musicly is a simple and elegant open-source music player.
 
 - Covers: It is annoying when you can't see your covers. Therefore, covers are first-class citizens in Musicly.
 
+- Mini-player mode: Minimize Musicly to a small window and keep working.
+
 - Dark theme & Custom CSS: Are you an obscure hacker, typing 0s and 1s in a monochrome display? We've got something for you!
 
 - Inactivity mode: Musicly detects when you are inactive and displays the album's cover and track info.

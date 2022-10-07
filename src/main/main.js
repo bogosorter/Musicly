@@ -2,6 +2,7 @@ import createWindow from './utils';
 import DB from './DB/DB';
 import Settings from './Settings/Settings';
 import { app, ipcMain, dialog, powerSaveBlocker, screen } from 'electron';
+import versionCheck from 'github-version-checker';
 
 const db = new DB();
 db.init();
@@ -120,6 +121,22 @@ function unsetMiniPlayer() {
     mainWindow.setAlwaysOnTop(false);
 }
 
+/**
+ * Checks for existing updates on Github releases, returning true if there are any.
+ */
+async function checkForUpdates() {
+    try {
+        return await versionCheck({
+            repo: 'Musicly',
+            owner: 'm7kra',
+            currentVersion: app.getVersion(),
+        });
+    } catch {
+        // Probably failed due to internet connection
+        return false;
+    }
+}
+
 ipcMain.handle('open', (e, dialogType) => open(dialogType));
 ipcMain.handle('addCover', (e, albumID) => addCover(albumID));
 ipcMain.handle('windowButton', (e, button) => windowButton(button));
@@ -137,6 +154,7 @@ ipcMain.handle('blockSleep', () => blockSleep());
 ipcMain.handle('unblockSleep', () => unblockSleep());
 ipcMain.handle('setMiniPlayer', () => setMiniPlayer());
 ipcMain.handle('unsetMiniPlayer', () => unsetMiniPlayer());
+ipcMain.handle('checkForUpdates', () => checkForUpdates());
 
 // Handle exceptions
 process.on('uncaughtException', (err) => {

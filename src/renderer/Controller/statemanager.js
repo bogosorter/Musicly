@@ -1,5 +1,4 @@
 import Events from 'renderer/Events/Events';
-import { log } from 'renderer/Components/Logger/Logger';
 
 export default class StateManager {
     constructor(setView, setLibrary, setAlbumDetails, setSettings, setPlayback, setLoading, addLog) {
@@ -37,6 +36,12 @@ export default class StateManager {
         ipcRenderer.on('log', (e, message) => this.log(message));
 
         this.getLibrary();
+
+        // Check for updates
+        ipcRenderer.invoke('checkForUpdates').then(update => {
+            console.log(update);
+            if (update) this.log({type: 'success', message: 'An update is available!'});
+        });
     }
 
     /**
@@ -126,7 +131,6 @@ export default class StateManager {
      * that called it according to `caller`.
      */
     async addCover(albumID, caller) {
-        console.log(caller);
         // Add a progress spinner
         this.setLoading(true);
         await ipcRenderer.invoke('addCover', albumID);

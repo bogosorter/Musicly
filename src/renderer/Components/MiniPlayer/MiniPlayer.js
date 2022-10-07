@@ -3,7 +3,8 @@ import Button from '../Button/Button';
 import Cover from '../Cover/Cover';
 import Shortcuts from 'renderer/Shortcuts/Shortcuts';
 
-import Events from 'renderer/Events/Events';
+import Evts from 'renderer/Events/Events';
+import emptyCover from '../../../../assets/empty.png';
 import { useReducer, useState, useCallback, useEffect } from 'react';
 import './miniplayer.css';
 
@@ -28,6 +29,7 @@ export default function MiniPlayer({playback}) {
         { onClick: () => Events.fire('skipFwd'), content: <SkipFwd size={32 * sizeFactor} /> },
         { onClick: () => Events.fire('changeView', 'library'), content: <Fullscreen size={20 * sizeFactor}/>, shortcuts: ['escape', 'alt+leftarrow']},
         { onClick: () => {
+            Events.fire('changeView', 'library');
             Events.fire('windowButton', 'minimize');
             Events.fire('changeView', 'library');
         }, content: <Close size={32 * sizeFactor}/>},
@@ -37,12 +39,24 @@ export default function MiniPlayer({playback}) {
         return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts} size={60 * sizeFactor}>{button.content}</Button>;
     });
 
+    // If the current album doesn't have a defined cover, use an empty one as
+    // background image
+    let backgroundImage = `url(${emptyCover})`;
+    if (playback.album && playback.album.coverPath) {
+        backgroundImage = `url('file://${playback.album.coverPath}')`;
+        // Ensure that the path is escaped: this is needed for Windows paths.
+        // For some reason, backgroundImage = backgroundImage.replace('\\',
+        // '\\\\') does'n work. Therefore, we have to change the backslashes to
+        // forward ones.
+        backgroundImage = backgroundImage.replace(/\\/g, '/');
+    }
+
     return (
         <div id='mini-player'>
             <div id='mini-player-cover'>
                 <Cover album={playback.album} parent='miniplayer' />
             </div>
-            <div id='mini-player-content'>
+            <div id='mini-player-content' style={{'--bg-image': backgroundImage}}>
                 <div id='mini-player-track-title'><h4 style={{fontSize: `calc((1.275rem + 0.3vw) * ${sizeFactor})`}}>{limitTitle(playback.track?.title)}</h4></div>
                 <div id='mini-player-buttons'>
                     {controllButtons}

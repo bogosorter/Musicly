@@ -5,6 +5,17 @@
     justify-content: center;
     align-items: flex-start;
     background-color: var(--bg-color);
+
+    /* Inside miniplayer, the theme is immutable */
+    --bg-color: var(--bg-color-dark);
+    --bg-color-05: var(--bg-color-dark-05);
+    --bg-color-02: var(--bg-color-dark-02);
+    --color: var(--color-dark);
+    --color-05: var(--color-dark-05);
+    --color-02: var(--color-dark-02);
+    --button-hover-bg: var(--button-hover-bg-dark);
+    background-color: var(--bg-color);
+    color: var(--color);
 }
 #mini-player-cover {
     width: 100vh;
@@ -19,7 +30,10 @@
 #mini-player-content {
     height: 100%;
     width: 100%;
-    position: relative
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), var(--bg-image);
+    background-size: cover;
+    background-position: center;
 }
 #mini-player-content > * {
     position: absolute;
@@ -31,7 +45,9 @@
     height: 100%;
 }
 #mini-player-buttons {
-    background-color: var(--bg-color);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), var(--bg-image);
+    background-size: cover;
+    background-position: center;
     opacity: 0;
     transition: var(--transition);
     justify-content: center;

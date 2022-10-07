@@ -2,6 +2,7 @@ import createWindow from './utils';
 import DB from './DB/DB';
 import Settings from './Settings/Settings';
 import { app, ipcMain, dialog, powerSaveBlocker, screen } from 'electron';
+import { platform } from 'os';
 import versionCheck from 'github-version-checker';
 
 const db = new DB();
@@ -102,13 +103,19 @@ function unblockSleep() {
  */
 async function setMiniPlayer() {
     const size = (await Settings.get()).miniPlayerSize.value;
-    const width = size == 'small'? 250 : size == 'medium'? 300 : 400;
-    const height = size == 'small'? 60 : size == 'medium'? 70 : 90;
+    let width = size == 'small'? 250 : size == 'medium'? 300 : 400;
+    let height = size == 'small'? 60 : size == 'medium'? 70 : 90;
+    // Adapt size for windows, which has 125% zoom factor
+    if (platform() == 'win32') {
+        width *= 0.8;
+        height *= 0.8;
+    }
     mainWindow.unmaximize();
+    mainWindow.setMinimumSize(width, height);
     mainWindow.setSize(width, height);
     mainWindow.setResizable(false);
     mainWindow.setAlwaysOnTop(true);
-    const bounds = screen.getPrimaryDisplay().bounds;
+    const bounds = screen.getPrimaryDisplay().workArea;
     mainWindow.setPosition(bounds.width - width - 25, bounds.height - height - 20, false);
 }
 
@@ -118,6 +125,7 @@ async function setMiniPlayer() {
 function unsetMiniPlayer() {
     mainWindow.setResizable(true);
     mainWindow.maximize();
+    mainWindow.setMinimumSize(800, 600);
     mainWindow.setAlwaysOnTop(false);
 }
 

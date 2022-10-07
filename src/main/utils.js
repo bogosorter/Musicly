@@ -31,6 +31,7 @@ export default async function createWindow() {
     });
 
     mainWindow.loadURL(resolveHtmlPath('index.html'));
+    mainWindow.setMinimumSize(800, 600);
 
     mainWindow.on('ready-to-show', () => {
         mainWindow.maximize();

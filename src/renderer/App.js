@@ -60,9 +60,12 @@ export default function App() {
 
     // Logs that the user should see
     const [logs, addLog] = useReducer((state, change) => {
+        const [message, detail] = change;
         // To reset the logs, use 'reset' as the message
         if (message == 'reset') {
             return [];
+        } else if (message == 'remove') {
+            state.splice(detail, 1);
             return [...state];
         }
         return [...state, detail];
@@ -92,7 +95,11 @@ export default function App() {
     function activate() {
         clearTimeout(timeoutID);
         const time = settings.inactiveTime? settings.inactiveTime.value * 60000: 120000;
-        timeoutID = setTimeout(() => setView('queue'), time);
+        timeoutID = setTimeout(() => {
+            if (playback.track) {
+                setView('queue');
+            }
+        }, time);
     }
 
     // Set up event handlers for activate
@@ -127,7 +134,7 @@ export default function App() {
                 <MiniPlayer playback={playback} />
         }
             <ContextMenu />
-            <Logger messages={logs} reset={() => addLog('reset')}/>
+            <Logger messages={logs} addLog={addLog}/>
             {loadingDiv}
             {settings.firstTime? <Tutorial dismissTutorial={() => setSettings({...settings, firstTime: false})}/> : null}
             {splashScreenRendered}

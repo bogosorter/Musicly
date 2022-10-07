@@ -22,7 +22,7 @@ export default class Settings {
     static async get() {
         // Get the stored settings and decide whether to use the default ones
         let definedSettings = await settings.get()
-        
+
         // If last version is different than the current one, then the tutorial
         // should be shown
         if (!definedSettings.version || definedSettings.version != defaultSettings.version) {
@@ -116,7 +116,7 @@ const defaultSettings = {
         name: 'Mini-player size',
         type: 'select',
         options: ['small', 'medium', 'large'],
-        value: platform() == 'win32'? 'small' : 'medium'
+        value: 'medium'
     },
     customCSS: {
         name: 'Custom CSS',
@@ -124,5 +124,6 @@ const defaultSettings = {
         language: 'css',
         value: '',
     },
+    version: app.getVersion(),
     firstTime: true
 }

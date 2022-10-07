@@ -14,7 +14,14 @@ import './miniplayer.css';
  * track name. A close button should change the view back to the library and
  * minimize.
  */
-export default function MiniPlayer({playback}) {
+export default function MiniPlayer({playback, dummy = false}) {
+
+    // Instead of manually changing all actions, it is best to just inutilize
+    // events. Cover shouldn't fire events if this is a test or if parent is
+    // control area.
+    let Events;
+    if (dummy) Events = { fire: () => null, on: () => null };
+    else Events = Evts;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     Events.on('play', forceUpdate);
@@ -31,7 +38,6 @@ export default function MiniPlayer({playback}) {
         { onClick: () => {
             Events.fire('changeView', 'library');
             Events.fire('windowButton', 'minimize');
-            Events.fire('changeView', 'library');
         }, content: <Close size={32 * sizeFactor}/>},
     ];
 

@@ -18,7 +18,7 @@ export default async function createWindow() {
         ? path.join(process.resourcesPath, 'assets')
         : path.join(__dirname, '../../assets');
 
-    let mainWindow = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         show: false,
         icon: path.join(RESOURCES_PATH, 'icon.png'),
         frame: false,

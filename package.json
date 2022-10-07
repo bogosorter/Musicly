@@ -90,6 +90,7 @@
     "electron-log": "^4.4.7",
     "electron-settings": "^4.0.2",
     "electron-updater": "^5.0.3",
+    "github-version-checker": "^2.3.0",
     "howler": "^2.2.3",
     "music-metadata": "^7.12.4",
     "react": "^18.1.0",

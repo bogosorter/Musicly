@@ -9,9 +9,9 @@
 
 #tutorial {
     position: fixed;
-    left: calc(50vw - 500px);
+    left: calc(50vw - min(500px, max(40%, 390px)));
     top: calc(50vh - 250px);
-    width: 1000px;
+    width: min(1000px, max(80%, 780px));
     height: 500px;
     background-color: var(--bg-color);
     border-radius: var(--border-radius);

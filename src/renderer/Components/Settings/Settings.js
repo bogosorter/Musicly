@@ -23,7 +23,7 @@ export default function Settings({settings, displayTutorial}) {
     const renderedSettings =  [];
     for (const setting in settings) {
         // Custom CSS should not be rendered
-        if (setting == 'firstTime') continue;
+        if (setting == 'firstTime' || setting == 'version') continue;
 
         const modify = (newValue) => changeSetting(setting, newValue);
         renderedSettings.push(

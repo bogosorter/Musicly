@@ -5,12 +5,12 @@ import Cover from '../Cover/Cover';
 import Track from '../Track/Track';
 import ControllArea from '../ControllArea/ControllArea';
 import Button from '../Button/Button';
+import MiniPlayer from '../MiniPlayer/MiniPlayer';
 
 import { useReducer, useMemo } from 'react';
 import './tutorial.css';
-import icon from '../../../../assets/icon.png';
-import queue from '../../../../assets/queue.png';
-import inactive from '../../../../assets/inactivity.png';
+import miniplayer from '../../../../assets/miniplayer.png';
+import miniplayer2 from '../../../../assets/miniplayer2.png';
 
 /**
  * Component that renders a brief introductory tutorial, based on a series of
@@ -58,7 +58,10 @@ export default function Tutorial({dismissTutorial}) {
 // `title`, `text` and `image`
 const content = [{
         title: 'Welcome!',
-        text: <p style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</p>
+        text: <>
+            <p style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</p>
+            <p className='note'>Those already using Musicly should check out the "What's new" section</p>
+        </>
     }, {
         title: 'Control Button',
         text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <Settings size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,
@@ -76,5 +79,18 @@ const content = [{
     },{
         title: 'Additional info',
         text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
+    }, {
+        title: 'What\'s new on 0.2.0',
+        text: <>Musicly 0.2.0 introduces the "mini-player" feature. It keeps Musicly open on the bottom right corner of your screen, while you use other apps. To use it, click on the minimize window button. The behavior can be changed on the settings. You can now also change an album's genres.</>,
+        dummies: (
+            <div id='dummy-miniplayer-container'>
+                <MiniPlayer playback={{
+                    playing: () => true,
+                    track: {
+                        title: 'Super cool track',
+                    }
+                }} dummy={true} />
+            </div>
+        )
     }
 ];

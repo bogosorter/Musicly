@@ -23,6 +23,13 @@ export default class Settings {
         // Get the stored settings and decide whether to use the default ones
         let definedSettings = await settings.get()
         
+        // If last version is different than the current one, then the tutorial
+        // should be shown
+        if (!definedSettings.version || definedSettings.version != defaultSettings.version) {
+            definedSettings.version = defaultSettings.version;
+            definedSettings.firstTime = true;
+        }
+        
         // To ensure version compatibility, copy all the missing properties to
         // the defined settings
         definedSettings = {...defaultSettings, ...definedSettings};

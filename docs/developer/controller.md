@@ -129,7 +129,7 @@ class Playback {
 
 #### `playTracks`
 
-**Description:** Immediately stops current playback and plays the supplied list of tracks. Tracks that were played previously are to be kept in `playback.queue`. `jump` is used when tracks are chosen from the `AlbumDetails` component. Even when choosing the third track, the user expects to be able to go back to the second one. Therefore, `tracks` represents all the CD's tracks and `jump` would be 2.
+**Description:** Immediately stops current playback and plays the supplied list of tracks. Even when choosing the third track in a list, the user expects to be able to go back to the second one. This is why `jump` is used: `tracks` represents all the tracks and `jump` would be 2.
 
 **Arguments:** `tracks`, `jump`
 
@@ -191,7 +191,7 @@ class StateManager {
 
 #### `changeView`
 
-**Description:** Sets the app view to `view`, updating album details if needed according to albumID.
+**Description:** Sets the app view to `view`, updating album details if needed, according to albumID. Should call the main processes's `setMiniPlayer` if `view == miniplayer`.
 
 **Arguments:** `view`,`[albumID]`
 

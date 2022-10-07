@@ -15,7 +15,7 @@ title: Controller
 
 ## `App`
 
-**Description:** This is the main component. It stores a series of states and renders four other components (`Library`, `Settings`, `AlbumDetails` and `Queue`) according to `view`. It also renders a bunch of other components used throughout the app: a `ContextMenu`, a spinner if `loading` and a `Tutorial` if `settings.firstTime`.
+**Description:** This is the main component. It stores a series of states and renders five other components (`Library`, `Settings`, `AlbumDetails`, `Queue` and `MiniPlayer`) according to `view`. It also renders a bunch of other components used throughout the app: a `ContextMenu`, a spinner if `loading` and a `Tutorial` if `settings.firstTime`.
 
 **Properties:** None
 
@@ -55,12 +55,14 @@ const [details, setDetails] = useState({
 const [settings, setSettings] = useState({});
 
 // Logs that the user should see
-const [logs, addLog] = useReducer((state, message) => {
+const [logs, addLog] = useReducer((state, message, detail) => {
     // To reset the logs, use 'reset' as the message
-    if (message === 'reset') {
+    if (message == 'reset') {
         return [];
+    } else if (message == 'remove') {
+         return logs.splice(detail, 1);   
     }
-    return [...state, message];
+    return [...state, detail];
 }, [])
 
 // Controlls whether a spinner should be shown
@@ -91,13 +93,19 @@ const controller = useMemo(
 
 ## `Settings`
 
-**Description:** Displays current settings, using the `Setting` component, and allows to modify them. The setting `firstTime` should not be displayed nor modified, and the new settings should be saved automatically. This component should also allow to reset the settings, reset the library and to go through the tutorial again.
+**Description:** Displays current settings, using the `Setting` component, and allows to modify them. The settings `firstTime` and `version` should not be displayed nor modified, and the new settings should be saved automatically. This component should also allow to reset the settings, reset the library and to go through the tutorial again.
 
 **Properties:** `settings`, `displayTutorial`
 
+## `MiniPlayer`
+
+**Description:** Renders a mini-player view, with the ability to return to normal, play, pause, skip forward and skip backward. Should also display cover and current track name. A close button should change the view back to the library and minimize.
+
+**Properties:** `playback`
+
 ## `Header`
 
-**Description:** Displays the app's header bar, with app navigation utilities and window buttons. Specifically, people should be able to access `settings` and open files if a `library` is true (meaning that the parent of the component is `Library`), and go back to the library otherwise. Furthermore, the normal three window control buttons have to be displayed.
+**Description:** Displays the app's header bar, with app navigation utilities and window buttons. Specifically, people should be able to access `settings` and open files if `library` is true (meaning that the parent of the component is `Library`), and go back to the library otherwise. The normal three window control buttons must be displayed, and minimize should trigger mini player if  `settings.miniPlayer == true`.
 
 **Properties:** `library`
 
@@ -150,9 +158,9 @@ const [visible, setVisibility] = useState(false);
 
 ## `Track`
 
-**Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. The last property specifies which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
+**Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. The next to last property specifies which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
 
-**Properties:** `track`, `classes`, `playing`,  and `tracksToAdd`, `jump`
+**Properties:** `track`, `classes`, `playing`,  and `tracks`, `jump`
 
 ## `Setting`
 
@@ -183,6 +191,12 @@ modify(setting);
 
 **Properties:** `genre`, `deleteButton`.
 
+## `GenreCreator`
+
+**Description:** Allows to type in a new genre for an album, and passes it on to `createGenre`.
+
+**Properties:** `createGenre`
+
 ## `ProgressBar`
 
 **Description:** Sets up a progress bar that regularly updates. Furthermore, allows to set the a new position firing the `setProgress` event. `dummy`, used inside the tutorial, prevents all events from being fired.
@@ -203,6 +217,4 @@ modify(setting);
 
 ## `Icons`
 
-**Description:**  Rather than a component, this module provides a series of icon components. Each of them accepts a property `size` defaulting to 32. The following icons are included: `Logo`, `Play`, `Pause`, `SkipFwd`, `SkipBwd`, `Settings`, `Square`, `Plus`, `Circle`, `CircleOutline`, `List`, `CD`, `Search`, `Back`, `Queue`, `Close`.
-
-
+**Description:**  Rather than a component, this module provides a series of icon components. Each of them accepts a property `size` defaulting to 32. The following icons are included: `Logo`, `Play`, `Pause`, `SkipFwd`, `SkipBwd`, `Settings`, `Square`, `Plus`, `Circle`, `CircleOutline`, `List`, `CD`, `Search`, `Back`, `Queue`, `Close`, `Collapse`.

@@ -21,3 +21,15 @@ a:not(nav a)::after {
 a:not(nav a):hover::after {
     transform: scaleX(0);
 }
+*::-webkit-scrollbar {
+    width: 6px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 3px;
+    width: 5px;
+    border: transparent;
+}

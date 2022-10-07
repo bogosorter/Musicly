@@ -5,11 +5,9 @@ title: Developer documentation
 ---
 
 # Developer documentation
-
 {:.no_toc}
 
 ## Table of contents
-
 {:.no_toc}
 
 * TOC
@@ -75,5 +73,3 @@ These are a couple things that I'm planning to add to the app later on:
 - Queue management (for now, you can only see which tracks are going to play next).
 
 - Genre management (everything needed for this is implemented, except the UI).
-
-- Pausing music when the computer awakes from sleep.

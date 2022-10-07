@@ -35,6 +35,22 @@ The main script puts together all the logic in the main process. It initializes 
 
 **Return value:** None
 
+#### `createGenre`
+
+**Description:** Adds a new genre to the database.
+
+**Arguments:** `albumID`, `genre`
+
+**Return value:** None
+
+#### `deleteGenre`
+
+**Description:** Deletes an entry from the `genres` table.
+
+**Arguments:** `albumID`, `genre`
+
+**Return value:** None
+
 ### `windowButton`
 
 **Description:** Resizes and closes the window according to the button pressed.
@@ -83,7 +99,7 @@ The main script puts together all the logic in the main process. It initializes 
 
 **Return value:** None
 
-### `resetSettingss`
+### `resetSettings`
 
 **Description:** Reset settings to their default value.
 
@@ -114,3 +130,27 @@ The main script puts together all the logic in the main process. It initializes 
 **Arguments:** None
 
 **Return Value:** None
+
+### `setMiniPlayer`
+
+**Description:** Does the main-side preparations for the mini-player mode, i.e., changes the window size, sets it to be always on top and moves it to the lower right corner.
+
+**Arguments:** None
+
+**Return Value:** None
+
+### `unsetMiniPlayer`
+
+**Description:** Undoes the main-side preparations for the mini-player mode.
+
+**Arguments:** None
+
+**Return Value:** None
+
+## `checkForUpdates`
+
+**Description:** Checks for existing updates on Github releases, returning true if there are any.
+
+**Arguments:** None
+
+**Return Value:** `updates`

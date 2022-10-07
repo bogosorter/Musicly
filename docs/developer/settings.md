@@ -5,15 +5,13 @@ title: Settings
 ---
 
 # Settings
-
 {:.no_toc}
 
 ## Table of contents
-
 {:.no_toc}
 
 * TOC
-  {:toc}
+{:toc}
 
 ## The Settings class
 
@@ -63,7 +61,7 @@ Class that manages app settings.
 
 ## Structure
 
-The settings are stored in an object containing `subSettings`. These, in turn, have a property `type` which determines what the other properties are and what should be displayed in the `Setting` component. While `customCSS` and `firstTime` are included in the settings structure, they are not conventional. `firstTime` is only `true` on the first time the app is opened and `customCSS` is store in `customCSSPath`. To retrieve it, use the `getCustomCSS` function.
+The settings are stored in an object containing `subSettings`. These, in turn, have a property `type` which determines what the other properties are and what should be displayed in the `Setting` component. While `customCSS` and `firstTime` are included in the settings structure, they are not conventional. `firstTime` is only `true` on the first time the app is opened and `customCSS` is stored in `customCSSPath`. To retrieve it, use the `getCustomCSS` function.
 
 ```js
 const defaultSettings = {
@@ -74,11 +72,25 @@ const defaultSettings = {
         value: 'dark'
     },
     zoomFactor: {
-        name: 'Zoom Factor',
-        type: 'number',
-        value: 1.25
+        name: 'Zoom',
+        type: 'select',
+        options: ['0.7', '0.8', '0.9', '1', '1.2', '1.4', '1.6', '1.8'],
+        value: platform() == 'win32'? '0.8' : '1'
     },
-    customCSS: '',
+    inactiveTime: {
+        name: 'How many minutes before inactivity?',
+        type: 'select',
+        options: ['0.5', '1', '2', '3', '4', '5'],
+        value: '3'
+    },
+    
+    customCSS: {
+        name: 'Custom CSS',
+        type: 'code',
+        language: 'css',
+        value: '',
+    },
+    version: app.getVersion(),
     firstTime: true
 }
 ```

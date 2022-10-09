@@ -33,8 +33,8 @@ export default class PlaybackManager {
         this.addToQueue.bind(this);
         this.getTracks.bind(this);
 
-        // Event listeners for `play`, `pause`, `skipFwd`, `skipBwd` and
-        // `getTracks`
+        // Event listeners for `play`, `pause`, `skipFwd`, `skipBwd`,
+        // `reorderQueue` and `getTracks`
         Events.on('play', this.play.bind(this));
         Events.on('pause', this.pause.bind(this));
         Events.on('stop', this.stop.bind(this));
@@ -43,6 +43,7 @@ export default class PlaybackManager {
         Events.on('skipFwd', this.skipFwd.bind(this));
         Events.on('skipBwd', this.skipBwd.bind(this));
         Events.on('setProgress', this.setProgress.bind(this));
+        Events.on('reorderQueue', this.reorderQueue.bind(this));
         Events.on('getTracks', this.getTracks.bind(this));
 
     }
@@ -261,6 +262,23 @@ export default class PlaybackManager {
 
         if (!playing) this.start();
         else this.updatePlayback();
+    }
+
+    /**
+     * Changes the position of one track in the queue. If this change affects
+     * `playback.position`, its value should be updated.
+     */
+    reorderQueue(from, to) {
+        const track = this.playback.queue[from];
+        this.playback.queue.splice(from, 1);
+        this.playback.queue.splice(to, 0, track);
+
+        // Update playback position
+        if (from < this.playback.position && to >= this.playback.position) this.playback.position--;
+        else if (from > this.playback.position && to <= this.playback.position) this.playback.position++;
+        else if (from == this.playback.position) this.playback.position = to;
+
+        this.updatePlayback();
     }
 
     /**

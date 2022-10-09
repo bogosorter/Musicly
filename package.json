@@ -94,6 +94,7 @@
     "howler": "^2.2.3",
     "music-metadata": "^7.12.4",
     "react": "^18.1.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "sqlite": "^4.1.2"
@@ -190,7 +191,8 @@
     },
     "linux": {
       "target": [
-        "deb", "snap"
+        "deb",
+        "snap"
       ],
       "category": "Music"
     },

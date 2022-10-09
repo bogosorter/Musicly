@@ -1,8 +1,10 @@
 import Track from '../Track/Track';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { CD } from '../Icons/Icons';
 import { useReducer } from 'react';
 import './tracklist.css';
+import  { nanoid } from 'nanoid';
 import Events from 'renderer/Events/Events';
 
 /**
@@ -41,14 +43,29 @@ export default function TrackList({tracks, playback, parent}) {
         // If the next track has another disc number, a disk separator will be
         // put in place, so the track has to have the 'track-bottom' class
         if (i == tracks.length - 1 || (tracks[i + 1].disc != track.disc && parent == 'albumDetails')) classes.push('track-bottom');
+
+        const id = nanoid();
+
         trackList.push(
-            <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i}/>
-        )
+            <Draggable key={id} draggableId={id} index={i} isDragDisabled={parent != 'queue'}>
+                {((provided) => (
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i}/>
+                    </div>
+                ))}
+            </Draggable>
+        );
     }
 
     return (
-        <div id='track-list'>
-            {trackList}
-        </div>
-    )
+        <DragDropContext onDragEnd={result => Events.fire('reorderQueue', result.source.index, result.destination.index)}>
+            <Droppable droppableId='tracks' isDrag>
+                {(provided) => (
+                    <div id='track-list' ref={provided.innerRef} {...provided.droppableProps}>
+                        {trackList}
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext> 
+    );
 }

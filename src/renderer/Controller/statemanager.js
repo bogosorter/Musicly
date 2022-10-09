@@ -7,7 +7,7 @@ export default class StateManager {
         this.setAlbumDetails = setAlbumDetails;
         this.setSettings = setSettings;
         this.setLoading = setLoading;
-        this.addLog = addLog;
+        this.log = addLog;
 
         // Apply settings
         ipcRenderer.invoke('getSettings').then(settings => {            
@@ -39,7 +39,6 @@ export default class StateManager {
 
         // Check for updates
         ipcRenderer.invoke('checkForUpdates').then(update => {
-            console.log(update);
             if (update) this.log({type: 'success', message: 'An update is available!'});
         });
     }
@@ -188,12 +187,5 @@ export default class StateManager {
     async resetLibrary() {
         await ipcRenderer.invoke('resetLibrary');
         this.getLibrary();
-    }
-
-    /**
-     * Logs the `message` using the `Logger` component.
-     */
-    log(message) {
-        this.addLog(['add', message]);
     }
 }

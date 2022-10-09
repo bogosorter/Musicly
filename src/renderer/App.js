@@ -58,18 +58,14 @@ export default function App() {
     const [settings, setSettings] = useState({});
     window.settings = settings;
 
-    // Logs that the user should see
-    const [logs, addLog] = useReducer((state, change) => {
-        const [message, detail] = change;
-        // To reset the logs, use 'reset' as the message
-        if (message == 'reset') {
-            return [];
-        } else if (message == 'remove') {
-            state.splice(detail, 1);
-            return [...state];
-        }
-        return [...state, detail];
-    }, []);
+    const [logs, setLogs] = useState([]);
+    function addLog(log) {
+        setLogs([...logs, log]);
+    }
+    function removeLog(index) {
+        logs.splice(index, 1);
+        setLogs([...logs]);
+    }
 
     // Controlls whether a spinner should be shown
     const [loading, setLoading] = useState(false);
@@ -134,7 +130,7 @@ export default function App() {
                 <MiniPlayer playback={playback} />
         }
             <ContextMenu />
-            <Logger messages={logs} addLog={addLog}/>
+            <Logger logs={logs} removeLog={removeLog}/>
             {loadingDiv}
             {settings.firstTime? <Tutorial dismissTutorial={() => setSettings({...settings, firstTime: false})}/> : null}
             {splashScreenRendered}

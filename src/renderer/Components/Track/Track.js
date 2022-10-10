@@ -1,19 +1,23 @@
 import Evts from 'renderer/Events/Events';
 import { addContextMenu } from '../ContextMenu/ContextMenu';
+import Button from '../Button/Button';
+import { Close } from '../Icons/Icons';
 
 import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import './track.css';
 
 /**
- * Component that displays a single track, called with the properties `track`,
- * `classes` and `playing`, `tracksToPlay`. The component should display the
- * track number and name, and also a sprite if it is the currently playing
- * track. The last property specifies which tracks should be played if this
- * track is clicked (in a CD, for instance, you want the user to be able choose
- * a track and play all the ones that come after it).
+ * Displays a single track. The component should display the track number and
+ * name, and also a sprite if it is currently playing. `jump` and `tracks`
+ * property specify which tracks should be played if this track is clicked (in
+ * an album, for instance, you want the user to be able choose a track and play
+ * all the ones that come after it). `parent` is the component that contains the
+ * track, and if `parent == queue` a button allowing to remove the track from
+ * the queue should be displayed. An optional property `dummy` should prevent
+ * all events from being fired. It is used in the tutorial.
  */
-export default function Track({track, classes, playing, tracks, jump, dummy = false}) {
+export default function Track({track, classes, playing, tracks, jump, dummy = false, parent}) {
 
     // Instead of manually changing all actions, it is best to just inutilize
     // events.
@@ -46,6 +50,12 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
         }
     });
 
+    // Display close button if parent is queue
+    const close = parent == 'queue'? <Button onClick={(e) => {
+        Events.fire('removeFromQueue', jump);
+        e.stopPropagation();
+    }} type={'nodecor'}><Close size={20} /></Button> : null;
+
     return (
         <div id={`track-${id}`} className={classes.join(' ')} onClick={actions[3].onClick}>
             <div className='col-1 d-flex justify-content-center align-items-end'><PlayingBars playing={playing} /></div>
@@ -53,7 +63,8 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
             <div className='col-1'/>
             <div className='col-4'>{limitTitle(track.title)}</div>
             <div className='col-1'/>
-            <div className='col-4'>{track.composer}</div>
+            <div className='col-3'>{track.composer}</div>
+            <div className='col-1 d-flex justify-content-end'>{close}</div>
         </div>
     )
 }

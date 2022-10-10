@@ -34,7 +34,7 @@ export default class PlaybackManager {
         this.getTracks.bind(this);
 
         // Event listeners for `play`, `pause`, `skipFwd`, `skipBwd`,
-        // `reorderQueue` and `getTracks`
+        // `reorderQueue`, `removeFromQueue` and `getTracks`
         Events.on('play', this.play.bind(this));
         Events.on('pause', this.pause.bind(this));
         Events.on('stop', this.stop.bind(this));
@@ -44,6 +44,7 @@ export default class PlaybackManager {
         Events.on('skipBwd', this.skipBwd.bind(this));
         Events.on('setProgress', this.setProgress.bind(this));
         Events.on('reorderQueue', this.reorderQueue.bind(this));
+        Events.on('removeFromQueue', this.removeFromQueue.bind(this));
         Events.on('getTracks', this.getTracks.bind(this));
 
     }
@@ -279,6 +280,20 @@ export default class PlaybackManager {
         else if (from == this.playback.position) this.playback.position = to;
 
         this.updatePlayback();
+    }
+
+    /**
+     * Removes the track a `index` position of the queue. If this change affects
+     * `playback.position`, its value should be updated.
+     */
+    removeFromQueue(index) {
+        this.playback.queue.splice(index, 1);
+
+        // Update playback position
+        if (index <= this.playback.position) this.playback.position--;
+        
+        if (index - 1 == this.playback.position) this.skipFwd();
+        else this.updatePlayback();
     }
 
     /**

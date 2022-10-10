@@ -50,7 +50,7 @@ export default function TrackList({tracks, playback, parent}) {
             <Draggable key={id} draggableId={id} index={i} isDragDisabled={parent != 'queue'}>
                 {((provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i}/>
+                        <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i} parent={parent}/>
                     </div>
                 ))}
             </Draggable>

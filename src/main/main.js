@@ -114,6 +114,7 @@ async function setMiniPlayer() {
     mainWindow.setMinimumSize(width, height);
     mainWindow.setSize(width, height);
     mainWindow.setResizable(false);
+    mainWindow.setFullScreenable(false);
     mainWindow.setAlwaysOnTop(true);
     const bounds = screen.getPrimaryDisplay().workArea;
     mainWindow.setPosition(bounds.width - width - 25, bounds.height - height - 20, false);
@@ -124,6 +125,7 @@ async function setMiniPlayer() {
  */
 function unsetMiniPlayer() {
     mainWindow.setResizable(true);
+    mainWindow.setFullScreenable(true);
     mainWindow.maximize();
     mainWindow.setMinimumSize(800, 600);
     mainWindow.setAlwaysOnTop(false);

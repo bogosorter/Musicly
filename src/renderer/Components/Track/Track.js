@@ -17,7 +17,7 @@ import './track.css';
  * the queue should be displayed. An optional property `dummy` should prevent
  * all events from being fired. It is used in the tutorial.
  */
-export default function Track({track, classes, playing, tracks, jump, dummy = false, parent}) {
+export default function Track({track, classes, playing, tracks, jump, dummy = false, parent, isDragging}) {
 
     // Instead of manually changing all actions, it is best to just inutilize
     // events.
@@ -27,6 +27,7 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
     
     classes.push('row');
     classes.push('track');
+    if (isDragging) classes.push('dragging');
 
     const actions = [
         { text: 'Play Track', onClick: () => Events.fire('getTracks', 'track', track, `playTracks`) },

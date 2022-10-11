@@ -48,9 +48,9 @@ export default function TrackList({tracks, playback, parent}) {
 
         trackList.push(
             <Draggable key={id} draggableId={id} index={i} isDragDisabled={parent != 'queue'}>
-                {((provided) => (
+                {((provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i} parent={parent}/>
+                        <Track track={track} classes={classes} playing={playing} tracks={tracks} jump={i} key={i} parent={parent} isDragging={snapshot.isDragging}/>
                     </div>
                 ))}
             </Draggable>
@@ -66,6 +66,6 @@ export default function TrackList({tracks, playback, parent}) {
                     </div>
                 )}
             </Droppable>
-        </DragDropContext> 
+        </DragDropContext>
     );
 }

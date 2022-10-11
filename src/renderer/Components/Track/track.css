@@ -1,11 +1,12 @@
-.track {
+.row.track {
     background-color: var(--color-02);
     border-top: solid 1px var(--color);
     height: 60px;
     align-items: center;
     transition: var(--transition);
-    padding: 0 10px;
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 @media (max-width: 1000px) {
     .track {
@@ -15,14 +16,18 @@
 .track:hover, #queue .track:hover {
     background-color: transparent;
 }
-.track-top {
+.row.track-top {
     border-top: none;
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
 }
-.track-bottom {
+.row.track-bottom {
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
+}
+.row.track.dragging {
+    border-top: none;
+    border-radius: var(--border-radius);
 }
 
 

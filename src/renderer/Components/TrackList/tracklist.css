@@ -6,12 +6,14 @@
     padding-right: 10px;
 }
 
-.disc-separator {
+.row.disc-separator {
     background-color: var(--color-02);
     height: 50px;
     padding: 0 10px;
     border-radius: var(--border-radius);
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .disc-separator > div > svg {

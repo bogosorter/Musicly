@@ -32,7 +32,7 @@ export default function Queue({playback}) {
     function activate() {
         clearTimeout(timeoutId);
         setActive(true);
-        timeoutId = setTimeout(() => setActive(false), 2000);
+        timeoutId = setTimeout(() => setActive(false), 6000);
     }
 
     // If the current album doesn't have a defined cover, use an empty one as

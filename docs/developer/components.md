@@ -1,17 +1,19 @@
 ---
 permalink: /docs/dev/components
 layout: docs
-title: Controller
+title: Components
 ---
 
 # Components
+
 {:.no_toc}
 
 ## Table of Contents
+
 {:.no_toc}
 
 * TOC
-{:toc}
+  {:toc}
 
 ## `App`
 
@@ -54,16 +56,7 @@ const [details, setDetails] = useState({
 // Variable that stores current settings
 const [settings, setSettings] = useState({});
 
-// Logs that the user should see
-const [logs, addLog] = useReducer((state, message, detail) => {
-    // To reset the logs, use 'reset' as the message
-    if (message == 'reset') {
-        return [];
-    } else if (message == 'remove') {
-         return logs.splice(detail, 1);   
-    }
-    return [...state, detail];
-}, [])
+const [logs, setLogs] = useState();
 
 // Controlls whether a spinner should be shown
 const [loading, setLoading] = useState(false);
@@ -142,7 +135,7 @@ const [visible, setVisibility] = useState(false);
 
 **Description:** Displays a list of log messages.
 
-**Properties:** `messages`, `reset`
+**Properties:** `logs`, `removeLog`
 
 ## `SearchBox`
 
@@ -158,9 +151,9 @@ const [visible, setVisibility] = useState(false);
 
 ## `Track`
 
-**Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. The next to last property specifies which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
+**Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. `jump` and `tracks` property specify which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). `parent` is the component that contains the track, and if `parent == queue` a button allowing to remove the track from the queue should be displayed. An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
 
-**Properties:** `track`, `classes`, `playing`,  and `tracks`, `jump`
+**Properties:** `track`, `classes`, `playing`,  and `tracks`, `jump`, `parent`, `isDragging`
 
 ## `Setting`
 

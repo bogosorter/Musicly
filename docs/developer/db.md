@@ -1,7 +1,7 @@
 ---
 permalink: /docs/dev/db
 layout: docs
-title: Developer documentation
+title: DB
 ---
 
 # DB

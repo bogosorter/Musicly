@@ -5,13 +5,15 @@ title: Controller
 ---
 
 # Controller
+
 {:.no_toc}
 
 ## Table of Contents
+
 {:.no_toc}
 
 * TOC
-{:toc}
+  {:toc}
 
 ## Controller
 
@@ -151,6 +153,22 @@ class Playback {
 
 **Return value:** None
 
+#### `reorderQueue`
+
+**Description:** Changes the position of one track in the queue. If this change affects `playback.position`, its value should be updated.
+
+**Arguments:** `from`, `to`.
+
+**Return value:** None
+
+#### `removeFromQueue`
+
+**Description:** Removes the track a `index` position of the queue. If this change affects `playback.position`, its value should be updated.
+
+**Arguments:** `index`
+
+**Return value:** None
+
 #### `getTracks`
 
 **Description:** Gets tracks according to `sourceType` and `detail` and forwards them to `playTracks`, `addNext` or `addToQueue` according to `destination`.
@@ -169,7 +187,7 @@ class Playback {
 
 ### Event listeners
 
-Since this apps tries to follow an MVC structure, most of the functions in `PlaybackManager` are triggered by events. `PlaybackManager` should set up event listeners for `play`, `pause`, `stop`, `seekFwd`, `seekBwd`, `skipFwd`, `skipBwd`, `setProgress` and `getTracks`.
+Since this apps tries to follow an MVC structure, most of the functions in `PlaybackManager` are triggered by events. `PlaybackManager` should set up event listeners for `play`, `pause`, `stop`, `seekFwd`, `seekBwd`, `skipFwd`, `skipBwd`, `setProgress`, `reorderQueue`, `removeFromQueue` and `getTracks`.
 
 ## StateManager
 

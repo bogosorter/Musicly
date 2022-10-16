@@ -5,6 +5,22 @@
 }
 #genre-container {
     display: flex;
-    flex-direction: column;
     margin-left: 10px;
+}
+#album-details-background {
+    border-radius: var(--border-radius);
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), var(--bg-image);
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+#album-details-background p {
+    margin-bottom: 0.5rem;
+}
+#album-details-scroll {
+    max-height: 72vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

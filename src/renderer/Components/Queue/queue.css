@@ -36,7 +36,7 @@
 }
 #queue-track-container {
     width: 100vw;
-    height: 65vh;
+    height: 68vh;
     transition: var(--transition);
 }
 .inactive #queue-track-container {

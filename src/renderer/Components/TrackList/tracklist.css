@@ -1,6 +1,6 @@
-#queue #track-list {
+#track-list {
     border-radius: var(--border-radius);
-    max-height: 68vh;
+    max-height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
     padding-right: 10px;

@@ -7,6 +7,7 @@ import GenreCreator from '../GenreCreator/GenreCreator';
 
 import Events from 'renderer/Events/Events';
 import { useMemo, useState } from 'react';
+import emptyCover from '../../../../assets/empty.png';
 import './albumdetails.css';
 
 /**
@@ -31,29 +32,52 @@ export default function AlbumDetails({details, playback}) {
     let renderedInfo = [];
     for (const key in info) {
         renderedInfo.push(
-            <div className='d-flex' key={renderedInfo.length}><h5>{key}:</h5>{info[key]}</div>
+            <div className='d-flex align-items-center' key={renderedInfo.length}><h5>{key}:</h5>{info[key]}</div>
         );
+    }
+
+    // If the current album doesn't have a defined cover, use an empty one as
+    // background image
+    let backgroundImage = `url(${emptyCover})`;
+    if (details.album.coverPath) {
+        backgroundImage = `url('file://${details.album.coverPath}')`;
+        // Ensure that the path is escaped: this is needed for Windows paths.
+        // For some reason, backgroundImage = backgroundImage.replace('\\',
+        // '\\\\') does'n work. Therefore, we have to change the backslashes to
+        // forward ones.
+        backgroundImage = backgroundImage.replace(/\\/g, '/');
     }
 
     return (
         <div id='album-details'>
             <Header /><div className='header-placeholder' />
 
-            <div className='spacer-48' />
-            <div className='row justify-content-center'>
-                <div className='col-11'><h1>{details.album.title}</h1></div>
-            </div>
-            <div className='row justify-content-center'>
-                <div className='col-lg-3 col-sm-4'>
-                    <Cover album={details.album} buttons={['play']} parent={'albumDetails'} />
-                    <div className='spacer-8' />
-                    {renderedInfo}
+            <div id='album-details-scroll'>
+                <div className='spacer-48' />
+                <div className='row justify-content-center'>
+                    <div className='col-11'>
+                        <div id='album-details-background' className='row' style={{'--bg-image': backgroundImage}}>
+                            <div className='col-lg-2 col-md-3 d-md-block d-none'>
+                                <Cover album={details.album} buttons={['play']} parent='albumDetails' />
+                            </div>
+                            <div className='col-lg-10 col-md-9 col-12'>
+                                <h1>{details.album.title}</h1>
+                                <div className='spacer-8' />
+                                {renderedInfo}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id='album-tracks' className='col-lg-8 col-sm-7'>
-                    <TrackList tracks={details.tracks} playback={playback} parent='albumDetails'/>
+
+                <div className='spacer-48' />
+                <div className='row justify-content-center'>
+                    <div className='col-10'>
+                        <TrackList tracks={details.tracks} playback={playback} parent='albumDetails'/>
+                    </div>
                 </div>
+
+                <div className='spacer-100' />
             </div>
-            
             <ControllArea playback={playback} />
         </div>
     )

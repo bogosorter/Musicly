@@ -37,7 +37,7 @@ export default function GenreCreator({ createGenre }) {
 
     return (
         <div className='genre' onFocus={focus} onBlur={blur} tabIndex={-1}>
-            <input id='genre-input' className='w-100 center-children' value={genre} onChange={onChange} onKeyDown={keyDown}/>
+            <input id='genre-input' className='center-children' value={genre} onChange={onChange} onKeyDown={keyDown}/>
             <span onClick={blur}>{focused? <>&nbsp;&times;</> : null}</span>
         </div>
     );

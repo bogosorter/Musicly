@@ -1,9 +1,9 @@
 import Evts from 'renderer/Events/Events';
 import { addContextMenu } from '../ContextMenu/ContextMenu';
 import Button from '../Button/Button';
-import { Close } from '../Icons/Icons';
+import { Close, Edit, Check } from '../Icons/Icons';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
 import './track.css';
 
@@ -14,8 +14,10 @@ import './track.css';
  * an album, for instance, you want the user to be able choose a track and play
  * all the ones that come after it). `parent` is the component that contains the
  * track, and if `parent == queue` a button allowing to remove the track from
- * the queue should be displayed. An optional property `dummy` should prevent
- * all events from being fired. It is used in the tutorial.
+ * the queue should be displayed. If `parent == albumDetails`, the track should
+ * be editable (i.e., the title and composer should be changeable). An optional
+ * property `dummy` should prevent all events from being fired. It is used in
+ * the tutorial.
  */
 export default function Track({track, classes, playing, tracks, jump, dummy = false, parent, isDragging}) {
 
@@ -24,6 +26,20 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
     let Events;
     if (!dummy) Events = Evts;
     else Events = { fire: () => null };
+
+    const [editing, setEditing] = useState(false);
+    const [title, setTitle] = useState(track.title);
+    const [composer, setComposer] = useState(track.composer);
+    const id = useMemo(() => nanoid(), []);
+
+    function updateTrackInfo() {
+        Events.fire('updateTrackInfo', track.albumID, track.id, {
+            ...track,
+            title,
+            composer
+        });
+        setEditing(false);
+    }
     
     classes.push('row');
     classes.push('track');
@@ -38,7 +54,6 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
         { text: 'Add Tracks to Queue', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addToQueue`) }
     ];
 
-    const id = nanoid();
     useEffect(() => {
         let element = document.querySelector(`#track-${id}`)
         addContextMenu(element, actions);
@@ -51,21 +66,34 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
         }
     });
 
-    // Display close button if parent is queue
-    const close = parent == 'queue'? <Button onClick={(e) => {
-        Events.fire('removeFromQueue', jump);
-        e.stopPropagation();
-    }} type={'nodecor'}><Close size={20} /></Button> : null;
+    const button = parent == 'queue'?
+        <Button onClick={(e) => { Events.fire('removeFromQueue', jump); e.stopPropagation();}} type={'nodecor'}>
+            <Close size={20} />
+        </Button> : 
+        parent == 'albumDetails'?
+        editing?
+        <Button onClick={(e) => { updateTrackInfo(); e.stopPropagation();}} type={'nodecor'}>
+            <Check size={20} />
+        </Button> :
+        <Button onClick={(e) => { setEditing(true); e.stopPropagation();}} type={'nodecor'}>
+            <Edit size={14} />
+        </Button> : null;
 
     return (
-        <div id={`track-${id}`} className={classes.join(' ')} onClick={actions[3].onClick}>
+        <div id={`track-${id}`} className={classes.join(' ')} onClick={!editing? actions[3].onClick : null} onBlur={() => setEditing(false)} tabIndex={-1}>
             <div className='col-1 d-flex justify-content-center align-items-end'><PlayingBars playing={playing} /></div>
             <div className='col-1'>{track.trackOrder}</div>
             <div className='col-1'/>
-            <div className='col-4'>{limitTitle(track.title)}</div>
+            <div className='col-4'>{!editing?
+                limitTitle(title) :
+                <input className='detail-input' type='text' placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
+            }</div>
             <div className='col-1'/>
-            <div className='col-3'>{track.composer}</div>
-            <div className='col-1 d-flex justify-content-end'>{close}</div>
+            <div className='col-3'>{!editing?
+                composer :
+                <input className='detail-input' type='text' placeholder='Composer' value={composer} onChange={(e) => setComposer(e.target.value)} />
+            }</div>
+            <div className={'col-1 d-flex' + (parent == 'queue'? ' justify-content-end' : '')}>{button}</div>
         </div>
     )
 }

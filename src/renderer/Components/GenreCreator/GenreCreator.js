@@ -10,15 +10,15 @@ export default function GenreCreator({ createGenre }) {
     const [genre, setGenre] = useState('+');
 
     function focus() {
-        console.log('focused');
         setFocused(true);
         setGenre('');
         document.querySelector('#genre-input').focus();
     }
 
     function blur() {
-        setFocused(false);
         setGenre('+');
+        setFocused(false);
+        if (genre != '') createGenre(genre);
     }
 
     function onChange(e) {
@@ -26,12 +26,11 @@ export default function GenreCreator({ createGenre }) {
     }
 
     function keyDown(e) {
-        console.log(e.key);
         // If is pressed, create a genre
         if (e.key === 'Enter') {
             setGenre('+');
             setFocused(false);
-            createGenre(genre);
+            if (genre != '') createGenre(genre);
         } 
     }
 

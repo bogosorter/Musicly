@@ -4,6 +4,8 @@ import ControllArea from '../ControllArea/ControllArea';
 import TrackList from '../TrackList/TrackList';
 import Genre from '../Genre/Genre';
 import GenreCreator from '../GenreCreator/GenreCreator';
+import { Edit, Check } from '../Icons/Icons';
+import Button from '../Button/Button';
 
 import Events from 'renderer/Events/Events';
 import { useMemo, useState } from 'react';
@@ -14,30 +16,62 @@ import './albumdetails.css';
  * Component rendered inside the `App`, displaying an album's details such as
  * cover, `TrackList` and artist. Also has a `ControllArea`. Accepts `playback`
  * as property.
- * @param {Object} properties 
  */
 export default function AlbumDetails({details, playback}) {
 
-    const genres = details.album.genres?.map((genre, index) =>
-        <Genre genre={genre} key={index} onClick={() => Events.fire('deleteGenre', genre, details.album.id)} deleteButton={true}/>
-    );
-    genres.push(
-        <GenreCreator createGenre={(genre) => Events.fire('createGenre', genre, details.album.id)} key={genres.length}/>
-    )
+    const [editing, setEditing] = useState(false);
+    const [title, setTitle] = useState(details.album.title);
+    const [artist, setArtist] = useState(details.album.artist);
+    const [genres, setGenres] = useState(details.album.genres);
 
-    let info = {};
-    if (details.album.artist) info['Album Artist'] = <p className='ms-4'>{details.album.artist}</p>;
-    if (genres?.length != 0) info['Genres'] = <div id='genre-container'>{genres}</div>;
+    function updateAlbumInfo() {
+        Events.fire('updateAlbumInfo', details.album.id, {
+            id: details.album.id,
+            title,
+            artist,
+            genres,
+            tracks: details.tracks
+        });
+        setEditing(false);
+    }
 
-    let renderedInfo = [];
-    for (const key in info) {
-        renderedInfo.push(
-            <div className='d-flex align-items-center' key={renderedInfo.length}><h5>{key}:</h5>{info[key]}</div>
+    function removeGenre (index) {
+        genres.splice(index, 1);
+        setGenres([...genres]);
+    }
+    function addGenre (genre) {
+        setGenres([...genres, genre]);
+    }
+
+    let headerContent;
+    if (!editing) {
+        headerContent = (
+            <>
+                <div className='d-flex align-items-center'>
+                    <h1>{details.album.title}</h1>
+                    <h3 className='ms-4 artist-detail'>{details.album.artist}</h3>
+                </div>
+                <div className='d-flex mt-2'>{genres?.map((genre, index) =>
+                    <Genre genre={genre} key={index}/>
+                )}</div>
+            </>
+        );
+    } else {
+        headerContent = (
+            <>
+                <input className='detail-input' type='text' placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input className='detail-input ms-2' type='text' placeholder='Artist' value={artist} onChange={(e) => setArtist(e.target.value)} />
+                <div className='d-flex mt-2'>
+                    {genres.map((genre, index) =>
+                        <Genre genre={genre} key={index} onClick={() => removeGenre(index)} deleteButton={true}/>
+                    )}
+                    <GenreCreator createGenre={addGenre}/>
+                </div>
+            </>
         );
     }
 
     const backgroundImage = getCover(details.album);
-    }
 
     return (
         <div id='album-details'>
@@ -51,10 +85,11 @@ export default function AlbumDetails({details, playback}) {
                             <div className='col-lg-2 col-md-3 d-md-block d-none'>
                                 <Cover album={details.album} buttons={['play']} parent='albumDetails' />
                             </div>
-                            <div className='col-lg-10 col-md-9 col-12'>
-                                <h1>{details.album.title}</h1>
-                                <div className='spacer-8' />
-                                {renderedInfo}
+                            <div className='col-lg-9 col-md-8 col-11'>
+                                {headerContent}
+                            </div>
+                            <div className='col-1'>
+                                <Button onClick={editing? updateAlbumInfo : () => setEditing(true)}>{editing? <Check size={24} /> : <Edit size={20} /> }</Button>
                             </div>
                         </div>
                     </div>

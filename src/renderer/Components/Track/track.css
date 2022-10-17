@@ -29,7 +29,6 @@
     border-radius: var(--border-radius);
 }
 
-
 #playing-bars {
     display: flex;
     justify-content: center;

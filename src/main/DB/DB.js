@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 import mm from 'music-metadata';
+import id3 from 'node-id3';
 
 import process from 'process';
 import path from 'path';
@@ -30,7 +31,7 @@ export default class DB {
 
         // Open DB
         this.db = await open({ filename: databasePath, driver: sqlite3.Database })
-        
+
         // Ensure that DB will be closed on exit
         process.on('exit', this.close.bind(this));
         process.on('SIGINT', this.close.bind(this));
@@ -55,7 +56,7 @@ export default class DB {
      * Deletes the database.
      */
     delete() {
-        fs.rmSync(databaseFolder, {recursive: true});
+        fs.rmSync(databaseFolder, { recursive: true });
 
         process.removeListener('exit', this.close.bind(this));
         process.removeListener('SIGINT', this.close.bind(this));
@@ -100,7 +101,7 @@ export default class DB {
         }));
         const promises = [];
         const filePaths = [];
-        for (const {path, isDirectory, isFile} of pathStats) {
+        for (const { path, isDirectory, isFile } of pathStats) {
             if (isDirectory) {
                 promises.push(this.openDirectory(path));
             } else if (isFile) {
@@ -110,7 +111,7 @@ export default class DB {
         promises.push(this.processDirectoryFiles(filePaths));
         return Promise.all(promises);
     }
-    
+
     async processDirectoryFiles(filePaths) {
         for (const path of filePaths) {
             await this.createTrack(path);
@@ -158,7 +159,7 @@ export default class DB {
                 (title, composer, albumId, trackOrder, disc, path)
             VALUES
                 (?, ?, ?, ?, ?, ?)
-        `, track.title? track.title : 'Unknown', track.composer, albumID, track.track.no, track.disk.no? track.disk.no : 1, trackPath);
+        `, track.title ? track.title : 'Unknown', track.composer, albumID, track.track.no, track.disk.no ? track.disk.no : 1, trackPath);
 
         // Since different tracks have different genres, we have to update the
         // genres of an album every time a new track is inserted
@@ -190,7 +191,7 @@ export default class DB {
                 (title, directory, artistID, discCount)
             VALUES
                 (?, ?, ?, ?)
-        `, firstTrack.album, directory, artistID, firstTrack.disk.of? firstTrack.disk.of : 1);
+        `, firstTrack.album, directory, artistID, firstTrack.disk.of ? firstTrack.disk.of : 1);
 
         // Add cover if it is included in metadata
         if (firstTrack.picture) {
@@ -257,18 +258,6 @@ export default class DB {
     }
 
     /**
-     * Deletes a genre entry from the database.
-     * @param {string} genre 
-     * @param {int} albumID 
-     */
-    async deleteGenre(genre, albumID) {
-        await this.db.run(`
-            DELETE FROM genres
-            WHERE albumID = ? AND genre = ?
-        `, albumID, genre);
-    }
-
-    /**
      * Adds a new cover to `coverFolder`, with the filename `albumID.ext`, and
      * to `albumDirectory` (querying the database if none was supplied), with
      * the filename `cover.ext`, according to `sourceType`. Updates database so
@@ -284,7 +273,7 @@ export default class DB {
         if (!albumDirectory) {
             // Path has to be retrieved from a track
             const track = await this.db.get('SELECT * FROM tracks WHERE albumID = ?', albumID);
-            albumDirectory =  path.dirname(track.path);
+            albumDirectory = path.dirname(track.path);
         }
 
         // Create new files according to source type
@@ -346,7 +335,7 @@ export default class DB {
                 albums.title LIKE ? OR
                 tracks.title LIKE ? OR
                 artists.name LIKE ?
-            )${genre? ` AND albums.id IN (SELECT albumID from genres WHERE genres.genre = ?)` : ''}
+            )${genre ? ` AND albums.id IN (SELECT albumID from genres WHERE genres.genre = ?)` : ''}
             ORDER BY albums.id DESC
         `, ...params);
         // Get matching tracks
@@ -366,7 +355,7 @@ export default class DB {
         album.genres = result.map(row => row.genre);
         result = await this.db.get('SELECT * FROM artists WHERE id = ?', album.artistID);
         album.artist = result.name;
-        
+
         return album;
     }
 
@@ -377,6 +366,63 @@ export default class DB {
      */
     async getAlbumTracks(albumID) {
         return await this.db.all('SELECT * FROM tracks WHERE albumID = ? ORDER BY disc, trackOrder', albumID);
+    }
+
+    /**
+     * Updates an album's information to match up with the given one. Tracks
+     * whose format is `mp3` should updated to reflect changes.
+     */
+    async updateAlbumInfo(albumID, albumInfo) {
+
+        const artist = await this.db.get('SELECT id FROM artists WHERE name = ?', albumInfo.artist);
+        if (!artist) {
+            albumInfo.artistID = await this.createArtist(albumInfo.artist);
+        } else albumInfo.artistID = artist.id;
+        // Update album
+        await this.db.run(`
+            UPDATE albums
+            SET title = ?, artistID = ?
+            WHERE id = ?
+        `, albumInfo.title, albumInfo.artistID, albumID);
+
+        // Update genres
+        // First, delete all genres
+        await this.db.run('DELETE FROM genres WHERE albumID = ?', albumID);
+        // Then, add all genres
+        if (albumInfo.genres.length > 0) await this.createGenre(albumInfo.genres.join(', '), albumID);
+
+        // Update tracks
+        const tags = {
+            album: albumInfo.title,
+            performerInfo: albumInfo.artist,
+            genre: albumInfo.genres.join(', ')
+        }
+        for (const track of albumInfo.tracks) {
+            if (path.extname(track.path) == '.mp3') {
+                id3.update(tags, track.path, () => null);
+            }
+        }
+    }
+
+    /**
+     * Updates the track's entry on the database and, if the track itself is in
+     * `mp3` format, changes its tags using `node-id3` module.
+     */
+    async updateTrackInfo(trackID, trackInfo) {
+        // Update database
+        await this.db.run(`
+            UPDATE tracks
+            SET title = ?, composer = ?
+            WHERE id = ?
+        `, trackInfo.title, trackInfo.composer, trackID);
+        // Update track tags
+        if (path.extname(trackInfo.path) == '.mp3') {
+            const tags = {
+                title: trackInfo.title,
+                composer: trackInfo.composer
+            }
+            id3.update(tags, trackInfo.path, () => null);
+        }
     }
 }
 

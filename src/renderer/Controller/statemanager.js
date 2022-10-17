@@ -16,11 +16,11 @@ export default class StateManager {
             this.saveSettings(settings);
         });
 
-        // `StateManager` should set up event listeners for `setView`,
-        // `getLibrary`, `getSettings`, `setSettings`, `open`, `addCover`,
-        // `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`,
-        // `resetLibrary`, `resetSettings` and `log`. In addition, `log` should
-        // also be listened on `ipcRenderer`.
+        // `StateManager` should set up event listeners for `changeView`,
+        // `getLibrary`, `saveSettings`, `resetSettings`, `open`, `addCover`,
+        // `deleteAlbum`, `updateAlbumInfo`, `windowButton`, `resetLibrary`,
+        // `resetSettings` and `log`. In addition, `log` should also be listened
+        // on `ipcRenderer`.
         Events.on('changeView', this.changeView.bind(this));
         Events.on('getLibrary', this.getLibrary.bind(this));
         Events.on('saveSettings', this.saveSettings.bind(this));
@@ -28,8 +28,8 @@ export default class StateManager {
         Events.on('open', this.open.bind(this));
         Events.on('addCover', this.addCover.bind(this));
         Events.on('deleteAlbum', this.deleteAlbum.bind(this));
-        Events.on('createGenre', this.createGenre.bind(this));
-        Events.on('deleteGenre', this.deleteGenre.bind(this));
+        Events.on('updateAlbumInfo', this.updateAlbumInfo.bind(this));
+        Events.on('updateTrackInfo', this.updateTrackInfo.bind(this));
         Events.on('windowButton', this.windowButton.bind(this));
         Events.on('resetLibrary', this.resetLibrary.bind(this));
         Events.on('log', this.log.bind(this));
@@ -157,22 +157,33 @@ export default class StateManager {
     }
 
     /**
-     * Adds a genre to an album and updates the `AlbumDetails` component.
+     * Calls the main process' `updateAlbumInfo` handler and refreshes the
+     * `AlbumDetails` component.
      */
-    async createGenre(genre, albumID) {
-        await ipcRenderer.invoke('createGenre', genre, albumID);
-        // Reload info
+    async updateAlbumInfo(albumID, albumInfo) {
+        // Add a progress spinner
+        this.setLoading(true);
+        await ipcRenderer.invoke('updateAlbumInfo', albumID, albumInfo);
+        this.getLibrary();
+        this.setLoading(false);
+        
         this.changeView('albumDetails', albumID);
     }
 
     /**
-     * Deletes a genre from an album and updates the `AlbumDetails` component.
+     * Calls the main process' `updateTrackInfo` handler and refreshes the
+     * `AlbumDetails` component.
      */
-    async deleteGenre(genre, albumID) {
-        await ipcRenderer.invoke('deleteGenre', genre, albumID);
-        // Reload info
+     async updateTrackInfo(albumID, trackID, trackInfo) {
+        // Add a progress spinner
+        this.setLoading(true);
+        await ipcRenderer.invoke('updateTrackInfo', trackID, trackInfo);
+        this.getLibrary();
+        this.setLoading(false);
+        
         this.changeView('albumDetails', albumID);
     }
+
 
     /**
      * Calls the main process' `windowButton` handler 

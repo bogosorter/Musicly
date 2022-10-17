@@ -5,7 +5,6 @@
 }
 #genre-container {
     display: flex;
-    margin-left: 10px;
 }
 #album-details-background {
     border-radius: var(--border-radius);
@@ -16,11 +15,31 @@
     justify-content: center;
     align-items: center;
 }
-#album-details-background p {
-    margin-bottom: 0.5rem;
-}
 #album-details-scroll {
     max-height: 72vh;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.detail-input {
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-05);
+    max-width: 100%;
+    color: var(--color);
+    transition: var(--transition);
+    background-color: transparent;
+    padding: 10px;
+}
+.detail-input::placeholder {
+    color: var(--color-05);
+}
+.detail-input:hover, .add-quoteinput:focus {
+    border: 1px solid var(--color);
+}
+
+.artist-detail {
+    color: var(--color-05);
 }

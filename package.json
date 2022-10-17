@@ -93,6 +93,7 @@
     "github-version-checker": "^2.3.0",
     "howler": "^2.2.3",
     "music-metadata": "^7.12.4",
+    "node-id3": "^0.2.3",
     "react": "^18.1.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.1.0",

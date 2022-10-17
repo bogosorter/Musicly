@@ -6,7 +6,7 @@
     border-radius: 5px;
     cursor: pointer;
     display: flex;
-    margin: 2px;
+    margin-right: 4px;
 }
 .genre.unset {
     opacity: 0.5;

@@ -3,7 +3,7 @@ import Cover from '../Cover/Cover';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { SkipBwd, SkipFwd, Play, Pause, Square, Queue } from '../Icons/Icons';
 
-import Evts from 'renderer/Events/Events';
+import Events from 'renderer/Events/Events';
 import { useReducer, useEffect } from 'react';
 import './controllarea.css';
 import Shortcuts from 'renderer/Shortcuts/Shortcuts';
@@ -15,12 +15,6 @@ import Shortcuts from 'renderer/Shortcuts/Shortcuts';
  * `dummy` prevents all events from being fired.
  */
 export default function ControllArea({playback, dummy = false}) {
-
-    // Instead of manually changing all actions, it is best to just inutilize
-    // events.
-    let Events;
-    if (!dummy) Events = Evts;
-    else Events = { fire: () => null, on: () => null };
 
     // Since play state may be changed other methods than the buttons in
     // ControllArea (in `mediaSession`), we must listen to those events.

@@ -4,7 +4,7 @@ import { addContextMenu } from '../ContextMenu/ContextMenu';
 
 import getCover from './getCover';
 import { useEffect } from 'react';
-import Evts from 'renderer/Events/Events';
+import Events from 'renderer/Events/Events';
 import { nanoid } from 'nanoid';
 import './cover.css';
 
@@ -21,13 +21,6 @@ export default function Cover ({album, buttons = [], parent}) {
 
     // Generate a unique ID for the cover
     const id = nanoid();
-
-    // Instead of manually changing all actions, it is best to just inutilize
-    // events. Cover shouldn't fire events if this is a test or if parent is
-    // control area.
-    let Events;
-    if (parent == 'dummy') Events = { fire: () => null }
-    else Events = Evts;
     
     // Actions that the user can trigger in the `ContextMenu`
     const actions = [

@@ -1,4 +1,4 @@
-import Evts from 'renderer/Events/Events';
+import Events from 'renderer/Events/Events';
 import { addContextMenu } from '../ContextMenu/ContextMenu';
 import Button from '../Button/Button';
 import { Close, Edit, Check } from '../Icons/Icons';
@@ -20,12 +20,6 @@ import './track.css';
  * the tutorial.
  */
 export default function Track({track, classes, playing, tracks, jump, dummy = false, parent, isDragging}) {
-
-    // Instead of manually changing all actions, it is best to just inutilize
-    // events.
-    let Events;
-    if (!dummy) Events = Evts;
-    else Events = { fire: () => null };
 
     const [editing, setEditing] = useState(false);
     const [title, setTitle] = useState(track.title);

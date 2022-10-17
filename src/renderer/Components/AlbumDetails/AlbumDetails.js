@@ -7,7 +7,7 @@ import GenreCreator from '../GenreCreator/GenreCreator';
 
 import Events from 'renderer/Events/Events';
 import { useMemo, useState } from 'react';
-import emptyCover from '../../../../assets/empty.png';
+import getCover from '../Cover/getCover';
 import './albumdetails.css';
 
 /**
@@ -36,16 +36,7 @@ export default function AlbumDetails({details, playback}) {
         );
     }
 
-    // If the current album doesn't have a defined cover, use an empty one as
-    // background image
-    let backgroundImage = `url(${emptyCover})`;
-    if (details.album.coverPath) {
-        backgroundImage = `url('file://${details.album.coverPath}')`;
-        // Ensure that the path is escaped: this is needed for Windows paths.
-        // For some reason, backgroundImage = backgroundImage.replace('\\',
-        // '\\\\') does'n work. Therefore, we have to change the backslashes to
-        // forward ones.
-        backgroundImage = backgroundImage.replace(/\\/g, '/');
+    const backgroundImage = getCover(details.album);
     }
 
     return (

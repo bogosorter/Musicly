@@ -2,8 +2,8 @@ import Events from 'renderer/Events/Events';
 import ControllArea from '../ControllArea/ControllArea';
 import Header from '../Header/Header';
 import TrackList from '../TrackList/TrackList';
-import emptyCover from '../../../../assets/empty.png';
 
+import getCover from '../Cover/getCover';
 import { useEffect, useState } from 'react';
 import './queue.css';
 
@@ -35,17 +35,7 @@ export default function Queue({playback}) {
         timeoutId = setTimeout(() => setActive(false), 6000);
     }
 
-    // If the current album doesn't have a defined cover, use an empty one as
-    // background image
-    let backgroundImage = `url(${emptyCover})`;
-    if (playback.album.coverPath) {
-        backgroundImage = `url('file://${playback.album.coverPath}')`;
-        // Ensure that the path is escaped: this is needed for Windows paths.
-        // For some reason, backgroundImage = backgroundImage.replace('\\',
-        // '\\\\') does'n work. Therefore, we have to change the backslashes to
-        // forward ones.
-        backgroundImage = backgroundImage.replace(/\\/g, '/');
-    }
+    const backgroundImage = getCover(playback.album);
 
     // Variable that contains the id of the playing track, only if playback is
     // not paused.

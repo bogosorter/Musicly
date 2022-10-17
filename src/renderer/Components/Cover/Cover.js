@@ -2,7 +2,7 @@ import Button from '../Button/Button';
 import { Play, List } from '../Icons/Icons';
 import { addContextMenu } from '../ContextMenu/ContextMenu';
 
-import emptyCover from '../../../../assets/empty.png';
+import getCover from './getCover';
 import { useEffect } from 'react';
 import Evts from 'renderer/Events/Events';
 import { nanoid } from 'nanoid';
@@ -53,20 +53,10 @@ export default function Cover ({album, buttons = [], parent}) {
 
     // An empty cover is returned if no album is selected
     if (!album) return (
-        <div className='cover' style={{'--bg-image': `url('${emptyCover}')`}} ></div>
+        <div className='cover' style={{'--bg-image': getCover({})}} ></div>
     )
 
-    // If the current album doesn't have a defined cover, use an empty one as
-    // background image
-    let backgroundImage = `url(${emptyCover})`;
-    if (album.coverPath) {
-        backgroundImage = `url('file://${album.coverPath}')`;
-        // Ensure that the path is escaped: this is needed for Windows paths.
-        // For some reason, backgroundImage = backgroundImage.replace('\\',
-        // '\\\\') does'n work. Therefore, we have to change the backslashes to
-        // forward ones.
-        backgroundImage = backgroundImage.replace(/\\/g, '/');
-    }
+    const backgroundImage = getCover(album);
 
 
     const renderedButtons = [];

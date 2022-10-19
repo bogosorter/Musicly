@@ -281,7 +281,7 @@ export default class DB {
         if (sourceType == 'path') {
             extension = path.extname(source);
             let toPath = path.join(coverFolder, `${albumID}${extension}`);
-            await fs.copyFile(source, toPath, () => null);
+            fs.copyFile(source, toPath, () => null);
             toPath = path.join(albumDirectory, `cover${extension}`);
             fs.copyFile(source, toPath, () => null);
         } else {

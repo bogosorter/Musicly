@@ -414,6 +414,20 @@ export default class DB {
             performerInfo: albumInfo.artist,
             genre: albumInfo.genres.join(', ')
         }
+
+        // There is an option to bulk edit the composer
+        if (albumInfo.composer) {
+            tags.composer = albumInfo.composer;
+
+            for (const track of albumInfo.tracks) {
+                await this.db.run(`
+                    UPDATE tracks
+                    SET composer = ?
+                    WHERE id = ?
+                `, albumInfo.composer, track.id);
+            }
+        }
+
         for (const track of albumInfo.tracks) {
             if (path.extname(track.path) == '.mp3') {
                 id3.update(tags, track.path, () => null);

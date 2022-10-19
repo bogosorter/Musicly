@@ -284,6 +284,23 @@ export default class DB {
             fs.copyFile(source, toPath, () => null);
             toPath = path.join(albumDirectory, `cover${extension}`);
             fs.copyFile(source, toPath, () => null);
+
+            // Save the new cover image on the tracks themselves
+            const tracks = await this.db.all('SELECT path FROM tracks WHERE albumID = ?', albumID);
+            for (const track of tracks) {
+                const tags = {
+                    image: {
+                        mime: 'image/' + extension.replace('.', ''),
+                        type: {
+                          id: 0,
+                          name: 'cover'
+                        },
+                        description: "cover",
+                        imageBuffer: fs.readFileSync(source)
+                      },
+                }
+                id3.update(tags, track.path);
+            }
         } else {
             const extensions = {
                 'image/jpeg': 'jpg',

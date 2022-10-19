@@ -40,7 +40,6 @@
 .note {
     font-size: 0.8em;
     color: gray;
-    text-align: center;
 }
 #dummy-miniplayer-container {
     height: 70px;
@@ -56,4 +55,11 @@
 #dummy-miniplayer-container #mini-player-cover {
     height: 70px;
     width: 70px;
+}
+#tutorial p {
+    color: var(--color-08);
+    text-align: justify;
+}
+#tutorial strong {
+    color: var(--color)
 }

@@ -38,7 +38,7 @@ export default function Tutorial({dismissTutorial}) {
         <Button onClick={() => changeSlide(1)} type='outline'>Next</Button> :
         <Button onClick={() => dismissTutorial()} type='outline'>Let's go!</Button>;
 
-    const skip = <Button onClick={() => dismissTutorial()} type='outline'>Skip</Button>;
+    const skip = currentSlide > 0? <Button onClick={() => dismissTutorial()} type='outline'>Skip</Button> : null;
 
 
     return (
@@ -60,8 +60,11 @@ const content = [{
         title: 'Welcome!',
         text: <>
             <p style={{textAlign: 'center'}}>You can review this tutorial whenever you want, in the settings.</p>
-            <p className='note'>Those already using Musicly should check out the "What's new" section</p>
+            <p className='note' style={{textAlign: 'center'}}>Those already using Musicly should check out the "What's new" section</p>
         </>
+    }, {
+        title: 'Personal note',
+        text: 'As of this writing, 50 people use Musicly every day. I can\'t but be grateful for my small project to have become something useful. However, one thing disturbs me: I know nothing about those using Musicly: not what pleases them, what they dislike, nor which new features they would like to see. If any of you would like to express your opinion, my email is the following: luiswbarbosa@gmail.com. I would really appreciate it.'
     }, {
         title: 'Control Button',
         text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <Settings size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,
@@ -77,11 +80,8 @@ const content = [{
         text: 'Use this box to filter for album title, track title, artist and composer. Genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and try to check and uncheck genres.',
         dummies: <SearchDummy />
     },{
-        title: 'Additional info',
-        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
-    }, {
-        title: 'What\'s new on 0.2.0',
-        text: <>Musicly 0.2.0 introduces the "mini-player" feature. It keeps Musicly open on the bottom right corner of your screen, while you use other apps. To use it, click on the minimize window button. The behavior can be changed on the settings. You can now also change an album's genres.</>,
+        title: 'Mini-player',
+        text: 'Clicking on the minimize button will transform Musicly into a small window which sticks on top of the screen.',
         dummies: (
             <div id='dummy-miniplayer-container'>
                 <MiniPlayer playback={{
@@ -92,5 +92,14 @@ const content = [{
                 }} dummy={true} />
             </div>
         )
-    }
+    }, {
+        title: 'What\' new on 0.3.0',
+        text: <>
+            <p><strong>Queue management:</strong> you can now delete and reorder tracks in the queue.</p>
+            <p><strong>Edit information:</strong> you can now change album and track information. Changes will aply to the database and, if the music files are in <code>mp3</code> format, to the files themselves.</p>
+        </>
+    }, {
+        title: 'Additional info',
+        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
+    },
 ];

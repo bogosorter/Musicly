@@ -73,8 +73,13 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
             <Edit size={14} />
         </Button> : null;
 
+    function onBlur(e) {
+        // Only unset editing if no children are focused
+        if (!e.target.contains(e.relatedTarget) && e.target == e.currentTarget) setEditing(false);
+    }
+
     return (
-        <div id={`track-${id}`} className={classes.join(' ')} onClick={!editing? actions[3].onClick : null} onBlur={() => setEditing(false)} tabIndex={-1}>
+        <div id={`track-${id}`} className={classes.join(' ')} onClick={!editing? actions[3].onClick : null} onBlur={onBlur} tabIndex={-1}>
             <div className='col-1 d-flex justify-content-center align-items-end'><PlayingBars playing={playing} /></div>
             <div className='col-1'>{track.trackOrder}</div>
             <div className='col-1'/>

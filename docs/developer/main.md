@@ -5,13 +5,15 @@ title: Main
 ---
 
 # Main
+
 {:.no_toc}
 
 ## Table of contents
+
 {:.no_toc}
 
 * TOC
-{:toc}
+  {:toc}
 
 ## General
 
@@ -35,21 +37,7 @@ The main script puts together all the logic in the main process. It initializes 
 
 **Return value:** None
 
-#### `createGenre`
 
-**Description:** Adds a new genre to the database.
-
-**Arguments:** `albumID`, `genre`
-
-**Return value:** None
-
-#### `deleteGenre`
-
-**Description:** Deletes an entry from the `genres` table.
-
-**Arguments:** `albumID`, `genre`
-
-**Return value:** None
 
 ### `windowButton`
 
@@ -82,6 +70,22 @@ The main script puts together all the logic in the main process. It initializes 
 **Arguments:** `albumID`
 
 **Return value:** `tracks`
+
+#### `updateAlbumInfo`
+
+**Description:** Updates an album's information to match up with the given one.
+
+**Arguments** `albumID`, `albumInfo`
+
+**Return value:** None
+
+#### `updateTrackInfo`
+
+**Description:** Updates a track's entry on the database.
+
+**Arguments:** `trackID`, `trackInfo`
+
+**Return value:** None
 
 ### `getSettings`
 

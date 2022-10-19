@@ -271,19 +271,19 @@ class StateManager {
 
 **Return value:** None
 
-#### `addGenre`
+#### `updateAlbumInfo`
 
-**Description:** Adds a genre to an album and updates the `AlbumDetails` component.
+**Description:** Calls the main process' `updateAlbumInfo` handler and refreshes the `AlbumDetails` component.
 
-**Arguments:** `genre`, `albumID`
+**Arguments:** `albumID`, `albumInfo`
 
 **Return value:** None
 
-#### `deleteGenre`
+#### `updateTrackInfo`
 
-**Description:** Deletes a genre from an album and updates the `AlbumDetails` component.
+**Description:** Calls the main process' `updateTrackInfo` handler and refreshes the `AlbumDetails` component.
 
-**Arguments:** `genre`, `albumID`
+**Arguments:** `albumID`, `trackID`, `trackInfo`
 
 **Return value:** None
 
@@ -313,4 +313,4 @@ class StateManager {
 
 ### Event listeners
 
-`StateManager` should set up event listeners for `changeView`, `getLibrary`, `saveSettings`, `resetSettings`, `open`, `addCover`, `deleteAlbum`, `addGenre`, `deleteGenre`, `windowButton`, `resetLibrary`, `resetSettings` and `log`. In addition, `log` should also be listened on `ipcRenderer`.
+`StateManager` should set up event listeners for `changeView`, `getLibrary`, `saveSettings`, `resetSettings`, `open`, `addCover`, `deleteAlbum`, `updateAlbumInfo`, `updateTrackInfo`, `windowButton`, `resetLibrary`, `resetSettings` and `log`. In addition, `log` should also be listened on `ipcRenderer`.

@@ -2,16 +2,19 @@
 permalink: /docs/dev/db
 layout: docs
 title: DB
+
 ---
 
 # DB
+
 {:.no_toc}
 
 ## Table of contents
+
 {:.no_toc}
 
 * Toc
-{:toc}
+  {:toc}
 
 ## The DB class
 
@@ -99,13 +102,7 @@ This class manages the database. No arguments are needed when constructing. Afte
 
 **Return value:** None
 
-#### `deleteGenre`
 
-**Description:** Deletes an entry from the `genres` table.
-
-**Arguments:** `albumID`, `genre`
-
-**Return value:** None
 
 #### `addCover`
 
@@ -138,6 +135,22 @@ This class manages the database. No arguments are needed when constructing. Afte
 **Arguments:** `albumID`
 
 **Return value:** `tracks`
+
+#### `updateAlbumInfo`
+
+**Description:** Updates an album's information to match up with the given one. Tracks whose format is `mp3` should updated to reflect changes.
+
+**Arguments** `albumID`, `albumInfo`
+
+**Return value:** None
+
+#### `updateTrackInfo`
+
+**Description:** Updates the track's entry on the database and, if the track itself is in `mp3` format, changes its tags using `node-id3` module.
+
+**Arguments:** `trackID`, `trackInfo`
+
+**Return value:** None
 
 ## Structure
 

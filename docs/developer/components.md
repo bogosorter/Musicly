@@ -151,7 +151,7 @@ const [visible, setVisibility] = useState(false);
 
 ## `Track`
 
-**Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. `jump` and `tracks` property specify which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). `parent` is the component that contains the track, and if `parent == queue` a button allowing to remove the track from the queue should be displayed. An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
+**Description:** Displays a single track. The component should display the track number and name, and also a sprite if it is currently playing. `jump` and `tracks` property specify which tracks should be played if this track is clicked (in an album, for instance, you want the user to be able choose a track and play all the ones that come after it). `parent` is the component that contains the track, and if `parent == queue` a button allowing to remove the track from the queue should be displayed. If `parent == albumDetails`, the track should be editable (i.e., the title and composer should be changeable). An optional property `dummy` should prevent all events from being fired. It is used in the tutorial.
 
 **Properties:** `track`, `classes`, `playing`,  and `tracks`, `jump`, `parent`, `isDragging`
 
@@ -210,4 +210,4 @@ modify(setting);
 
 ## `Icons`
 
-**Description:**  Rather than a component, this module provides a series of icon components. Each of them accepts a property `size` defaulting to 32. The following icons are included: `Logo`, `Play`, `Pause`, `SkipFwd`, `SkipBwd`, `Settings`, `Square`, `Plus`, `Circle`, `CircleOutline`, `List`, `CD`, `Search`, `Back`, `Queue`, `Close`, `Collapse`.
+**Description:**  Rather than a component, this module provides a series of icon components. Each of them accepts a property `size` defaulting to 32. The following icons are included: `Logo`, `Play`, `Pause`, `SkipFwd`, `SkipBwd`, `Settings`, `Square`, `Plus`, `Circle`, `CircleOutline`, `List`, `CD`, `Search`, `Back`, `Queue`, `Close`, `Collapse`, `Edit` and `Check`.

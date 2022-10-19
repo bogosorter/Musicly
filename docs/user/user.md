@@ -120,6 +120,7 @@ While styling your app, please remember to set the theme to whathever fits your 
 ```css
 #app.theme-light, #app.theme-dark {
     --color: red;
+    --color-08: rgba(255, 0, 0, 0.8);
     --color-05: rgba(255, 0, 0, 0.5);
     --color-02: rgba(255, 0, 0, 0.2);
 }
@@ -170,6 +171,7 @@ The following code implements a (rather horrible!) monochrome theme - image bell
     --bg-color-02: rgba(0, 0, 0, 0.2);
 
     --color: rgb(33, 180, 33);
+    --color-08: rgba(33, 180, 33, 0.8);
     --color-05: rgba(33, 180, 33, 0.5);
     --color-02: rgba(33, 180, 33, 0.2);
 

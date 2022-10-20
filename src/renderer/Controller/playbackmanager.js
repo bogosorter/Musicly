@@ -289,10 +289,12 @@ export default class PlaybackManager {
     removeFromQueue(index) {
         this.playback.queue.splice(index, 1);
 
+        const isCurrentTrack = index == this.playback.position;
+
         // Update playback position
         if (index <= this.playback.position) this.playback.position--;
         
-        if (index - 1 == this.playback.position) this.skipFwd();
+        if (isCurrentTrack) this.skipFwd();
         else this.updatePlayback();
     }
 

@@ -5,15 +5,13 @@ title: Main
 ---
 
 # Main
-
 {:.no_toc}
 
 ## Table of contents
-
 {:.no_toc}
 
 * TOC
-  {:toc}
+{:toc}
 
 ## General
 

@@ -18,12 +18,6 @@ let blockerID;
  * queue. Accepts `controller` and `playback` as properties.
  */
 export default function Queue({playback}) {
-
-    // If nothing is playing, return to library
-    if (!playback.track) {
-        Events.fire('changeView', 'library');
-        return;
-    }
     
     // Variable used to track user inactivity
     const [active, setActive] = useState(true);

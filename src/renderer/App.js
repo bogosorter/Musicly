@@ -119,7 +119,11 @@ export default function App() {
     return (
         <div id='app' className={'theme-' + (settings.theme? settings.theme.value : 'dark')}>
         {
-            view == 'library'?
+            // The second conditions are the only way to avoid a bug (checking if
+            // there is a track inside `Queue` component and then changing the
+            // view will cause a state update to `App` while `Queue` is being
+            // rendered, which is not allowed)
+            view == 'library' || (view == 'queue' && !playback.track)?
                 <Library library={library} playback={playback} /> :
             view == 'albumDetails'?
                 <AlbumDetails details={details} playback={playback} /> :

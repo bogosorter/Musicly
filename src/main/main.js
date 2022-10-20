@@ -110,6 +110,7 @@ async function setMiniPlayer() {
         width *= 0.8;
         height *= 0.8;
     }
+    mainWindow.setFullScreen(false);
     mainWindow.unmaximize();
     mainWindow.setMinimumSize(width, height);
     mainWindow.setSize(width, height);

@@ -14,6 +14,17 @@
     padding: 20px;
     justify-content: center;
     align-items: center;
+
+    /* Inside this element, the theme is always set to dark */
+    --bg-color: var(--bg-color-dark);
+    --bg-color-05: var(--bg-color-dark-05);
+    --bg-color-02: var(--bg-color-dark-02);
+    --color: var(--color-dark);
+    --color-08: var(--color-dark-08);
+    --color-05: var(--color-dark-05);
+    --color-02: var(--color-dark-02);
+    --button-hover-bg: var(--button-hover-bg-dark);
+    color: var(--color);
 }
 #album-details-scroll {
     max-height: 72vh;

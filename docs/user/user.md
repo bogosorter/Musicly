@@ -65,7 +65,7 @@ The shortcuts defined here are: `space` for pausing and playing, `arrowleft` for
 
 ### Album Details
 
-To know more about an album, click the list button on the cover. You can edit the album's metadata and tracks.
+To know more about an album, click the list button on the cover. You can edit the album's metadata and tracks. Changes will be saved to the music files themselves if they are in `mp3` format.
 
 ![](./images/details.png)
 

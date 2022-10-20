@@ -65,11 +65,3 @@ Part of the program that displays the UI and manages the music playback. The hel
 - [`Controller`](/Musicly/docs/dev/controller): The working horse of the renderer process, this module communicates with the main process, manages music playback and the application's state.
 
 - [`Components`](/Musicly/docs/dev/components): A bunch of React functional components, of which `App` is the main one, rendering all the others and calling the `Controller`.
-
-## Next steps
-
-These are a couple things that I'm planning to add to the app later on:
-
-- Queue management (for now, you can only see which tracks are going to play next).
-
-- Genre management (everything needed for this is implemented, except the UI).

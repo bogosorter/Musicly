@@ -15,6 +15,9 @@
 .track:hover, #queue .track:hover {
     background-color: transparent;
 }
+.track.editing:hover {
+    background-color: var(--color-02);;
+}
 .row.track-top {
     border-top: none;
     border-top-left-radius: var(--border-radius);

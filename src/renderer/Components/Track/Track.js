@@ -38,6 +38,7 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
     classes.push('row');
     classes.push('track');
     if (isDragging) classes.push('dragging');
+    if (editing) classes.push('editing');
 
     const actions = [
         { text: 'Play Track', onClick: () => Events.fire('getTracks', 'track', track, `playTracks`) },

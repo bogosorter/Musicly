@@ -96,7 +96,7 @@ const content = [{
         title: 'What\' new on 0.3.0',
         text: <>
             <p><strong>Queue management:</strong> you can now delete and reorder tracks in the queue.</p>
-            <p><strong>Edit information:</strong> you can now change album and track information. Changes will aply to the database and, if the music files are in <code>mp3</code> format, to the files themselves.</p>
+            <p><strong>Edit information:</strong> you can now change album and track information. Changes will apply to the database and, if the music files are in <code>mp3</code> format, to the files themselves.</p>
         </>
     }, {
         title: 'Additional info',

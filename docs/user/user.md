@@ -79,7 +79,7 @@ In the settings, you can change you color theme, the zoom of the app and custom 
 
 You can add your custom styles to the app, using CSS. Advanced users may use the console to inspect the different elements and selectors (`ctrl+shift+i`).
 
-While styling your app, please remember to set the `theme` setting to whathever fits your styles best, because some components rely on theme information different than the stylesheet.
+While styling your app, please remember to set the `theme` setting to whatever fits your styles best, because some components rely on theme information different than the style sheet.
 
 ### Examples
 
@@ -174,4 +174,4 @@ The following code implements a (rather horrible!) monochrome theme - image bell
 
 ## Issues & Bugs
 
-If you find an error with the app or with this web page, you can file an issue [here](https://github.com/m7kra/Musicly/issues) or send an email to `inboxaljezur@gmail.com`. I'll be glad to adress it!
+If you find an error with the app or with this web page, you can file an issue [here](https://github.com/m7kra/Musicly/issues) or send an email to `inboxaljezur@gmail.com`. I'll be glad to address it!

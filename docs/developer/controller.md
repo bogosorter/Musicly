@@ -207,7 +207,7 @@ class StateManager {
 
 #### `changeView`
 
-**Description:** Sets the app view to `view`, updating album details if needed, according to albumID. Should call the main processes's `setMiniPlayer` if `view == miniplayer`.
+**Description:** Sets the app view to `view`, updating album details if needed, according to `albumID`. Should call the main process's `setMiniPlayer` if `view == miniplayer`.
 
 **Arguments:** `view`,`[albumID]`
 
@@ -247,7 +247,7 @@ class StateManager {
 
 #### `open`
 
-**Description:** Calls the main process' `open` handler and refreshes the library after it.
+**Description:** Calls the main process's `open` handler and refreshes the library after it.
 
 **Arguments:** `type = folder` (`folder` or `file`)
 
@@ -255,7 +255,7 @@ class StateManager {
 
 #### `addCover`
 
-**Description:** Calls the main process' `addCover` handler and refreshes the component that called it according to `caller`.
+**Description:** Calls the main process's `addCover` handler and refreshes the component that called it according to `caller`.
 
 **Arguments:** `albumID`, `caller` (`albumDetails` or `library`)
 
@@ -263,7 +263,7 @@ class StateManager {
 
 #### `deleteAlbum`
 
-**Description:** Calls the main process' `deleteAlbum` handler and refreshes the library after it.
+**Description:** Calls the main process's `deleteAlbum` handler and refreshes the library after it.
 
 **Arguments:** `albumID`
 
@@ -271,7 +271,7 @@ class StateManager {
 
 #### `updateAlbumInfo`
 
-**Description:** Calls the main process' `updateAlbumInfo` handler and refreshes the `AlbumDetails` component.
+**Description:** Calls the main process's `updateAlbumInfo` handler and refreshes the `AlbumDetails` component.
 
 **Arguments:** `albumID`, `albumInfo`
 
@@ -279,7 +279,7 @@ class StateManager {
 
 #### `updateTrackInfo`
 
-**Description:** Calls the main process' `updateTrackInfo` handler and refreshes the `AlbumDetails` component.
+**Description:** Calls the main process's `updateTrackInfo` handler and refreshes the `AlbumDetails` component.
 
 **Arguments:** `albumID`, `trackID`, `trackInfo`
 

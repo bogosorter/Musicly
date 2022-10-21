@@ -18,7 +18,7 @@ export default function GenreCreator({ createGenre }) {
     function blur() {
         setGenre('+');
         setFocused(false);
-        if (genre != '') createGenre(genre);
+        if (genre.trim() != '') createGenre(genre);
     }
 
     function onChange(e) {
@@ -30,7 +30,8 @@ export default function GenreCreator({ createGenre }) {
         if (e.key === 'Enter') {
             setGenre('+');
             setFocused(false);
-            if (genre != '') createGenre(genre);
+            if (genre.trim() != '') createGenre(genre);
+            document.activeElement.blur();
         } 
     }
 

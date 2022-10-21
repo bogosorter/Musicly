@@ -200,6 +200,9 @@
     "win": {
       "target": "nsis"
     },
+    "nsis": {
+        "oneClick": false
+    },
     "directories": {
       "app": "release/app",
       "buildResources": "assets",

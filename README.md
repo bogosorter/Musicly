@@ -10,7 +10,11 @@ Musicly is a simple and elegant open-source music player.
 
 - Elegance: In musicly, there is nothing to distract you from your loved music. Just a couple nice looking buttons.
 
+- Queue management: delete and reorder tracks in the queue.
+
 - Covers: It is annoying when you can't see your covers. Therefore, covers are first-class citizens in Musicly.
+
+- Edit album and track metadata: Changes are saved to files if they are in `mp3` format.
 
 - Mini-player mode: Minimize Musicly to a small window and keep working.
 

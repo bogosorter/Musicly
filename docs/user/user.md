@@ -21,7 +21,7 @@ This is the user documentation of Musicly. Its aim is to provide a comprehensive
 
 Navigation in the app is done mainly trough the control button. You have to hover Musicly's logo to unveil it. Quite obviously, the cog will take you to the settings and the plus sign allows you to add music to your library.
 
-![](./images/main.png)
+![](./images/main.jpg)
 
 A couple navigation shortcuts are set up: `ctrl+s` or `s` for settings, `ctrl+o` or `o` for adding music, `escape` or `alt+arrowleft` for going back and `ctrl+m` or `m` for mini-player mode.
 
@@ -37,15 +37,15 @@ Throughout the app, you will probably find the options to `Play`, `Add next` and
 
 If you make no movement for 6 seconds, the queue will hide itself.
 
-![](./images/tracks.png)
+![](./images/tracks.jpg)
 
-![](./images/queue.png)
+![](./images/queue.jpg)
 
 ### Searching
 
 If you ever get lost in your huge library :), you can use the search box. Besides allowing to search for album title, track, artist and composer, genres are suggested as you type. Click on them to display only the albums that match the genre.
 
-![](./images/search.png)
+![](./images/search.jpg)
 
 The shortcut for searching is `ctrl+f`.
 
@@ -53,13 +53,13 @@ The shortcut for searching is `ctrl+f`.
 
 Clicking on the minimize window will reduce Musicly to a small window, which will stay always on top. This behavior can be changed at any time in the settings. You can also change its size.
 
-![](../../assets/miniplayer.png)
+![](../../assets/miniplayer.jpg)
 
 ### Control Area
 
 You control the music playback in this area. You can pause, play, stop, skip, view the queue and seek (go 5 seconds forward or backward) the currently playing track.
 
-![](./images/control.png)
+![](./images/control.jpg)
 
 The shortcuts defined here are: `space` for pausing and playing, `arrowleft` for seeking backward, `arrowright` for seeking forward and `ctrl+q` or `q` for accessing the queue. Your keyboard's media control keys will also work with the control area.
 
@@ -67,13 +67,13 @@ The shortcuts defined here are: `space` for pausing and playing, `arrowleft` for
 
 To know more about an album, click the list button on the cover. You can edit the album's metadata and tracks. Changes will be saved to the music files themselves if they are in `mp3` format.
 
-![](./images/details.png)
+![](./images/details.jpg)
 
 ### Settings
 
 In the settings, you can change you color theme, the zoom of the app and custom styling (more on styling bellow). You can also reset your library and settings and view the initial tutorial again.
 
-![](./images/settings.png)
+![](./images/settings.jpg)
 
 ## Custom Styling
 
@@ -170,7 +170,7 @@ The following code implements a (rather horrible!) monochrome theme - image bell
 }
 ```
 
-![](./images/monochrome.png)
+![](./images/monochrome.jpg)
 
 ## Issues & Bugs
 

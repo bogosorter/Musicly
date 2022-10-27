@@ -1,78 +1,57 @@
 #cover {
-    height: 70vh;
-    background-color: black;
-    background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("/Musicly/assets/logo.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 100px;
-}
-
-.stripe {
-    height: 70vh;
-    overflow-x: hidden;
-}
-.final-stripe {
     height: 100vh;
-}
-/* When bootstrap's md breakpoint is reached, stripes become bigger because
-children wrap*/
-@media (max-width: 768px) {
-    .stripe {
-        height: 80vh;
-    }
-    .stripe > * {
-        height: 40vh;
-    }
-}
-
-.center-vertically {
+    width: 100vw;
     display: flex;
+    justify-content: center;
     align-items: center;
+}
+#cover h1 {
+    font-size: min(18vw, 200px);
+}
+#cover img {
+    height: min(30vw, 300px);
+}
+.stripe {
+    height: 100vh;
+    width: 100vw;
+}
+.stripe > *, .stripe > * > *, .stripe > * > * > * {
     height: 100%;
+    
+}
+@media (max-width: 768px) {
+    .stripe > * > * > * {
+        height: 50%;
+    }
+    .mw-md-100 {
+        max-width: 100%;
+    }
 }
 .center-children {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100%;
+    align-items: center;
+    flex-direction: column;
 }
-@media (max-width: 768px) {
-    .center-children-md {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
+.center-vertically {
+    display: flex;
+    align-items: center;
 }
-
-.example {
+img {
     max-height: 80%;
-    border-radius: 1vw;
-    max-width: 90vw;
-}
-/* These elements need to have a height set so that the images scale correctly */
-.col, .row {
-    height: 100%;
-}
-.img-left {
-    position: absolute;
-    right: 0;
+    border-radius: 10px;
 }
 .second-img-right {
     position: absolute;
     left: 100px;
 }
-.final-stripe a, .final-stripe a:hover, .final-stripe a:visited {
-    color: rgb(33,37,41);
-    text-decoration: none;
+body {
+    overflow-x: hidden;
 }
-.final-stripe a:not(nav a)::after {
-    content: none;
+
+#navbar.theme-dark li img {
+    filter: brightness(0) invert(100%);
+}
+object {
+    color: var(--color-08);
 }

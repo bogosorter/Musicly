@@ -33,19 +33,22 @@ p {
     text-align: justify;
 }
 
-.highlighter-rouge .highlight {
-    background-color: rgb(242, 244, 245);
+.highlighter-rouge .highlight:not(.highlight .highlight) {
+    background-color: var(--color-005);
     border-radius: 10px;
-    padding: 2px 5px;
+    padding: 10px 10px;
+}
+.highlight .highlight {
+    background-color: transparent;
 }
 .highlighter-rouge {
     margin-bottom: 15px;
 }
 code:not(pre.highlight code) {
-    background-color: rgb(242, 244, 245);
+    background-color: var(--color-005);
     border-radius: 5px;
     padding: 2px 5px;
-    color: rgb(33,37,41);
+    color: var(--color);
 }
 
 #markdown-toc a, #markdown-toc a:hover, #markdown-toc a:visited {

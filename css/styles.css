@@ -1,16 +1,112 @@
-body {
-    overflow-x: hidden;
+/**
+ * Variables used in the whole app. Please note that -dark only applies in dark
+ * theme and -light to the light theme.
+ */
+ :root {
+    --bg-color-dark: rgb(54, 59, 64);
+    --bg-color-light: rgb(233, 235, 235);
+    --color-dark: rgb(233, 235, 235);
+    --color-dark-09: rgb(233, 235, 235, 0.9);
+    --color-dark-08: rgb(233, 235, 235, 0.8);
+    --color-dark-07: rgb(233, 235, 235, 0.7);
+    --color-dark-06: rgb(233, 235, 235, 0.6);
+    --color-dark-05: rgb(233, 235, 235, 0.5);
+    --color-dark-04: rgb(233, 235, 235, 0.4);
+    --color-dark-03: rgb(233, 235, 235, 0.3);
+    --color-dark-02: rgb(233, 235, 235, 0.2);
+    --color-dark-015: rgb(233, 235, 235, 0.15);
+    --color-dark-01: rgb(233, 235, 235, 0.1);
+    --color-dark-005: rgb(233, 235, 235, 0.05);
+    --color-light: rgb(54, 59, 64);
+    --color-light-09: rgb(54, 59, 64, 0.9);
+    --color-light-08: rgb(54, 59, 64, 0.8);
+    --color-light-07: rgb(54, 59, 64, 0.7);
+    --color-light-06: rgb(54, 59, 64, 0.6);
+    --color-light-05: rgb(54, 59, 64, 0.5);
+    --color-light-04: rgb(54, 59, 64, 0.4);
+    --color-light-03: rgb(54, 59, 64, 0.3);
+    --color-light-02: rgb(54, 59, 64, 0.2);
+    --color-light-015: rgb(54, 59, 64, 0.15);
+    --color-light-01: rgb(54, 59, 64, 0.1);
+    --color-light-005: rgb(54, 59, 64, 0.05);
+
+    --border-radius: 10px;
+    --transition: all .5s ease;
+}
+.theme-dark {
+    --bg-color: var(--bg-color-dark);
+    --color: var(--color-dark);
+    --color-09: var(--color-dark-09);
+    --color-08: var(--color-dark-08);
+    --color-07: var(--color-dark-07);
+    --color-06: var(--color-dark-06);
+    --color-05: var(--color-dark-05);
+    --color-04: var(--color-dark-04);
+    --color-03: var(--color-dark-03);
+    --color-02: var(--color-dark-02);
+    --color-015: var(--color-dark-015);
+    --color-01: var(--color-dark-01);
+    --color-005: var(--color-dark-005);
+
+    background-color: var(--bg-color);
+    color: var(--color);
+}
+.theme-light {
+    --bg-color: var(--bg-color-light);
+    --color: var(--color-light);
+    --color-09: var(--color-light-09);
+    --color-08: var(--color-light-08);
+    --color-07: var(--color-light-07);
+    --color-06: var(--color-light-06);
+    --color-05: var(--color-light-05);
+    --color-04: var(--color-light-04);
+    --color-03: var(--color-light-03);
+    --color-02: var(--color-light-02);
+    --color-015: var(--color-light-015);
+    --color-01: var(--color-light-01);
+    --color-005: var(--color-light-005);
+
+    background-color: var(--bg-color);
+    color: var(--color);
+}
+.theme-success {
+    --bg-color: var(--bg-color-dark);
+    --color: var(--color-dark);
+    --color-09: var(--color-dark-09);
+    --color-08: var(--color-dark-08);
+    --color-07: var(--color-dark-07);
+    --color-06: var(--color-dark-06);
+    --color-05: var(--color-dark-05);
+    --color-04: var(--color-dark-04);
+    --color-03: var(--color-dark-03);
+    --color-02: var(--color-dark-02);
+    --color-015: var(--color-dark-015);
+    --color-01: var(--color-dark-01);
+    --color-005: var(--color-dark-005);
+
+    color: var(--color);
 }
 
-a:not(nav a), a:not(nav a):hover, a:not(nav a):visited {
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color);
+}
+p {
+    color: var(--color-08);
+}
+::selection {
+    background-color: var(--color-015);
+    color: var(--color);
+}
+
+a:not(nav a, #d-button), a:not(nav a, #d-button):hover, a:not(nav a, #d-button):visited {
     position: relative;
-    color: rgb(33,37,41);
+    color: var(--color-09);
     text-decoration: none;
 }
-a:not(nav a)::after {
+a:not(nav a, #d-button)::after {
     height: 2px;
     width: 100%;
-    background: rgb(33,37,41);
+    background: var(--color-09);
     content: "";
     position: absolute;
     left: 0;
@@ -18,9 +114,18 @@ a:not(nav a)::after {
     transform: scaleX(1);
     transition: all 0.5s ease;
 }
-a:not(nav a):hover::after {
+a:not(nav a, #d-button):hover::after {
     transform: scaleX(0);
 }
-.spacer-100 {
-    height: 100px;
+
+*::-webkit-scrollbar {
+    width: 10px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-05);
+    width: 10px;
+    border: transparent;
 }

@@ -123,20 +123,30 @@ title: A simple and elegant open-source music player
     </div>
 </div>
 
-<div class="theme-light stripe">
+<div id="download" class="theme-light stripe">
     <div class="container-fluid">
         <div class="row center-children">
             <div class="col col-md-8 col-11 center-children p-4">
-                    <h2>Cross-Platform</h2>
-                    <p>Support for Linux and Windows</p>
-                    <div class="mt-4">
-                        <img width="100" src="/Musicly/assets/linux.svg" class="me-4"/>
-                        <img width="100" src="/Musicly/assets/microsoft.svg"/>
-                    </div>
-                    <div class="mt-4"></div>
-                    <a id="d-button" href="https://github.com/m7kra/Musicly/releases">
-                        <button class="btn btn-outline-dark">Download</button>
+                <h2>Cross-Platform</h2>
+                <p>Support for Linux and Windows</p>
+                <div class="mt-4">
+                    <img width="100" src="/Musicly/assets/linux.svg" class="me-4"/>
+                    <img width="100" src="/Musicly/assets/microsoft.svg"/>
+                </div>
+                <div class="mt-4 d-flex">
+                    <a href="https://github.com/m7kra/Musicly/releases/latest/download/Musicly.Setup.exe" class="m-2 d-button">
+                        <button class="btn btn-outline-dark">Download <code>.exe</code></button>
                     </a>
+                    <a href="https://github.com/m7kra/Musicly/releases/latest/download/musicly_amd64.deb" class="m-2 d-button">
+                        <button class="btn btn-outline-dark">Download <code>.deb</code></button>
+                    </a>
+                    <a href="https://github.com/m7kra/Musicly/releases/latest/download/musicly_amd64.snap" class="m-2 d-button">
+                        <button class="btn btn-outline-dark">Download <code>.snap</code></button>
+                    </a>
+                </div>
+                <a class="mt-4 d-button" href="https://snapcraft.io/musicly">
+                    <img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
+                </a>
             </div>
         </div>
     </div>

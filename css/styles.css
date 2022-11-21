@@ -98,12 +98,12 @@ p {
     color: var(--color);
 }
 
-a:not(nav a, #d-button), a:not(nav a, #d-button):hover, a:not(nav a, #d-button):visited {
+a:not(nav a, .d-button), a:not(nav a, .d-button):hover, a:not(nav a, .d-button):visited {
     position: relative;
     color: var(--color-09);
     text-decoration: none;
 }
-a:not(nav a, #d-button)::after {
+a:not(nav a, .d-button)::after {
     height: 2px;
     width: 100%;
     background: var(--color-09);
@@ -114,7 +114,7 @@ a:not(nav a, #d-button)::after {
     transform: scaleX(1);
     transition: all 0.5s ease;
 }
-a:not(nav a, #d-button):hover::after {
+a:not(nav a, .d-button):hover::after {
     transform: scaleX(0);
 }
 

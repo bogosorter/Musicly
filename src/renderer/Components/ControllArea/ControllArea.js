@@ -16,6 +16,8 @@ import Shortcuts from 'renderer/Shortcuts/Shortcuts';
  */
 export default function ControllArea({playback, dummy = false}) {
 
+    if (!playback.track) return null;
+
     // Since play state may be changed other methods than the buttons in
     // ControllArea (in `mediaSession`), we must listen to those events.
     const [, forceUpdate] = useReducer(x => x + 1, 0);

@@ -54,7 +54,7 @@ export default function Library({library, playback}) {
                         </div>
                         <TrackList tracks={library.tracks} playback={playback} parent='library'/>
                         <div className='spacer-24' />
-                        <Button onClick={() => Events.fire('open', 'folder')} type='outline'>Add albums to library</Button>
+                        <Button onClick={() => Events.fire('open', 'folder')} type='outline'>Locate music</Button>
                         {/*
                             This second button was removed because it confused new users. Just in case I change my mind, here it is:
                             <Button onClick={() => Events.fire('open', 'file')} type='outline'>Add files to library</Button>  

@@ -114,7 +114,7 @@ export default function AlbumDetails({details, playback}) {
                     </div>
                 </div>
 
-                <div className='spacer-400' />
+                <div className='spacer-300' />
             </div>
             <ControllArea playback={playback} />
         </div>

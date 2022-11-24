@@ -27,7 +27,7 @@
 
 #control-panel {
     width: calc(100vw - 22vh - 30px);
-    height: 20vh;
+    height: 15vh;
 }
 #control-panel > * {
     padding: 0 30px;

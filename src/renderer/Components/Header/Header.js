@@ -14,21 +14,19 @@ import './header.css'
  * `settings.miniPlayer == true`.
  */
 export default function Header({ library = false }) {
-
+    
     let navigationButtons;
-    // If library, parent is library
     if (library) {
         navigationButtons = [
-            { onClick: () => null, content: <Logo size={52}/> },
-            { onClick: () => Events.fire('changeView', 'settings'), content: <Settings size={16}/>, shortcuts: ['ctrl+s', 's'] },
-            { onClick: () => Events.fire('open', 'folder'), content: <Plus size={28}/>, shortcuts: ['ctrl+o', 'o']},
-        ]
+            <div id='logo-container'><Button onClick={() => null} children={<Logo size={52}/>} key={0} /></div>,
+            <Button onClick={() => Events.fire('changeView', 'settings')} children={<Settings size={14}/>} shortcuts={['ctrl+s', 's']} key={1} />,
+            <Button onClick={() => Events.fire('open', 'folder')} children={<Plus size={26}/>} shortcuts={['ctrl+o', 'o']} key={2} />
+        ];
     } else {
-        navigationButtons = [{ onClick: () => Events.fire('changeView', 'library'), content: <Back />, shortcuts: ['escape', 'alt+arrowleft'] }]
+        navigationButtons = [
+            <Button onClick={() => Events.fire('changeView', 'library')} children={<Back />} shortcuts={['escape', 'alt+arrowleft']} key={0} />
+        ];
     }
-    navigationButtons = navigationButtons.map((button, index) => {
-        return <Button onClick={button.onClick} key={index} shortcuts={button.shortcuts}>{button.content}</Button>
-    });
 
     // Buttons that handle window position and size
     const minimizeAction = window.settings.miniPlayer && window.settings.miniPlayer.value?
@@ -46,12 +44,12 @@ export default function Header({ library = false }) {
     return (
         <div className='header d-flex hide-if-not-active w-100'>
             <div className='w-50'>
-                <div id='control-button-container' style={{'--container-width': `${navigationButtons.length * 60}px`}}>
+                <div className='d-flex m-2'>
                     {navigationButtons}
                 </div>
             </div>
             <div className='w-50 d-flex flex-column align-items-end'>
-                <div className='d-flex'>
+                <div className='d-flex m-2'>
                     {windowButtons}
                 </div>
             </div>

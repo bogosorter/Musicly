@@ -15,21 +15,7 @@
     height: 8vh;
 }
 
-#control-button-container {
-    margin: 10px;
-    height: 60px;
-    width: 60px;
-    border-radius: var(--border-radius);
-    transition: var(--transition);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    white-space: nowrap;
-    background-color: rgba(0,0,0,0.2);
-}
-/* Depending on whether the heading is applied, it may have 2 or 3 buttons.
-Therefore, we need to define a new variable */
-#control-button-container:hover {
-    width: var(--container-width);
+#logo-container .button {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: auto;
 }

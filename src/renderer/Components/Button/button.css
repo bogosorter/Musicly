@@ -20,8 +20,8 @@ cover needs to be hovered */
 
 .button.box-button {
     border-radius: var(--border-radius);
-    min-height: 60px;
-    min-width: 60px;
+    min-height: 55px;
+    min-width: 55px;
 }
 .button.round-button {
     border-radius: 50%;

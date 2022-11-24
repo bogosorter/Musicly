@@ -136,7 +136,10 @@ export default class PlaybackManager {
      * value.
      */
     stop() {
-        if (this.howl) this.howl.unload();
+        if (this.howl) {
+            this.howl.unload();
+            this.howl = null;
+        }
         // Reset the values of playback
         this.playback = {
             album: null,

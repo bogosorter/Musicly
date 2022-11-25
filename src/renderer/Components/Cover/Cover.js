@@ -26,7 +26,7 @@ export default function Cover ({album, buttons = [], parent}) {
     const actions = [
         { text: 'Play', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'playTracks')},
         { text: 'Play Next', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addNext') },
-        { text: 'Add to Queue', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addToQueue') },
+        { text: 'Play Later', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addToQueue') },
         { text: 'Album Details', onClick: () => Events.fire('changeView', 'albumDetails', album.id) },
         { text: 'Add Cover', onClick: () => Events.fire('addCover', album.id, parent) },
     ];

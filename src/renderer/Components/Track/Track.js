@@ -43,10 +43,10 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
     const actions = [
         { text: 'Play Track', onClick: () => Events.fire('getTracks', 'track', track, `playTracks`) },
         { text: 'Play Track Next', onClick: () => Events.fire('getTracks', 'track', track, `addNext`) },
-        { text: 'Add Track to Queue', onClick: () => Events.fire('getTracks', 'track', track, `addToQueue`) },
+        { text: 'Play Track Later', onClick: () => Events.fire('getTracks', 'track', track, `addToQueue`) },
         { text: 'Play Tracks', onClick: () => Events.fire('getTracks', 'tracks', tracks, `playTracks`, jump) },
-        { text: 'Play Tracks next', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addNext`) },
-        { text: 'Add Tracks to Queue', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addToQueue`) }
+        { text: 'Play Tracks Next', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addNext`) },
+        { text: 'Play Tracks Later', onClick: () => Events.fire('getTracks', 'tracks', tracks, `addToQueue`) }
     ];
 
     useEffect(() => {

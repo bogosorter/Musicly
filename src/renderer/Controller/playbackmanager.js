@@ -57,56 +57,13 @@ export default class PlaybackManager {
         // Ensure that previous howl is stopped
         if (this.howl) this.howl.unload();
         
-        // Update playback information
-        this.playback.track = this.playback.queue[this.playback.position];
-        this.playback.album = await ipcRenderer.invoke('getAlbum', this.playback.track.albumID);
+        this.howl = this.createHowl(this.playback.queue[this.playback.position]);
+        this.howl.play();
 
-        // Create a howl with the new track
-        this.howl = new Howl({
-            src: ['file://' + this.playback.track.path],
-            html5: true,
-            onend: this.skipFwd.bind(this),
-            // Setup mediaSession info. For some reason, this only works inside
-            // the onplay callback
-            onload: () => {
-                // Listen for playback events
-                navigator.mediaSession.setActionHandler('play', () => Events.fire('play'));
-                navigator.mediaSession.setActionHandler('pause', () => Events.fire('pause'));
-                navigator.mediaSession.setActionHandler('stop', () => Events.fire('stop'));
-                navigator.mediaSession.setActionHandler('nexttrack', () => Events.fire('skipFwd'));
-                navigator.mediaSession.setActionHandler('previoustrack', () => Events.fire('skipBwd'));
-
-                // Play the track and update UI
-                Events.fire('play');
-            },
-            onloaderror: (id, err) => {
-                // Error code 4 indicates that track doesn't exist
-                if (err == 4) {
-                    Events.fire('log', {type: 'error', message: `Track doesn\'t exist: ${this.playback.track.path}`});
-                    this.skipFwd();
-                }
-            }
-        });
-
-        this.playback.playing = this.howl.playing;
-        this.playback.progress = () => this.howl.seek() / this.howl.duration();
-
-        // Get album cover if it exits
-        const cover = this.getCover(this.playback.album.coverPath);
-
-        // Setup media session metadata
-        let metadata = {
-            title: this.playback.track.title,
-            album: this.playback.album.title,
-            artist: this.playback.album.artist,
-            artwork: cover? [{ src: cover }] : []
-        };
-        navigator.mediaSession.metadata = new MediaMetadata(metadata);
-
-        // Block sleeping if view is queue
-        ipcRenderer.invoke('blockSleep');
-
-        this.updatePlayback();
+        // Prepare the next track
+        if (this.playback.position < this.playback.queue.length - 1) {
+            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+        }
     }
 
     /**
@@ -176,7 +133,16 @@ export default class PlaybackManager {
         if (!this.howl) return;
 
         this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
-        if (this.playback.position < this.playback.queue.length) this.start();
+        if (this.playback.position < this.playback.queue.length) {
+            this.howl.unload();
+            this.howl = this.nextHowl;
+            this.howl.play();
+
+            // Prepare the next track
+            if (this.playback.position < this.playback.queue.length - 1) {
+                this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+            }
+        }
         // Unload howl, since this.start won't be called
         else {
             this.howl.unload();
@@ -347,5 +313,53 @@ export default class PlaybackManager {
         const data = fs.readFileSync(coverPath, { encoding: 'base64' });
         const format = path.extname(coverPath).substr(1);
         return `data:${format};base64,${data}`;
+    }
+
+    createHowl(track) {
+        // Create a howl with the new track
+        const howl = new Howl({
+            src: ['file://' + track.path],
+            html5: true,
+            onend: this.skipFwd.bind(this),
+            // Setup mediaSession info. For some reason, this only works inside
+            // the onplay callback
+            onplay: async () => {
+
+                // Update playback information
+                this.playback.track = track;
+                this.playback.album = await ipcRenderer.invoke('getAlbum', track.albumID);
+                this.playback.playing = howl.playing;
+                this.playback.progress = () => howl.seek() / howl.duration();
+
+                // Listen for playback events
+                navigator.mediaSession.setActionHandler('play', () => Events.fire('play'));
+                navigator.mediaSession.setActionHandler('pause', () => Events.fire('pause'));
+                navigator.mediaSession.setActionHandler('stop', () => Events.fire('stop'));
+                navigator.mediaSession.setActionHandler('nexttrack', () => Events.fire('skipFwd'));
+                navigator.mediaSession.setActionHandler('previoustrack', () => Events.fire('skipBwd'));
+
+                // Get album cover if it exits
+                const cover = this.getCover(this.playback.album.coverPath);
+
+                // Setup media session metadata
+                let metadata = {
+                    title: this.playback.track.title,
+                    album: this.playback.album.title,
+                    artist: this.playback.album.artist,
+                    artwork: cover? [{ src: cover }] : []
+                };
+                navigator.mediaSession.metadata = new MediaMetadata(metadata);
+
+                this.updatePlayback();
+            },
+            onloaderror: (id, err) => {
+                // Error code 4 indicates that track doesn't exist
+                if (err == 4) {
+                    Events.fire('log', {type: 'error', message: `Track doesn\'t exist: ${track.path}`});
+                    this.skipFwd();
+                }
+            }
+        });
+        return howl;
     }
 }

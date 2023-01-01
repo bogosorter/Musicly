@@ -26,6 +26,7 @@ export default class StateManager {
         Events.on('saveSettings', this.saveSettings.bind(this));
         Events.on('resetSettings', this.resetSettings.bind(this));
         Events.on('open', this.open.bind(this));
+        Events.on('addFiles', this.addFiles.bind(this));
         Events.on('addCover', this.addCover.bind(this));
         Events.on('deleteAlbum', this.deleteAlbum.bind(this));
         Events.on('updateAlbumInfo', this.updateAlbumInfo.bind(this));
@@ -120,6 +121,18 @@ export default class StateManager {
         // Add a progress spinner
         this.setLoading(true);
         await ipcRenderer.invoke('open', type);
+        this.getLibrary();
+        // Remove the spinner
+        this.setLoading(false);
+    }
+
+    /**
+     * Adds a given path to the library.
+     */
+    async addFiles(files) {
+        // Add a progress spinner
+        this.setLoading(true);
+        await ipcRenderer.invoke('addFiles', files);
         this.getLibrary();
         // Remove the spinner
         this.setLoading(false);

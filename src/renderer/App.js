@@ -13,6 +13,7 @@ import { useState, useMemo, useEffect, useReducer } from 'react';
 import 'bootstrap/scss/bootstrap.scss';
 import './scss/spacers.scss';
 import './App.css';
+import Events from './Events/Events';
 
 /**
  * This is the main component. It stores a series of states and renders five
@@ -115,6 +116,17 @@ export default function App() {
             }
         }        
     });
+
+    // Set up event handler for drag 'n' drop
+    // The default behaviour of the browser must be prevented on drag enter and
+    // drag over, to indicate that the app accepts files.
+    window.ondragenter = (e) => e.preventDefault();
+    window.ondragover = (e) => e.preventDefault();
+    window.ondrop = (e) => {
+        e.preventDefault();
+        const files = [...e.dataTransfer.files].map(file => file.path);
+        Events.fire('addFiles', files);
+    }
 
     return (
         <div id='app' className={'theme-' + (settings.theme? settings.theme.value : 'dark')}>

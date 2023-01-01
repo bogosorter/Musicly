@@ -37,6 +37,13 @@ async function open(dialogType) {
 }
 
 /**
+ * Adds a given path to the library.
+ */
+async function addFiles(files) {
+    for (const file of files) await db.openPath(file);
+}
+
+/**
  * Retrieves the path to the new cover and adds the cover to the library.
  * @param {int} albumID 
  */
@@ -149,6 +156,7 @@ async function checkForUpdates() {
 }
 
 ipcMain.handle('open', (e, dialogType) => open(dialogType));
+ipcMain.handle('addFiles', (e, path) => addFiles(path));
 ipcMain.handle('addCover', (e, albumID) => addCover(albumID));
 ipcMain.handle('windowButton', (e, button) => windowButton(button));
 ipcMain.handle('getLibrary', (e, searchParameters) => db.getLibrary(searchParameters));

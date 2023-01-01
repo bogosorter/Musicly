@@ -13,3 +13,6 @@
     align-items: center;
     margin-top: 5px;
 }
+.log.clickable {
+    cursor: pointer;
+}

@@ -40,7 +40,7 @@ export default class StateManager {
 
         // Check for updates
         ipcRenderer.invoke('checkForUpdates').then(update => {
-            if (update) this.log({type: 'success', message: 'An update is available!'});
+            if (update) this.log({type: 'success', message: 'An update is available!', href: 'https://m7kra.github.io/Musicly/#download'});
         });
     }
 

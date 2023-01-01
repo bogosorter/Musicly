@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import { GearFill, Plus } from 'react-bootstrap-icons';
+import { GearFill, Plus, Repeat } from 'react-bootstrap-icons';
 import { Logo } from '../Icons/Icons';
 import SearchDummy from '../SearchDummy/SearchDummy';
 import Cover from '../Cover/Cover';
@@ -64,25 +64,12 @@ const content = [{
             <p className='note' style={{textAlign: 'center'}}>Those already using Musicly should check out the "What's new" section</p>
         </>
     }, {
-        title: 'Personal note',
-        text: 'As of this writing, 50 people use Musicly every day. I can\'t but be grateful for my small project to have become something useful. However, one thing disturbs me: I know nothing about those using Musicly: not what pleases them, what they dislike, nor which new features they would like to see. If any of you would like to express your opinion, my email is the following: luiswbarbosa@gmail.com. I would really appreciate it.'
-    }, {
-        title: 'Control Button',
-        text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <GearFill size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,
-        dummies: (
-            <div id='control-button-container' style={{'--container-width': '180px'}}>
-                <Button><Logo size={52}/></Button>
-                <Button><GearFill size={16}/></Button>
-                <Button><Plus size={28}/></Button>
-            </div>
-        )
-    }, {
         title: 'Searching',
         text: 'Use this box to filter for album title, track title, artist and composer. Genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and try to check and uncheck genres.',
         dummies: <SearchDummy />
     },{
         title: 'Mini-player',
-        text: 'Clicking on the minimize button will transform Musicly into a small window which sticks on top of the screen.',
+        text: 'Clicking on the minimize button will transform Musicly into a small window which sticks on top of the screen. Hover over it to control playback. You can also drag it around, holding on the album\'s cover.',
         dummies: (
             <div id='dummy-miniplayer-container'>
                 <MiniPlayer playback={{
@@ -94,13 +81,22 @@ const content = [{
             </div>
         )
     }, {
-        title: 'What\' new on 0.3.0',
+        title: 'What\' new on 0.4.0',
         text: <>
-            <p><strong>Queue management:</strong> you can now delete and reorder tracks in the queue.</p>
-            <p><strong>Edit information:</strong> you can now change album and track information. Changes will apply to the database and, if the music files are in <code>mp3</code> format, to the files themselves.</p>
+            <p><strong>File drag and drop:</strong> you can now drop files into the library.</p>
+            <p><strong>Gapless playback:</strong> following a <a href='https://www.linuxlinks.com/musicly-simple-music-player/' target='_blank'>review</a> by LinuxLinks, I have reduced the gap between different tracks to about 15ms.</p>
+            <p><strong>Repeat and shuffle:</strong> the same review led me to implement repeat and shuffle options. On the bottom of the control area, you will find <Repeat/>. You can click on it to toggle between <code>off</code>, <code>repeat once</code> and <code>repeat forever</code>. Furthermove, right clicking on an album's cover will allow you to shuffle it. The same can be achieved from the album details section.</p>
         </>
+    }, {
+        title: 'What\' new on 0.4.0',
+        text: <>
+            <p><strong>Control button is gone:</strong> for user friendliness, the control button is now permanently unfolded. Check <a href='https://m7kra.github.io/Musicly/docs/user/#control-button' target='_blanck'>this</a> to bring it back to normal.</p>
+        </>
+    }, {
+        title: 'Get in touch',
+        text: <p style={{userSelect: 'text'}}>I know next to nothing about my users and their tastes. If you would like to provide feedback, have new features or just give a thumbs up, contact me at luiswbarbosa@gmail.com. I would really appreciate it!</p>
     }, {
         title: 'Additional info',
         text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
-    },
+    }
 ];

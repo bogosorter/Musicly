@@ -90,7 +90,7 @@ const content = [{
     }, {
         title: 'What\' new on 0.4.0',
         text: <>
-            <p><strong>Control button is gone:</strong> for user friendliness, the control button is now permanently unfolded. Check <a href='https://m7kra.github.io/Musicly/docs/user/#control-button' target='_blanck'>this</a> to bring it back to normal.</p>
+            <p><strong>Control button is gone:</strong> for user friendliness, the control button is now permanently unfolded. Check <a href='https://m7kra.github.io/Musicly/docs/user#control-button' target='_blanck'>this</a> to bring it back to normal.</p>
         </>
     }, {
         title: 'Get in touch',

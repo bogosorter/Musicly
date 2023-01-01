@@ -150,7 +150,7 @@ export default class PlaybackManager {
 
         } else if (this.playback.position + 1 < this.playback.queue.length) {
 
-        this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
+            this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
 
             this.howl.unload();
             this.howl = this.nextHowl;
@@ -252,6 +252,15 @@ export default class PlaybackManager {
     }
 
     /**
+     * Shuffles the tracks and plays the first one.
+     */
+    shuffle(tracks) {
+        const shuffled = tracks.sort(() => Math.random() - 0.5);
+        console.log(shuffled);
+        this.playTracks(shuffled, 0);
+    }
+
+    /**
      * Changes the position of one track in the queue. If this change affects
      * `playback.position`, its value should be updated.
      */
@@ -311,6 +320,9 @@ export default class PlaybackManager {
                 break;
             case 'addToQueue':
                 this.addToQueue(tracks);
+                break;
+            case 'shuffle':
+                this.shuffle(tracks);
                 break;
         }
     }

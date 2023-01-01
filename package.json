@@ -96,6 +96,7 @@
     "node-id3": "^0.2.3",
     "react": "^18.1.0",
     "react-beautiful-dnd": "^13.1.1",
+    "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "sqlite": "^4.1.2"
@@ -201,7 +202,7 @@
       "target": "nsis"
     },
     "nsis": {
-        "oneClick": false
+      "oneClick": false
     },
     "directories": {
       "app": "release/app",

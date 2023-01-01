@@ -1,7 +1,7 @@
 import Events from 'renderer/Events/Events';
 import { addContextMenu } from '../ContextMenu/ContextMenu';
 import Button from '../Button/Button';
-import { Close, Edit, Check } from '../Icons/Icons';
+import { X, Pencil, CheckLg } from 'react-bootstrap-icons';
 
 import { useEffect, useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
@@ -63,15 +63,15 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
 
     const button = parent == 'queue'?
         <Button onClick={(e) => { Events.fire('removeFromQueue', jump); e.stopPropagation();}} type={'nodecor'}>
-            <Close size={20} />
+            <X size={20} />
         </Button> : 
         parent == 'albumDetails'?
         editing?
         <Button onClick={(e) => { updateTrackInfo(); e.stopPropagation();}} type={'nodecor'}>
-            <Check size={20} />
+            <CheckLg size={20} />
         </Button> :
         <Button onClick={(e) => { setEditing(true); e.stopPropagation();}} type={'nodecor'}>
-            <Edit size={14} />
+            <Pencil size={14} />
         </Button> : null;
 
     function onBlur(e) {

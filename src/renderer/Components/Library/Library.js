@@ -2,7 +2,6 @@ import Cover from '../Cover/Cover';
 import ControllArea from '../ControllArea/ControllArea';
 import SearchBox from '../SearchBox/SearchBox';
 import Header from '../Header/Header';
-import { Plus } from '../Icons/Icons';
 
 import Events from 'renderer/Events/Events';
 import { useState, useMemo, useEffect } from 'react';

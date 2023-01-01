@@ -1,7 +1,7 @@
 import Track from '../Track/Track';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Disc } from 'react-bootstrap-icons';
 
-import { CD } from '../Icons/Icons';
 import { useReducer } from 'react';
 import './tracklist.css';
 import  { nanoid } from 'nanoid';
@@ -32,7 +32,7 @@ export default function TrackList({tracks, playback, parent}) {
         if (track.trackOrder == 1 && parent == 'albumDetails') {
             trackList.push(
                 <div className={`row disc-separator mb-4 ${track.disc > 1? 'mt-4' : ''}`} key={`discSeparator${i}`}>
-                    <div className='col-1 center-children'><CD/></div>
+                    <div className='col-1 center-children'><Disc/></div>
                     <div className='col-1 d-flex align-items-center'>{track.disc}</div>
                 </div>
             )

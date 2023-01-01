@@ -1,5 +1,6 @@
 import Button from '../Button/Button';
-import { Logo, Back, Settings, Plus, Play, Line, Square, Close, Collapse } from '../Icons/Icons';
+import { ArrowLeft, GearFill, Plus, Stop, X } from 'react-bootstrap-icons';
+import { Logo, Line } from '../Icons/Icons';
 
 import Events from 'renderer/Events/Events';
 import { useEffect, useState } from 'react';
@@ -19,12 +20,12 @@ export default function Header({ library = false }) {
     if (library) {
         navigationButtons = [
             <div id='logo-container'><Button onClick={() => null} children={<Logo size={52}/>} key={0} /></div>,
-            <Button onClick={() => Events.fire('changeView', 'settings')} children={<Settings size={14}/>} shortcuts={['ctrl+s', 's']} key={1} />,
+            <Button onClick={() => Events.fire('changeView', 'settings')} children={<GearFill size={14}/>} shortcuts={['ctrl+s', 's']} key={1} />,
             <Button onClick={() => Events.fire('open', 'folder')} children={<Plus size={26}/>} shortcuts={['ctrl+o', 'o']} key={2} />
         ];
     } else {
         navigationButtons = [
-            <Button onClick={() => Events.fire('changeView', 'library')} children={<Back />} shortcuts={['escape', 'alt+arrowleft']} key={0} />
+            <Button onClick={() => Events.fire('changeView', 'library')} children={<ArrowLeft />} shortcuts={['escape', 'alt+arrowleft']} key={0} />
         ];
     }
 
@@ -34,8 +35,8 @@ export default function Header({ library = false }) {
         () => Events.fire('windowButton', 'minimize');
     let windowButtons = [
         {onClick: minimizeAction, content: <Line size={16} />},
-        {onClick: () => Events.fire('windowButton', 'maximize'), content: <Square size={24} />},
-        {onClick: () => Events.fire('windowButton', 'close'), content: <Close size={24} />},
+        {onClick: () => Events.fire('windowButton', 'maximize'), content: <Stop size={24} />},
+        {onClick: () => Events.fire('windowButton', 'close'), content: <X size={28} />},
     ]
     windowButtons = windowButtons.map((button, index) => {
         return <Button onClick={button.onClick} key={index}>{button.content}</Button>

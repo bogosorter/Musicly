@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import { Close }  from '../Icons/Icons';
+import { X } from 'react-bootstrap-icons';
 
 import { useState } from 'react';
 import './logger.css';
@@ -15,7 +15,7 @@ export default function Logger({logs, removeLog}) {
         return (
             <div className={'log ' + (log.type == 'error'? 'bg-danger' : 'bg-success')} key={index}>
                 <div className='me-2 flex-grow-1'>{log.message}</div>
-                <Button onClick={() => removeLog(index)} size={30}><Close /></Button>
+                <Button onClick={() => removeLog(index)} size={30}><X size={28}/></Button>
             </div>
         )
     })

@@ -1,4 +1,4 @@
-import { Play, Pause, SkipFwd, SkipBwd, Fullscreen, Line, Close } from '../Icons/Icons';
+import { Play, Pause, SkipForward, SkipBackward, Fullscreen, X } from 'react-bootstrap-icons';
 import Button from '../Button/Button';
 import Cover from '../Cover/Cover';
 import Shortcuts from 'renderer/Shortcuts/Shortcuts';
@@ -30,15 +30,15 @@ export default function MiniPlayer({playback, dummy = false}) {
     const size = window.settings.miniPlayerSize.value;
     const sizeFactor = size == 'small'? 0.6 : size == 'medium'? 0.75 : 1;
     let controllButtons = [
-        { onClick: () => Events.fire('skipBwd'), content: <SkipBwd size={32 * sizeFactor} /> },
+        { onClick: () => Events.fire('skipBwd'), content: <SkipBackward size={32 * sizeFactor} /> },
         playback.playing()? { onClick: () => Events.fire('pause'), content: <Pause size={32 * sizeFactor} />, shortcuts: [' '] } :
         { onClick: () => Events.fire('play'), content: <Play size={32 * sizeFactor} />, shortcuts: [' ']},
-        { onClick: () => Events.fire('skipFwd'), content: <SkipFwd size={32 * sizeFactor} /> },
+        { onClick: () => Events.fire('skipFwd'), content: <SkipForward size={32 * sizeFactor} /> },
         { onClick: () => Events.fire('changeView', 'library'), content: <Fullscreen size={20 * sizeFactor}/>, shortcuts: ['escape', 'alt+leftarrow']},
         { onClick: () => {
             Events.fire('changeView', 'library');
             Events.fire('windowButton', 'minimize');
-        }, content: <Close size={32 * sizeFactor}/>},
+        }, content: <X size={32 * sizeFactor}/>},
     ];
 
     controllButtons = controllButtons.map((button, index) => {

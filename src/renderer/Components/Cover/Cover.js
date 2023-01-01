@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import { Play, List } from '../Icons/Icons';
+import { Play, List } from 'react-bootstrap-icons';
 import { addContextMenu } from '../ContextMenu/ContextMenu';
 
 import getCover from './getCover';
@@ -59,7 +59,7 @@ export default function Cover ({album, buttons = [], parent}) {
             actions[0].onClick();
         };
         renderedButtons.push(
-            <Button onClick={onClick} type='round' key={renderedButtons.length}><Play /></Button>
+            <Button onClick={onClick} type='round' key={renderedButtons.length}><Play size={30} /></Button>
         )
     }
     if (buttons.includes('details')) {
@@ -71,7 +71,7 @@ export default function Cover ({album, buttons = [], parent}) {
             actions[3].onClick();
         };
         renderedButtons.push(
-            <Button onClick={onClick} type='round' key={renderedButtons.length}><List /></Button>
+            <Button onClick={onClick} type='round' key={renderedButtons.length}><List size={30} /></Button>
         );
     }
     

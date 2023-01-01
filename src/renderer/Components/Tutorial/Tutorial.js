@@ -1,5 +1,6 @@
 import Button from '../Button/Button';
-import { Logo, Settings, Plus } from '../Icons/Icons';
+import { GearFill, Plus } from 'react-bootstrap-icons';
+import { Logo } from '../Icons/Icons';
 import SearchDummy from '../SearchDummy/SearchDummy';
 import Cover from '../Cover/Cover';
 import Track from '../Track/Track';
@@ -67,11 +68,11 @@ const content = [{
         text: 'As of this writing, 50 people use Musicly every day. I can\'t but be grateful for my small project to have become something useful. However, one thing disturbs me: I know nothing about those using Musicly: not what pleases them, what they dislike, nor which new features they would like to see. If any of you would like to express your opinion, my email is the following: luiswbarbosa@gmail.com. I would really appreciate it.'
     }, {
         title: 'Control Button',
-        text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <Settings size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,
+        text: <>This is the control button. If you hover it, it will unfold and reveal two useful buttons: <GearFill size={15} /> will take you to the settings and <Plus size={24} /> allows you to add albums to Musicly. Try hovering the button bellow!</>,
         dummies: (
             <div id='control-button-container' style={{'--container-width': '180px'}}>
                 <Button><Logo size={52}/></Button>
-                <Button><Settings size={16}/></Button>
+                <Button><GearFill size={16}/></Button>
                 <Button><Plus size={28}/></Button>
             </div>
         )

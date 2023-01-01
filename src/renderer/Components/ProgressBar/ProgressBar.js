@@ -1,4 +1,4 @@
-import { CircleOutline } from '../Icons/Icons';
+import { Circle } from 'react-bootstrap-icons';
 
 import { useEffect } from 'react';
 import Events from 'renderer/Events/Events';
@@ -113,7 +113,7 @@ export default function ProgressBar({getProgress, dummy = false}) {
             <div id='progress-bar-background'>
                 <div id='progress-bar-fill'>
                     <div id='progress-bar-button' draggable='true'>
-                        <CircleOutline size={16}/>
+                        <Circle size={16}/>
                     </div>
                 </div>
             </div>

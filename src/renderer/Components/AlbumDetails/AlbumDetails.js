@@ -4,7 +4,7 @@ import ControllArea from '../ControllArea/ControllArea';
 import TrackList from '../TrackList/TrackList';
 import Genre from '../Genre/Genre';
 import GenreCreator from '../GenreCreator/GenreCreator';
-import { Edit, Check } from '../Icons/Icons';
+import { Pencil, CheckLg } from 'react-bootstrap-icons';
 import Button from '../Button/Button';
 
 import Events from 'renderer/Events/Events';
@@ -101,7 +101,7 @@ export default function AlbumDetails({details, playback}) {
                                 {headerContent}
                             </div>
                             <div className='col-1'>
-                                <Button onClick={editing? updateAlbumInfo : () => setEditing(true)}>{editing? <Check size={24} /> : <Edit size={20} /> }</Button>
+                                <Button onClick={editing? updateAlbumInfo : () => setEditing(true)}>{editing? <CheckLg size={24} /> : <Pencil size={20} /> }</Button>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import { Search } from '../Icons/Icons';
+import { Search } from 'react-bootstrap-icons';
 import Button from '../Button/Button';
 import Genre from '../Genre/Genre';
 

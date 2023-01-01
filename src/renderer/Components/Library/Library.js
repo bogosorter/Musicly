@@ -2,6 +2,7 @@ import Cover from '../Cover/Cover';
 import ControllArea from '../ControllArea/ControllArea';
 import SearchBox from '../SearchBox/SearchBox';
 import Header from '../Header/Header';
+import { FolderPlus } from 'react-bootstrap-icons';
 
 import Events from 'renderer/Events/Events';
 import { useState, useMemo, useEffect } from 'react';
@@ -25,6 +26,25 @@ export default function Library({library, playback}) {
             <h5 className='text-center'>{title}</h5>
         </div>;
     });
+
+    // Add something to the library if it's empty
+    if (albums.length == 0) {
+        albums = (
+            <>
+                <div className='spacer-48' />
+                <div id='empty-library' className='col-12 d-flex flex-column align-items-center justify-content-center'>
+                    <div className='spacer-100' />
+                    <h3>Nothing here</h3>
+                    <div className='spacer-8' />
+                    <FolderPlus size={48} />
+                    <div className='spacer-8' />
+                    <p>Your library is empty. You can drag you music files here, click the button below or use the menu to locate your music.</p>
+                    <div className='spacer-100' />
+                </div>
+                <div className='spacer-24' />
+            </>
+        );
+    }
 
     // Keep track of scrolling state
     useEffect(() => {

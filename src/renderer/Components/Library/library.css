@@ -5,3 +5,8 @@
     margin: 0;
     scroll-behavior: smooth;
 }
+
+#empty-library {
+    background-color: var(--color-005);
+    border-radius: var(--border-radius);
+}

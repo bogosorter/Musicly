@@ -13,10 +13,12 @@
     --color-dark-08: rgb(233, 235, 235, 0.8);
     --color-dark-05: rgb(233, 235, 235, 0.5);
     --color-dark-02: rgb(233, 235, 235, 0.2);
+    --color-dark-005: rgb(233, 235, 235, 0.05);
     --color-light: rgb(54, 59, 64);
     --color-light-08: rgba(54, 59, 64, 0.8);
     --color-light-05: rgba(54, 59, 64, 0.5);
     --color-light-02: rgba(54, 59, 64, 0.2);
+    --color-light-005: rgba(54, 59, 64, 0.05);
     --border-radius: 10px;
     --button-hover-bg-dark: rgba(255, 255, 255, 0.2);
     --button-hover-bg-light: rgba(145, 145, 145, 0.3);
@@ -41,6 +43,7 @@ body {
     --color-08: var(--color-dark-08);
     --color-05: var(--color-dark-05);
     --color-02: var(--color-dark-02);
+    --color-005: var(--color-dark-005);
     --button-hover-bg: var(--button-hover-bg-dark);
 
     background-color: var(--bg-color);
@@ -54,6 +57,7 @@ body {
     --color-08: var(--color-light-08);
     --color-05: var(--color-light-05);
     --color-02: var(--color-light-02);
+    --color-005: var(--color-light-005);
     --button-hover-bg: var(--button-hover-bg-light);
 
     background-color: var(--bg-color);

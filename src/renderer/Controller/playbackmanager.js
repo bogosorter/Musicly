@@ -14,7 +14,10 @@ export default class PlaybackManager {
             queue: [], // Array of tracks in queue
             position: 0, // Index of the playing track in queue
             progress: () => 0, // Returns a value between 0 and 1
-            playing: () => false // Is playback playing or paused?
+            playing: () => false, // Is playback playing or paused?
+            repeat: 0, // Can be set to 0 for no repeat, 1 for repeating the
+                       // curent track once and 2 for constantly repeating the
+                       // current track
         }
 
         /**
@@ -46,6 +49,7 @@ export default class PlaybackManager {
         Events.on('reorderQueue', this.reorderQueue.bind(this));
         Events.on('removeFromQueue', this.removeFromQueue.bind(this));
         Events.on('getTracks', this.getTracks.bind(this));
+        Events.on('toggleRepeat', this.toggleRepeat.bind(this));
 
     }
 
@@ -132,8 +136,22 @@ export default class PlaybackManager {
 
         if (!this.howl) return;
 
+        if (this.playback.repeat == 1) {
+            this.howl.seek(0);
+            this.howl.play();
+            this.playback.repeat = 0;
+            this.updatePlayback();
+            return;
+
+        } else if (this.playback.repeat == 2) {
+            this.howl.seek(0);
+            this.howl.play();
+            return;
+
+        } else if (this.playback.position + 1 < this.playback.queue.length) {
+
         this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
-        if (this.playback.position < this.playback.queue.length) {
+
             this.howl.unload();
             this.howl = this.nextHowl;
             this.howl.play();
@@ -142,9 +160,8 @@ export default class PlaybackManager {
             if (this.playback.position < this.playback.queue.length - 1) {
                 this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
             }
-        }
-        // Unload howl, since this.start won't be called
-        else {
+
+        } else {
             this.howl.unload();
 
             // Update playback
@@ -369,5 +386,13 @@ export default class PlaybackManager {
             }
         });
         return howl;
+    }
+
+    /**
+     * Changes the repeat option.
+     */
+    toggleRepeat() {
+        this.playback.repeat = (this.playback.repeat + 1) % 3;
+        this.updatePlayback();
     }
 }

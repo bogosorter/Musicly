@@ -325,6 +325,14 @@ export default class PlaybackManager {
             // the onplay callback
             onplay: async () => {
 
+                // For the remote possibility that someone is reading this, let
+                // me say a couple words about mediaSession. I hate it. There is
+                // almost no feedback. After a whole afternoon hunting for a
+                // bug, I finally have the solution, but I don't know how it
+                // works. Worse, I can't distinguish it from the previous
+                // version. Therefore, do not touch the following code unless
+                // you are ready for a lot of pain.
+
                 // Update playback information
                 this.playback.track = track;
                 this.playback.album = await ipcRenderer.invoke('getAlbum', track.albumID);

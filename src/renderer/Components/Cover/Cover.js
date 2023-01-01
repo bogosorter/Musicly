@@ -24,11 +24,12 @@ export default function Cover ({album, buttons = [], parent}) {
     
     // Actions that the user can trigger in the `ContextMenu`
     const actions = [
-        { text: 'Play', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'playTracks')},
+        { text: 'Play', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'playTracks') },
         { text: 'Play Next', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addNext') },
         { text: 'Play Later', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'addToQueue') },
+        { text: 'Shuffle', onClick: () => Events.fire('getTracks', 'albumID', album.id, 'shuffle') },
         { text: 'Album Details', onClick: () => Events.fire('changeView', 'albumDetails', album.id) },
-        { text: 'Add Cover', onClick: () => Events.fire('addCover', album.id, parent) },
+        { text: 'Add Cover', onClick: () => Events.fire('addCover', album.id, parent) }
     ];
     if (parent == 'library') {
         actions.push(
@@ -51,7 +52,6 @@ export default function Cover ({album, buttons = [], parent}) {
 
     const backgroundImage = getCover(album);
 
-
     const renderedButtons = [];
     if (buttons.includes('play')) {
         const onClick = (e) => {
@@ -68,7 +68,8 @@ export default function Cover ({album, buttons = [], parent}) {
         );
         const onClick = (e) => {
             e.stopPropagation();
-            actions[3].onClick();
+            actions[4].onClick();
+            console.log('details');
         };
         renderedButtons.push(
             <Button onClick={onClick} type='round' key={renderedButtons.length}><List size={30} /></Button>
@@ -76,7 +77,7 @@ export default function Cover ({album, buttons = [], parent}) {
     }
     
     return (
-        <div id={`album-cover-${id}`} className='cover center-children' style={{'--bg-image': backgroundImage}} onClick={parent != 'dummy'? actions[3].onClick : null}>
+        <div id={`album-cover-${id}`} className='cover center-children' style={{'--bg-image': backgroundImage}} onClick={parent != 'dummy'? actions[4].onClick : null}>
             {renderedButtons}
         </div>
     )

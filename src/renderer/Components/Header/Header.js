@@ -25,7 +25,7 @@ export default function Header({ library = false }) {
         ];
     } else {
         navigationButtons = [
-            <Button onClick={() => Events.fire('changeView', 'library')} children={<ArrowLeft />} shortcuts={['escape', 'alt+arrowleft']} key={0} />
+            <Button onClick={() => Events.fire('changeView', 'library')} children={<ArrowLeft size={20}/>} shortcuts={['escape', 'alt+arrowleft']} key={0} />
         ];
     }
 
@@ -45,7 +45,7 @@ export default function Header({ library = false }) {
     return (
         <div className='header d-flex hide-if-not-active w-100'>
             <div className='w-50'>
-                <div className='d-flex m-2'>
+                <div id='control-button-container' style={{'--container-width': `${navigationButtons.length * 55}px`}} className='d-flex m-2'>
                     {navigationButtons}
                 </div>
             </div>

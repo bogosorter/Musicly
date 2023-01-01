@@ -56,3 +56,7 @@
 #queue #control-panel {
     margin-top: 5vh;
 }
+
+.repeat-0 {
+    color: var(--color-05);
+}

@@ -23,12 +23,6 @@ export default function AlbumDetails({details, playback}) {
     const [title, setTitle] = useState(details.album.title);
     const [artist, setArtist] = useState(details.album.artist);
     const [genres, setGenres] = useState(details.album.genres);
-    const [composer, setComposer] = useState(
-        details.tracks.reduce((previous, current) => {
-            if (previous === current.composer) return previous;
-            return null;
-        }, details.tracks[0].composer)
-    );
 
     function updateAlbumInfo() {
         Events.fire('updateAlbumInfo', details.album.id, {
@@ -36,7 +30,6 @@ export default function AlbumDetails({details, playback}) {
             title,
             artist,
             genres,
-            composer,
             tracks: details.tracks,
         });
         setEditing(false);
@@ -66,14 +59,18 @@ export default function AlbumDetails({details, playback}) {
     } else {
         headerContent = (
             <>
-                <div>
-                    <input className='detail-input' type='text' placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
-                    <input className='detail-input ms-2' type='text' placeholder='Artist' value={artist} onChange={(e) => setArtist(e.target.value)} />
+                <div className='d-flex'>
+                    <div className='d-flex flex-column'>
+                        <label for='title' className='detail-label'>Title</label>
+                        <input id='title' className='detail-input' type='text' placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
+                    </div>
+                    <div className='d-flex flex-column ms-4'>
+                        <label for='artist' className='detail-label'>Artist</label>
+                        <input id='artist' className='detail-input' type='text' placeholder='Artist' value={title} onChange={(e) => setArtist(e.target.value)} />
+                    </div>
                 </div>
-                <div className='mt-2'>
-                    <input className='detail-input' type='text' placeholder='Composer' value={composer} onChange={(e) => setComposer(e.target.value)} /> 
-                </div>
-                <div className='d-flex mt-2'>
+                <label for='genres' className='detail-label mt-4'>Genres</label>
+                <div id='genres' className='d-flex mt-2'>
                     {genres.map((genre, index) =>
                         <Genre genre={genre} key={index} onClick={() => removeGenre(index)} deleteButton={true}/>
                     )}
@@ -97,7 +94,7 @@ export default function AlbumDetails({details, playback}) {
                             <div className='col-lg-2 col-md-3 d-md-block d-none'>
                                 <Cover album={details.album} buttons={['play']} parent='albumDetails' />
                             </div>
-                            <div className='col-lg-9 col-md-8 col-11'>
+                            <div className='col-lg-8 col-md-7 col-10'>
                                 {headerContent}
                             </div>
                             <div className='col-1'>

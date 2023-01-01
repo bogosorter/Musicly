@@ -344,6 +344,14 @@ export default class PlaybackManager {
         return `data:${format};base64,${data}`;
     }
 
+    /**
+     * Changes the repeat option.
+     */
+    toggleRepeat() {
+        this.playback.repeat = (this.playback.repeat + 1) % 3;
+        this.updatePlayback();
+    }
+
     createHowl(track) {
         // Create a howl with the new track
         const howl = new Howl({
@@ -393,18 +401,10 @@ export default class PlaybackManager {
                 // Error code 4 indicates that track doesn't exist
                 if (err == 4) {
                     Events.fire('log', {type: 'error', message: `Track doesn\'t exist: ${track.path}`});
-                    this.skipFwd();
+                    this.stop();
                 }
             }
         });
         return howl;
-    }
-
-    /**
-     * Changes the repeat option.
-     */
-    toggleRepeat() {
-        this.playback.repeat = (this.playback.repeat + 1) % 3;
-        this.updatePlayback();
     }
 }

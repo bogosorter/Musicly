@@ -123,6 +123,27 @@ In the original version of Musicly, the search box had no border. I later realiz
 }
 ```
 
+#### Control Button
+
+Old versions of Musicly had a control button on the top left corner of the app. For user friendliness, it became permanently unfolded. However, you can restore it with the following code (which should be pasted on the css box in the settings):
+
+```css
+#control-button-container {
+    width: 55px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.1);
+}
+#control-button-container:hover {
+    width: var(--container-width);
+}
+#logo-container .button {
+    background-color: transparent;
+    cursor: auto;
+}
+```
+
 #### Border radius
 
 Border radius sets how round the app's elements will be.

@@ -17,13 +17,17 @@ This is the user documentation of Musicly. Its aim is to provide a comprehensive
 
 ## The basics
 
+### Adding music
+
+The easiest way to add music to Musicly is by dragging and dropping music files or folders onto the app. You can also add music by clicking on the plus button on the top left corner of the app or through the button at the end of your library.
+
 ### Navigating
 
-Navigation in the app is done mainly trough the control button. You have to hover Musicly's logo to unveil it. Quite obviously, the cog will take you to the settings and the plus sign allows you to add music to your library.
+Navigation in the app is done mainly trough the control buttons on the top left corner of the app. Quite obviously, the cog will take you to the settings and the plus sign allows you to add music to your library.
 
-![](./images/main.jpg)
+![](./images/control-buttons.jpg)
 
-A couple navigation shortcuts are set up: `ctrl+s` or `s` for settings, `ctrl+o` or `o` for adding music, `escape` or `alt+arrowleft` for going back and `ctrl+m` or `m` for mini-player mode.
+A couple navigation shortcuts are set up: `ctrl+s` or `s` for settings, `ctrl+o` or `o` for adding music and `escape` or `alt+arrowleft` for going back.
 
 ### The Queue
 
@@ -35,11 +39,11 @@ Throughout the app, you will probably find the options to `Play`, `Add next` and
 - `Play next`: The new tracks are added to the queue after the current one.
 - `Add to queue`: The new tracks are added to the end of the queue.
 
-If you make no movement for 6 seconds, the queue will hide itself.
-
-![](./images/tracks.jpg)
+If you make no movement for 6 seconds, the queue will hide itself, entering inactivity mode.
 
 ![](./images/queue.jpg)
+
+![](./images/inactivity.jpg)
 
 ### Searching
 
@@ -57,7 +61,7 @@ Clicking on the minimize window will reduce Musicly to a small window, which wil
 
 ### Control Area
 
-You control the music playback in this area. You can pause, play, stop, skip, view the queue and seek (go 5 seconds forward or backward) the currently playing track.
+Here music playback can be controlled. You can pause, play, stop, skip, view the queue and seek (move 5 seconds forward or backward) the currently playing track. The circling arrows are used to toggle between the different repeat options: `none`, `one time` and `forever`.
 
 ![](./images/control.jpg)
 
@@ -65,13 +69,22 @@ The shortcuts defined here are: `space` for pausing and playing, `arrowleft` for
 
 ### Album Details
 
-To know more about an album, click the list button on the cover. You can edit the album's metadata and tracks. Changes will be saved to the music files themselves if they are in `mp3` format.
+To know more about an album, click the list button on the cover. You can edit most important metadata on albums and tracks - I'm planning to add some more thorough control later. Changes will be saved to the music files themselves if they are in `mp3` format.
 
 ![](./images/details.jpg)
 
 ### Settings
 
-In the settings, you can change you color theme, the zoom of the app and custom styling (more on styling bellow). You can also reset your library and settings and view the initial tutorial again.
+Here you can change some of the app's behaviors:
+
+- `Theme`: Light or dark.
+- `Zoom`: The size of the app's elements.
+- `Inactivity time`: The time it takes for the app to enter inactivity mode.
+- `Minimize button triggers mini-player mode`: Whether the miniplayer will be triggered by clicking on the minimize button or not.
+- `Mini-player size`: The size of the mini-player.
+- `Custom CSS`: Add your own styles to the app (more on that further down).
+
+Finally, you can also reset the app's settings, delete the library and access the tutorial.
 
 ![](./images/settings.jpg)
 
@@ -195,4 +208,4 @@ The following code implements a (rather horrible!) monochrome theme - image bell
 
 ## Issues & Bugs
 
-If you find an error with the app or with this web page, you can file an issue [here](https://github.com/m7kra/Musicly/issues) or send an email to `inboxaljezur@gmail.com`. I'll be glad to address it!
+If you find an error with the app or with this web page, you can file an issue [here](https://github.com/m7kra/Musicly/issues) or send an email to `luiswbarbosa@gmail.com`. I'll be glad to address it!

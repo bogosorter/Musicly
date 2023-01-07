@@ -228,7 +228,7 @@ export default class PlaybackManager {
         if (tracks.length == 1) {
             this.playback.queue.splice(this.playback.position + 1, 0, tracks[0]);
         }
-        // If there are more than one tracks, remove all tracks in the queue
+        // If there is more than one track, remove all tracks in the queue
         // after the currently playing one
         else {
             this.playback.queue.splice(this.playback.position + 1);
@@ -236,7 +236,11 @@ export default class PlaybackManager {
         }
         
         if (!playing) this.start();
-        else this.updatePlayback();
+        // Prepare the next track
+        else {
+            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+            this.updatePlayback();
+        }
     }
 
     /**
@@ -245,10 +249,14 @@ export default class PlaybackManager {
     addToQueue(tracks) {
         // Is there any music playing?
         const playing = this.playback.position != this.playback.queue.length;
+        const playingNext = this.playback.position + 2 != this.playback.queue.length;
         this.playback.queue = this.playback.queue.concat(tracks);
 
         if (!playing) this.start();
-        else this.updatePlayback();
+        else if (!playingNext) {
+            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+            this.updatePlayback();
+        } else this.updatePlayback();
     }
 
     /**
@@ -274,6 +282,7 @@ export default class PlaybackManager {
         else if (from > this.playback.position && to <= this.playback.position) this.playback.position++;
         else if (from == this.playback.position) this.playback.position = to;
 
+        this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
         this.updatePlayback();
     }
 
@@ -285,12 +294,16 @@ export default class PlaybackManager {
         this.playback.queue.splice(index, 1);
 
         const isCurrentTrack = index == this.playback.position;
+        const isNextTrack = index == this.playback.position + 1;
 
         // Update playback position
         if (index <= this.playback.position) this.playback.position--;
         
         if (isCurrentTrack) this.skipFwd();
-        else this.updatePlayback();
+        if (isNextTrack) {
+            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+            this.updatePlayback();
+        } else this.updatePlayback();
     }
 
     /**

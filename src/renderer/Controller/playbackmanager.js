@@ -253,7 +253,7 @@ export default class PlaybackManager {
         this.playback.queue = this.playback.queue.concat(tracks);
 
         if (!playing) this.start();
-        else if (!playingNext) {
+        else if (playingNext) {
             this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
             this.updatePlayback();
         } else this.updatePlayback();
@@ -282,7 +282,9 @@ export default class PlaybackManager {
         else if (from > this.playback.position && to <= this.playback.position) this.playback.position++;
         else if (from == this.playback.position) this.playback.position = to;
 
-        this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+        if (this.playback.position + 1 != this.playback.queue.length) this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+        // Ensure that new howl was deleted
+        else this.nextHowl = null;
         this.updatePlayback();
     }
 
@@ -301,7 +303,12 @@ export default class PlaybackManager {
         
         if (isCurrentTrack) this.skipFwd();
         if (isNextTrack) {
-            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+            if (this.playback.position + 1 != this.playback.queue.length) {
+                this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
+            } else {
+                // Ensure that next howl was deleted
+                this.nextHowl = null;
+            } 
             this.updatePlayback();
         } else this.updatePlayback();
     }

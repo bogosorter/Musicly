@@ -69,7 +69,6 @@ export default function Cover ({album, buttons = [], parent}) {
         const onClick = (e) => {
             e.stopPropagation();
             actions[4].onClick();
-            console.log('details');
         };
         renderedButtons.push(
             <Button onClick={onClick} type='round' key={renderedButtons.length}><List size={30} /></Button>

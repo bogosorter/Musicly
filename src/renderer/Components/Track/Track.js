@@ -52,13 +52,6 @@ export default function Track({track, classes, playing, tracks, jump, dummy = fa
     useEffect(() => {
         let element = document.querySelector(`#track-${id}`)
         addContextMenu(element, actions);
-
-        // If the track is playing and not a child of library or of inactive
-        // queue, scroll to it.
-        element = document.querySelector(`#track-${id}:not(#library #track-${id}, #queue.inactive #track-${id})`);
-        if (playing && element) {
-            setTimeout(() => element.scrollIntoView({behavior: 'smooth', block: 'center'}), 500);
-        }
     });
 
     const button = parent == 'queue'?

@@ -58,7 +58,9 @@ export default function TrackList({tracks, playback, parent}) {
     }
 
     return (
-        <DragDropContext onDragEnd={result => Events.fire('reorderQueue', result.source.index, result.destination.index)}>
+        <DragDropContext onDragEnd={result => {
+                if (result.source && result.destination) Events.fire('reorderQueue', result.source.index, result.destination.index)
+            }}>
             <Droppable droppableId='tracks' isDrag>
                 {(provided) => (
                     <div id='track-list' ref={provided.innerRef} {...provided.droppableProps}>

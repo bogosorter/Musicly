@@ -23,17 +23,17 @@ The easiest way to add music to Musicly is by dragging and dropping music files 
 
 ### Navigating
 
-Navigation in the app is done mainly trough the control buttons on the top left corner of the app. Quite obviously, the cog will take you to the settings and the plus sign allows you to add music to your library.
+Navigation in the app is done mainly through the control buttons on the top left corner of the app. Quite obviously, the cog will take you to the settings and the plus sign allows you to add music to your library.
 
 ![](./images/control-buttons.jpg)
 
-A couple navigation shortcuts are set up: `ctrl+s` or `s` for settings, `ctrl+o` or `o` for adding music and `escape` or `alt+arrowleft` for going back.
+A couple of navigation shortcuts are set up: `ctrl+s` or `s` for settings, `ctrl+o` or `o` for adding music and `escape` or `alt+arrowleft` for going back.
 
 ### The Queue
 
-The queue is where the songs are stored. You can access it through the music note button on the bottom right corner of the app. Once you are there, you can reorder tracks and delete them from the queue.
+The queue is where the songs are stored. You can access it through the music note button at the bottom right corner of the app. Once you are there, you can reorder tracks and delete them from the queue.
 
-Throughout the app, you will probably find the options to `Play`, `Add next` and `Add to queue`.
+Throughout the app, you'll find the options to `Play`, `Add next` and `Add to queue`.
 
 - `Play`: The queue is substituted by the new tracks.
 - `Play next`: The new tracks are added to the queue after the current one.
@@ -47,7 +47,7 @@ If you make no movement for 6 seconds, the queue will hide itself, entering inac
 
 ### Searching
 
-If you ever get lost in your huge library :), you can use the search box. Besides allowing to search for album title, track, artist and composer, genres are suggested as you type. Click on them to display only the albums that match the genre.
+If you ever get lost in your huge library :), you can use the search box. Besides allowing you to search for album title, track, artist and composer, genres are suggested as you type. Click on them to display only the albums that match the genre.
 
 ![](./images/search.jpg)
 
@@ -55,7 +55,7 @@ The shortcut for searching is `ctrl+f`.
 
 ### Mini-player mode
 
-Clicking on the minimize window will reduce Musicly to a small window, which will stay always on top. This behavior can be changed at any time in the settings. You can also change its size.
+Clicking on the minimize window will reduce Musicly to a small window, which will always stay  on top. This behavior can be changed at any time in the settings. You can also change its size.
 
 ![](../../assets/miniplayer.jpg)
 
@@ -180,7 +180,7 @@ Border radius sets how round the app's elements will be.
 
 #### Complete example
 
-The following code implements a (rather horrible!) monochrome theme - image bellow.
+The following code implements a (rather horrible!) monochrome theme - image below.
 
 ```css
 #app.theme-light, #app.theme-dark {

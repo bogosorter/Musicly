@@ -66,7 +66,7 @@ export default function AlbumDetails({details, playback}) {
                     </div>
                     <div className='d-flex flex-column ms-4'>
                         <label for='artist' className='detail-label'>Artist</label>
-                        <input id='artist' className='detail-input' type='text' placeholder='Artist' value={title} onChange={(e) => setArtist(e.target.value)} />
+                        <input id='artist' className='detail-input' type='text' placeholder='Artist' value={artist} onChange={(e) => setArtist(e.target.value)} />
                     </div>
                 </div>
                 <label for='genres' className='detail-label mt-4'>Genres</label>

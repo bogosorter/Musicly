@@ -108,7 +108,8 @@ export default class PlaybackManager {
             queue: [],
             position: 0,
             progress: () => 0,
-            playing: () => false
+            playing: () => false,
+            repeat: 0
         }
         this.updatePlayback();
         ipcRenderer.invoke('unblockSleep');

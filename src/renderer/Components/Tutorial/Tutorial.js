@@ -81,16 +81,15 @@ const content = [{
             </div>
         )
     }, {
-        title: 'What\' new on 0.4.0',
+        title: 'What\' new on 0.4.1',
         text: <>
-            <p><strong>File drag and drop:</strong> you can now drop files into the library.</p>
-            <p><strong>Gapless playback:</strong> following a <a href='https://www.linuxlinks.com/musicly-simple-music-player/' target='_blank'>review</a> by LinuxLinks, I have reduced the gap between different tracks to about 15ms.</p>
-            <p><strong>Repeat and shuffle:</strong> the same review led me to implement repeat and shuffle options. On the bottom of the control area, you will find <Repeat/>. You can click on it to toggle between <code>off</code>, <code>repeat once</code> and <code>repeat forever</code>. Furthermove, right clicking on an album's cover will allow you to shuffle it. The same can be achieved from the album details section.</p>
+            <p>I have a lot to apologize for in this version. To begin with, I have previously claimed that gapless playback was implemented. It turns out that I hadn't understood the meaning of gapless playback... I'm sorry for this mistake. On a more positive note, I've made some progress in that direction and may release an update with it in the future.</p>
+            <p>The last version also introduced some bugs regarding queue management. They should all be fixed by now, but feel free to email me if these bugs persist.</p> 
         </>
     }, {
-        title: 'What\' new on 0.4.0',
+        title: 'Special Thanks',
         text: <>
-            <p><strong>Control button is gone:</strong> for user friendliness, the control button is now permanently unfolded. Check <a href='https://m7kra.github.io/Musicly/docs/user#control-button' target='_blanck'>this</a> to bring it back to normal.</p>
+            <p>I would like to thank Steve Emms and Luke Baker at <a href='https://www.linuxlinks.com/' target='_blank'>LinuxLinks.com</a> for their friendliness and patience. They have been helping me a lot!</p>
         </>
     }, {
         title: 'Get in touch',

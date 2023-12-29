@@ -12,7 +12,7 @@ export default function Logger({logs, removeLog}) {
     if (logs.length == 0) return <></>;
 
     const rendered = logs.map((log, index) =>  {
-        onClick = () => log.href? window.open(log.href, '_blank') : () => null;
+        const onClick = () => log.href? window.open(log.href, '_blank') : () => null;
         return (
             <div className={'log ' + (log.type == 'error'? 'bg-danger' : 'bg-success') + (log.href? ' clickable' : '')} key={index} onClick={onClick}>
                 <div className='me-2 flex-grow-1'>{log.message}</div>

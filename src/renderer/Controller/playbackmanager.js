@@ -372,7 +372,11 @@ export default class PlaybackManager {
             onloaderror: (id, err) => {
                 // Error code 4 indicates that track doesn't exist
                 if (err === 4) {
-                    Events.fire('log', {type: 'error', message: `Track doesn\'t exist: ${track.path}`});
+                    Events.fire('log', {
+                        type: 'error',
+                        message: `Couldn't play track. Click for more info. Track path: ${track.path}`,
+                        href: 'https://m7kra.github.io/blog/?post=1'
+                    });
                     this.stop();
                 }
             }

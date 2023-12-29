@@ -57,17 +57,10 @@ export default class PlaybackManager {
      * Starts the playback of a new track, according to position.
      */
     async start() {
-
         // Ensure that previous howl is stopped
         if (this.howl) this.howl.unload();
-        
         this.howl = this.createHowl(this.playback.queue[this.playback.position]);
         this.howl.play();
-
-        // Prepare the next track
-        if (this.playback.position < this.playback.queue.length - 1) {
-            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
-        }
     }
 
     /**
@@ -137,45 +130,28 @@ export default class PlaybackManager {
 
         if (!this.howl) return;
 
-        if (this.playback.repeat == 1) {
+        if (this.playback.repeat === 1) {
             this.howl.seek(0);
             this.howl.play();
             this.playback.repeat = 0;
             this.updatePlayback();
             return;
+        }
 
-        } else if (this.playback.repeat == 2) {
+        if (this.playback.repeat === 2) {
             this.howl.seek(0);
             this.howl.play();
             return;
 
-        } else if (this.playback.position + 1 < this.playback.queue.length) {
-
-            this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
-
-            this.howl.unload();
-            this.howl = this.nextHowl;
-            this.howl.play();
-
-            // Prepare the next track
-            if (this.playback.position < this.playback.queue.length - 1) {
-                this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
-            }
-
-        } else {
-            this.howl.unload();
-
-            // Update playback
-            this.playback.album = null;
-            this.playback.track = null;
-            this.playback.queue = [];
-            this.playback.position = 0;
-            this.playback.playing = () => false;
-            this.playback.progress = () => 0;
-            this.updatePlayback();
-
-            ipcRenderer.invoke('unblockSleep');
         }
+        
+        if (this.playback.position + 1 < this.playback.queue.length) {
+            this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
+            this.start();
+            return;
+        }
+
+        this.stop();
     }
 
     /**
@@ -223,10 +199,10 @@ export default class PlaybackManager {
      */
     addNext(tracks) {
         // Is there any music playing?
-        const playing = this.playback.position != this.playback.queue.length;
+        const playing = this.playback.position !== this.playback.queue.length;
         
         // If tracks is a single track, keep the ones in the queue
-        if (tracks.length == 1) {
+        if (tracks.length === 1) {
             this.playback.queue.splice(this.playback.position + 1, 0, tracks[0]);
         }
         // If there is more than one track, remove all tracks in the queue
@@ -237,11 +213,7 @@ export default class PlaybackManager {
         }
         
         if (!playing) this.start();
-        // Prepare the next track
-        else {
-            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
-            this.updatePlayback();
-        }
+        else this.updatePlayback();
     }
 
     /**
@@ -249,15 +221,11 @@ export default class PlaybackManager {
      */
     addToQueue(tracks) {
         // Is there any music playing?
-        const playing = this.playback.position != this.playback.queue.length;
-        const playingNext = this.playback.position + 2 != this.playback.queue.length;
+        const playing = this.playback.position !== this.playback.queue.length;
         this.playback.queue = this.playback.queue.concat(tracks);
 
         if (!playing) this.start();
-        else if (playingNext) {
-            this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
-            this.updatePlayback();
-        } else this.updatePlayback();
+        else this.updatePlayback();
     }
 
     /**
@@ -265,7 +233,6 @@ export default class PlaybackManager {
      */
     shuffle(tracks) {
         const shuffled = tracks.sort(() => Math.random() - 0.5);
-        console.log(shuffled);
         this.playTracks(shuffled, 0);
     }
 
@@ -281,11 +248,7 @@ export default class PlaybackManager {
         // Update playback position
         if (from < this.playback.position && to >= this.playback.position) this.playback.position--;
         else if (from > this.playback.position && to <= this.playback.position) this.playback.position++;
-        else if (from == this.playback.position) this.playback.position = to;
-
-        if (this.playback.position + 1 != this.playback.queue.length) this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
-        // Ensure that new howl was deleted
-        else this.nextHowl = null;
+        else if (from === this.playback.position) this.playback.position = to;
         this.updatePlayback();
     }
 
@@ -295,23 +258,12 @@ export default class PlaybackManager {
      */
     removeFromQueue(index) {
         this.playback.queue.splice(index, 1);
-
-        const isCurrentTrack = index == this.playback.position;
-        const isNextTrack = index == this.playback.position + 1;
-
+        const isCurrentTrack = index === this.playback.position;
         // Update playback position
         if (index <= this.playback.position) this.playback.position--;
         
         if (isCurrentTrack) this.skipFwd();
-        if (isNextTrack) {
-            if (this.playback.position + 1 != this.playback.queue.length) {
-                this.nextHowl = this.createHowl(this.playback.queue[this.playback.position + 1]);
-            } else {
-                // Ensure that next howl was deleted
-                this.nextHowl = null;
-            } 
-            this.updatePlayback();
-        } else this.updatePlayback();
+        else this.updatePlayback();
     }
 
     /**
@@ -351,7 +303,6 @@ export default class PlaybackManager {
     /**
      * Helper function for start. Gets the album cover in base 64. Based upon
      * implementation of martpie in museeks
-     * @param {string} coverPath 
      */
     getCover(coverPath) {
         if (!coverPath) return null;
@@ -376,7 +327,7 @@ export default class PlaybackManager {
     createHowl(track) {
         // Create a howl with the new track
         const howl = new Howl({
-            src: ['file://' + track.path],
+            src: [`file://${track.path}`],
             html5: true,
             onend: this.skipFwd.bind(this),
             // Setup mediaSession info. For some reason, this only works inside
@@ -408,7 +359,7 @@ export default class PlaybackManager {
                 const cover = this.getCover(this.playback.album.coverPath);
 
                 // Setup media session metadata
-                let metadata = {
+                const metadata = {
                     title: this.playback.track.title,
                     album: this.playback.album.title,
                     artist: this.playback.album.artist,
@@ -420,7 +371,7 @@ export default class PlaybackManager {
             },
             onloaderror: (id, err) => {
                 // Error code 4 indicates that track doesn't exist
-                if (err == 4) {
+                if (err === 4) {
                     Events.fire('log', {type: 'error', message: `Track doesn\'t exist: ${track.path}`});
                     this.stop();
                 }

@@ -1,7 +1,7 @@
 import Button from '../Button/Button';
 import Cover from '../Cover/Cover';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { SkipBackward, SkipForward, Play, Pause, Stop, MusicNoteList, Repeat, Repeat1 } from 'react-bootstrap-icons';
+import { SkipBackward, SkipForward, Play, Pause, Stop, MusicNoteList, Repeat, Repeat1, Shuffle } from 'react-bootstrap-icons';
 
 import Events from 'renderer/Events/Events';
 import { useReducer, useEffect } from 'react';
@@ -27,7 +27,7 @@ export default function ControllArea({playback, dummy = false}) {
     // Buttons used to navigate through the queue and play/pause music
     const repeatButton = (
         <span className={`repeat-${playback.repeat}`}>
-            {playback.repeat == 1? <Repeat1 size={24}/> : <Repeat size={24}/>}
+            {playback.repeat == 0 || playback.repeat == 1? <Repeat size={24}/> : <Repeat1 size={24}/>}
         </span>
     );
     let controllButtons = [
@@ -37,6 +37,7 @@ export default function ControllArea({playback, dummy = false}) {
         { onClick: () => Events.fire('skipFwd'), content: <SkipForward size={30}/> },
         { onClick: () => Events.fire('stop'), content: <Stop size={30}/>},
         { onClick: () => Events.fire('toggleRepeat'), content: repeatButton, shortcuts: ['ctrl-r', 'r']},
+        { onClick: () => Events.fire('shuffle'), content: <Shuffle size={24} />, shortcuts: ['ctrl-s', 's']},
         { onClick: () => Events.fire('changeView', 'queue'), content: <MusicNoteList size={24}/>, shortcuts: ['ctrl+q', 'q']},
     ];
     controllButtons = controllButtons.map((button, index) => {

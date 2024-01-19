@@ -50,7 +50,7 @@ export default class PlaybackManager {
         Events.on('removeFromQueue', this.removeFromQueue.bind(this));
         Events.on('getTracks', this.getTracks.bind(this));
         Events.on('toggleRepeat', this.toggleRepeat.bind(this));
-
+        Events.on('shuffle', this.shuffle.bind(this));
     }
 
     /**
@@ -126,32 +126,16 @@ export default class PlaybackManager {
      * Increments position and plays the corresponding track. If all tracks in
      * queue were played, position is set to the queue's length.
      */
-    skipFwd() {
-
+    skipFwd(onend = false) {
         if (!this.howl) return;
-
-        if (this.playback.repeat === 1) {
-            this.howl.seek(0);
-            this.howl.play();
-            this.playback.repeat = 0;
-            this.updatePlayback();
-            return;
-        }
-
-        if (this.playback.repeat === 2) {
-            this.howl.seek(0);
-            this.howl.play();
-            return;
-
-        }
-        
-        if (this.playback.position + 1 < this.playback.queue.length) {
+        if (this.playback.repeat === 2) this.start();
+        else if (this.playback.position + 1 < this.playback.queue.length) {
             this.playback.position = Math.min(this.playback.queue.length, this.playback.position + 1);
             this.start();
-            return;
-        }
-
-        this.stop();
+        } else if (this.playback.repeat === 1 && onend) {
+            this.playback.position = 0;
+            this.start()
+        } else this.stop();
     }
 
     /**
@@ -162,14 +146,11 @@ export default class PlaybackManager {
     skipBwd() {
 
         if (!this.howl) return;
-
-        if (this.howl.seek() > 5) {
+        if (this.howl.seek() > 5) this.start();
+        else {
+            this.playback.position = Math.max(0, this.playback.position - 1);
             this.start();
-            return;
         }
-
-        this.playback.position = Math.max(0, this.playback.position - 1);
-        this.start()
     }
 
     /**
@@ -185,7 +166,7 @@ export default class PlaybackManager {
      * to go back to the second one. This is why `jump` is used: `tracks`
      * represents all the tracks and `jump` would be 2.
      */
-    playTracks(tracks, jump) {
+    playTracks(tracks, jump = 0) {
         // Remove next tracks from queue
         this.playback.queue = tracks
         this.playback.position = jump;
@@ -231,9 +212,9 @@ export default class PlaybackManager {
     /**
      * Shuffles the tracks and plays the first one.
      */
-    shuffle(tracks) {
-        const shuffled = tracks.sort(() => Math.random() - 0.5);
-        this.playTracks(shuffled, 0);
+    shuffle() {
+        const shuffled = this.playback.queue.sort(() => Math.random() - 0.5);
+        this.playTracks(shuffled);
     }
 
     /**
@@ -294,9 +275,6 @@ export default class PlaybackManager {
             case 'addToQueue':
                 this.addToQueue(tracks);
                 break;
-            case 'shuffle':
-                this.shuffle(tracks);
-                break;
         }
     }
 
@@ -329,7 +307,7 @@ export default class PlaybackManager {
         const howl = new Howl({
             src: [`file://${track.path}`],
             html5: true,
-            onend: this.skipFwd.bind(this),
+            onend: () => this.skipFwd(true),
             // Setup mediaSession info. For some reason, this only works inside
             // the onplay callback
             onplay: async () => {

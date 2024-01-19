@@ -4,7 +4,7 @@ import ControllArea from '../ControllArea/ControllArea';
 import TrackList from '../TrackList/TrackList';
 import Genre from '../Genre/Genre';
 import GenreCreator from '../GenreCreator/GenreCreator';
-import { Pencil, CheckLg, Shuffle } from 'react-bootstrap-icons';
+import { Pencil, CheckLg } from 'react-bootstrap-icons';
 import Button from '../Button/Button';
 
 import Events from 'renderer/Events/Events';
@@ -94,11 +94,8 @@ export default function AlbumDetails({details, playback}) {
                             <div className='col-lg-2 col-md-3 d-md-block d-none'>
                                 <Cover album={details.album} buttons={['play']} parent='albumDetails' />
                             </div>
-                            <div className='col-lg-8 col-md-7 col-10'>
+                            <div className='col-lg-9 col-md-8 col-9'>
                                 {headerContent}
-                            </div>
-                            <div className='col-1'>
-                                <Button onClick={() => Events.fire('getTracks', 'albumID', details.album.id, 'shuffle')}><Shuffle size={20} /></Button>
                             </div>
                             <div className='col-1'>
                                 <Button onClick={editing? updateAlbumInfo : () => setEditing(true)}>{editing? <CheckLg size={24} /> : <Pencil size={20} /> }</Button>

@@ -4,7 +4,7 @@
 
 Musicly is a simple and elegant open-source music player.
 
-[Musicly's Website](https://m7kra.github.io/Musicly)
+[Musicly's Website](https://bogosorter.github.io/Musicly)
 
 ## Features
 

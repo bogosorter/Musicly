@@ -4,9 +4,9 @@
   "description": "A simple and elegant music player",
   "license": "MIT",
   "author": {
-    "name": "M7kra",
+    "name": "Bogosorter",
     "email": "example@gmail.com",
-    "url": "https://m7kra.github.io"
+    "url": "https://bogosorter.github.io"
   },
   "main": "./dist/main/main.js",
   "scripts": {

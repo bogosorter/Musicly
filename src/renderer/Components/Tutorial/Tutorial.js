@@ -47,7 +47,7 @@ export default function Tutorial({dismissTutorial}) {
 }
 
 // Content is an array of slides. Each slide may have three properties:
-// `title`, `text` and `image`
+// `title`, `text` and `dummies`
 const content = [{
         title: 'Welcome!',
         text: <>
@@ -60,7 +60,7 @@ const content = [{
         dummies: <SearchDummy />
     }, {
         title: 'Mini-player',
-        text: 'Clicking on the minimize button will transform Musicly into a small window which sticks on top of the screen. Hover over it to control playback. You can also drag it around, holding on the album\'s cover.',
+        text: 'Clicking on the minimize button will transform Musicly into a small window that sticks on top of the screen. Hover over it to control playback. You can also drag it around, holding on the album\'s cover.',
         dummies: (
             <div id='dummy-miniplayer-container'>
                 <MiniPlayer playback={{
@@ -76,18 +76,17 @@ const content = [{
         text: <p>
             If you are using the Snapcraft version of Musicly, you may notice
             that music searching is at the user level. This happens due to
-            Snapcraft restrictions. To fix this, install the <code>.deb </code>
-            package from <a href='https://m7kra.github.io/Musicly/' target='_blank' rel='noreferrer'>
-            Musicly's webiste</a>.</p>
+            Snapcraft restrictions. To fix it, install the <code>.deb </code>
+            package from <a href='https://bogosorter.github.io/Musicly/' target='_blank' rel='noreferrer'>
+            Musicly's website</a>.</p>
     }, {
         title: 'What\' new on 0.5.0',
         text: <>
-            <p>A long time has passed since Musicly's last update. If you'd like
-            to know why and what will change in the future, check out &nbsp;
-            <a href='https://m7kra.github.io/blog/?post=3' target='_blank' rel='noreferrer'>this</a>
+            <p>A long time has passed since Musicly's last update. For an explanation check&nbsp;
+            <a href='https://bogosorter.github.io/blog/?post=3' target='_blank' rel='noreferrer'>this</a>
             &nbsp;blog post. Meanwhile, here's what changed:</p>
             <ul>
-                <li>Gapless playback is no longer one of my goals for Musicly</li>
+                <li>Gapless playback won't be supported in the near future</li>
                 <li>Repeat button now has standard behavior</li>
                 <li>New shuffle button</li>
                 <li>Bug fixes and other improvements</li>
@@ -102,6 +101,6 @@ const content = [{
             contact me at <code>luiswbarbosa@gmail.com</code>. I would really appreciate it!</p>
     }, {
         title: 'Additional info',
-        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank' rel="noreferrer">user guide</a> (including how to custom style it). I hope you like Musicly!</>
+        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's <a href='https://bogosorter.github.io/Musicly/docs/user' target='_blank' rel="noreferrer">user guide</a> (including how to custom style it). I hope you like Musicly!</>
     }
 ];

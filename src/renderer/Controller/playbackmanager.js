@@ -353,7 +353,7 @@ export default class PlaybackManager {
                     Events.fire('log', {
                         type: 'error',
                         message: `Couldn't play track. Click for more info. Track path: ${track.path}`,
-                        href: 'https://m7kra.github.io/blog/?post=1'
+                        href: 'https://bogosorter.github.io/blog/?post=1'
                     });
                     this.stop();
                 }

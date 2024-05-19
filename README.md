@@ -1,10 +1,10 @@
-# [Musicly](https://m7kra.github.io/Musicly)
+# [Musicly](https://bogosorter.github.io/Musicly)
 
 ## About
 
 Musicly is a simple and elegant open-source music player.
 
-[Musicly's Website](https://m7kra.github.io/Musicly)
+[Musicly's Website](https://bogosorter.github.io/Musicly)
 
 ## Features
 
@@ -22,10 +22,10 @@ Musicly is a simple and elegant open-source music player.
 
 - Inactivity mode: Musicly detects when you are inactive and displays the album's cover and track info.
 
-![](https://m7kra.github.io/Musicly/assets/library.png)
+![](https://bogosorter.github.io/Musicly/assets/library.png)
 
 ## Download, Documentation & Contributing
 
-If you are looking to get started with Musicly, you can [download](https://github.com/m7kra/Musicly/releases) it or check out our [user documetation](https://m7kra.github.io/Musicly/docs/user), were you will find a complete overview of the program's features.
+If you are looking to get started with Musicly, you can [download](https://github.com/bogosorter/Musicly/releases) it or check out our [user documetation](https://bogosorter.github.io/Musicly/docs/user), were you will find a complete overview of the program's features.
 
-If you want to help out, I'd love to have someone sharing their knowledge with me. I'm fairly new to React, Electron and even programming itself. All help and tips are welcome! Take a look at Musicly's [developer documentation](https://m7kra.github.io/Musicly/docs/dev).
+If you want to help out, I'd love to have someone sharing their knowledge with me. I'm fairly new to React, Electron and even programming itself. All help and tips are welcome! Take a look at Musicly's [developer documentation](https://bogosorter.github.io/Musicly/docs/dev).

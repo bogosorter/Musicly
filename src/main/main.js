@@ -146,8 +146,8 @@ async function checkForUpdates() {
     try {
         return await versionCheck({
             repo: 'Musicly',
-            owner: 'm7kra',
-            currentVersion: app.getVersion(),
+            owner: 'bogosorter',
+            currentVersion: app.getVersion()
         });
     } catch {
         // Probably failed due to internet connection
@@ -180,7 +180,7 @@ process.on('uncaughtException', (err) => {
     const error = {
         type: 'error',
         title: 'An error occured',
-        message: `Try to restart Musicly and, if the error persists, please contact me at https://github.com/m7kra/Musicly/issues or luiswbarbosa@gmail.com, with the following error: ${  err.message}`
+        message: `Try to restart Musicly and, if the error persists, please contact me at https://github.com/bogosorter/Musicly/issues or luiswbarbosa@gmail.com, with the following error: ${err.message}`
     };
     dialog.showMessageBoxSync(error);
     app.exit(1);

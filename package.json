@@ -8,19 +8,19 @@
     "music",
     "music player"
   ],
-  "homepage": "https://m7kra.github.io/Musicly",
+  "homepage": "https://bogosorter.github.io/Musicly",
   "bugs": {
-    "url": "https://github.com/m7kra/Musicly/issues"
+    "url": "https://github.com/bogosorter/Musicly/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/m7kra/musicly/git"
+    "url": "git+https://github.com/bogosorter/musicly/git"
   },
   "license": "MIT",
   "author": {
-    "name": "M7kra",
+    "name": "Bogosorter",
     "email": "inboxaljezur@gmail.com",
-    "url": "https://m7kra.github.io"
+    "url": "https://bogosorter.github.io"
   },
   "main": "./src/main/main.js",
   "scripts": {
@@ -214,7 +214,7 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "m7kra",
+      "owner": "bogosorter",
       "repo": "musicly"
     }
   },

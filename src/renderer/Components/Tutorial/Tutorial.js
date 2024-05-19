@@ -83,7 +83,7 @@ const content = [{
         title: 'What\' new on 0.5.0',
         text: <>
             <p>A long time has passed since Musicly's last update. For an explanation check&nbsp;
-            <a href='https://bogosorter.github.io/blog/?post=3' target='_blank' rel='noreferrer'>this</a>
+            <a href='https://bogosorter.github.io/blog/?post=2' target='_blank' rel='noreferrer'>this</a>
             &nbsp;blog post. Meanwhile, here's what changed:</p>
             <ul>
                 <li>Gapless playback won't be supported in the near future</li>

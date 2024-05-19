@@ -1,17 +1,8 @@
-import Button from '../Button/Button';
-import { GearFill, Plus, Repeat } from 'react-bootstrap-icons';
-import { Logo } from '../Icons/Icons';
-import SearchDummy from '../SearchDummy/SearchDummy';
-import Cover from '../Cover/Cover';
-import Track from '../Track/Track';
-import ControllArea from '../ControllArea/ControllArea';
-import Button from '../Button/Button';
-import MiniPlayer from '../MiniPlayer/MiniPlayer';
-
 import { useReducer, useMemo } from 'react';
+import Button from '../Button/Button';
+import SearchDummy from '../SearchDummy/SearchDummy';
+import MiniPlayer from '../MiniPlayer/MiniPlayer';
 import './tutorial.css';
-import miniplayer from '../../../../assets/miniplayer.png';
-import miniplayer2 from '../../../../assets/miniplayer2.png';
 
 /**
  * Component that renders a brief introductory tutorial, based on a series of
@@ -67,7 +58,7 @@ const content = [{
         title: 'Searching',
         text: 'Use this box to filter for album title, track title, artist and composer. Genres are suggested as you type. Click on them to further filter your albums. For instance, type \'pop-rock\' in the box bellow, and try to check and uncheck genres.',
         dummies: <SearchDummy />
-    },{
+    }, {
         title: 'Mini-player',
         text: 'Clicking on the minimize button will transform Musicly into a small window which sticks on top of the screen. Hover over it to control playback. You can also drag it around, holding on the album\'s cover.',
         dummies: (
@@ -77,25 +68,40 @@ const content = [{
                     track: {
                         title: 'Super cool track',
                     }
-                }} dummy={true} />
+                }} dummy />
             </div>
         )
     }, {
-        title: 'What\' new on 0.4.1',
-        text: <>
-            <p>I have a lot to apologize for in this version. To begin with, I have previously claimed that gapless playback was implemented. It turns out that I hadn't understood the meaning of gapless playback... I'm sorry for this mistake. On a more positive note, I've made some progress in that direction and may release an update with it in the future.</p>
-            <p>The last version also introduced some bugs regarding queue management. They should all be fixed by now, but feel free to email me if these bugs persist.</p> 
-        </>
+        title: 'A note for Snapcraft users',
+        text: <p>
+            If you are using the Snapcraft version of Musicly, you may notice
+            that music searching is at the user level. This happens due to
+            Snapcraft restrictions. To fix this, install the <code>.deb </code>
+            package from <a href='https://m7kra.github.io/Musicly/' target='_blank' rel='noreferrer'>
+            Musicly's webiste</a>.</p>
     }, {
-        title: 'Special Thanks',
+        title: 'What\' new on 0.5.0',
         text: <>
-            <p>I would like to thank Steve Emms and Luke Baker at <a href='https://www.linuxlinks.com/' target='_blank'>LinuxLinks.com</a> for their friendliness and patience. They have been helping me a lot!</p>
+            <p>A long time has passed since Musicly's last update. If you'd like
+            to know why and what will change in the future, check out &nbsp;
+            <a href='https://m7kra.github.io/blog/?post=3' target='_blank' rel='noreferrer'>this</a>
+            &nbsp;blog post. Meanwhile, here's what changed:</p>
+            <ul>
+                <li>Gapless playback is no longer one of my goals for Musicly</li>
+                <li>Repeat button now has standard behavior</li>
+                <li>New shuffle button</li>
+                <li>Bug fixes and other improvements</li>
+            </ul>
         </>
     }, {
         title: 'Get in touch',
-        text: <p style={{userSelect: 'text'}}>I know next to nothing about my users and their tastes. If you would like to provide feedback, have new features or just give a thumbs up, contact me at luiswbarbosa@gmail.com. I would really appreciate it!</p>
+        text: <p style={{userSelect: 'text'}}>
+            Musicly users have reached out to me and their feedback is
+            the reason for some of the changes in this update. If you'd like
+            to report bugs, ask for new features or just give a thumbs up,
+            contact me at <code>luiswbarbosa@gmail.com</code>. I would really appreciate it!</p>
     }, {
         title: 'Additional info',
-        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's complete <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank'>documentation</a> (including how to custom style it). I hope you like Musicly!</>
+        text: <>You can review this tutorial whenever you want, in the settings. You are also welcome to see the app's <a href='https://m7kra.github.io/Musicly/docs/user' target='_blank' rel="noreferrer">user guide</a> (including how to custom style it). I hope you like Musicly!</>
     }
 ];

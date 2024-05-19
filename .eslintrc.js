@@ -8,6 +8,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'prettier/prettier': 'off',
     'no-plusplus': 'off',
+    'react/jsx-filename-extension': 'off',
+    'react/no-unescaped-entities': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -1,6 +1,6 @@
 {
   "name": "musicly",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A simple and elegant music player",
   "keywords": [
     "simple",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "author": {
     "name": "Bogosorter",
-    "email": "inboxaljezur@gmail.com",
+    "email": "luiswbarbosa@gmail.com",
     "url": "https://bogosorter.github.io"
   },
   "main": "./src/main/main.js",
